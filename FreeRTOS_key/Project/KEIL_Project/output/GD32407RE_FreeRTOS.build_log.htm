@@ -1,0 +1,65 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.26.2.0
+Copyright (C) 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Sui junqiang, S, LIC=MPPLD-86P32-BSZYX-H6Q3N-BNK0J-F2A6U
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.26.2.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.26.2.0
+Dialog DLL:      DCM.DLL V1.17.2.0
+Target DLL:      Segger\JL2CM3.dll V2.99.31.0
+Dialog DLL:      TCM.DLL V1.36.1.0
+ 
+<h2>Project:</h2>
+G:\sui\FreeRTOS\Free RTOS\FreeRTOS_key\Project\KEIL_Project\GD32450Z_EVAL.uvprojx
+Project File Date:  10/22/2020
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'GD32450Z_EVAL'
+compiling main.c...
+..\main.c(55): warning:  #167-D: argument of type "void (*)(void)" is incompatible with parameter of type "TaskFunction_t"
+      xTaskCreate(uwb_task, "UWB_TASK", configMINIMAL_STACK_SIZE, NULL, UWB_TASK_PRIO, NULL);
+..\main.c(92): warning:  #167-D: argument of type "void (*)(void)" is incompatible with parameter of type "TaskFunction_t"
+      xTaskCreate(init_task, "INIT_TASK", configMINIMAL_STACK_SIZE, NULL, INIT_TASK_PRIO, NULL); 
+..\main.c: 2 warnings, 0 errors
+linking...
+Program Size: Code=12744 RO-data=784 RW-data=204 ZI-data=17668  
+FromELF: creating hex file...
+".\output\GD32407RE_FreeRTOS.axf" - 0 Error(s), 2 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.4.0.pack
+                ARM.CMSIS.5.4.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.1.2
+
+Package Vendor: GigaDevice
+                http://gd32mcu.21ic.com/data/documents/yingyongruanjian/GigaDevice.GD32F4xx_DFP.2.0.0.pack
+                GigaDevice.GD32F4xx_DFP.2.0.0
+                GigaDevice GD32F4xx Series Device Support and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_GD32450Z_EVAL
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include
+  C:\Keil_v5\ARM\PACK\GigaDevice\GD32F4xx_DFP\2.0.0\Device\F4XX\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.1.2
+Build Time Elapsed:  00:00:06
+</pre>
+</body>
+</html>

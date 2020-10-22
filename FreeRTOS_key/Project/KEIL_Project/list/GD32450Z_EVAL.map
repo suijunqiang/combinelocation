@@ -1,0 +1,1822 @@
+Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
+
+==============================================================================
+
+Section Cross References
+
+    gd32f4xx_it.o(i.EXTI10_15_IRQHandler) refers to gd32f4xx_exti.o(i.exti_interrupt_flag_get) for exti_interrupt_flag_get
+    gd32f4xx_it.o(i.EXTI10_15_IRQHandler) refers to gd32f4xx_exti.o(i.exti_interrupt_flag_clear) for exti_interrupt_flag_clear
+    gd32f4xx_it.o(i.EXTI10_15_IRQHandler) refers to queue.o(i.xQueueGiveFromISR) for xQueueGiveFromISR
+    gd32f4xx_it.o(i.EXTI10_15_IRQHandler) refers to main.o(.data) for binary_semaphore
+    main.o(i.KCM_ReadWriteFunc) refers to printfb.o(i.__0printf$bare) for __2printf
+    main.o(i.KCM_ReadWriteFunc) refers to gd32f4xx_gpio.o(i.gpio_input_bit_get) for gpio_input_bit_get
+    main.o(i.KCM_ReadWriteFunc) refers to gd32f4xx_gpio.o(i.gpio_bit_reset) for gpio_bit_reset
+    main.o(i.KCM_ReadWriteFunc) refers to gd32f4xx_spi.o(i.spi_i2s_flag_get) for spi_i2s_flag_get
+    main.o(i.KCM_ReadWriteFunc) refers to gd32f4xx_spi.o(i.spi_i2s_data_transmit) for spi_i2s_data_transmit
+    main.o(i.KCM_ReadWriteFunc) refers to gd32f4xx_spi.o(i.spi_i2s_data_receive) for spi_i2s_data_receive
+    main.o(i.KCM_ReadWriteFunc) refers to gd32f4xx_gpio.o(i.gpio_bit_set) for gpio_bit_set
+    main.o(i.KCM_ReadWriteFunc) refers to main.o(.data) for ptr_receive
+    main.o(i.LED1_task) refers to gd32f450z_eval.o(i.gd_eval_led_toggle) for gd_eval_led_toggle
+    main.o(i.LED1_task) refers to tasks.o(i.vTaskDelay) for vTaskDelay
+    main.o(i.LED2_task) refers to queue.o(i.xQueueSemaphoreTake) for xQueueSemaphoreTake
+    main.o(i.LED2_task) refers to gd32f450z_eval.o(i.gd_eval_led_toggle) for gd_eval_led_toggle
+    main.o(i.LED2_task) refers to tasks.o(i.vTaskDelay) for vTaskDelay
+    main.o(i.LED2_task) refers to main.o(.data) for binary_semaphore
+    main.o(i.dev_settings) refers to main.o(i.rcu_init) for rcu_init
+    main.o(i.dev_settings) refers to main.o(i.gpio_set) for gpio_set
+    main.o(i.dev_settings) refers to gd32f4xx_gpio.o(i.gpio_bit_set) for gpio_bit_set
+    main.o(i.dev_settings) refers to tasks.o(i.vTaskDelay) for vTaskDelay
+    main.o(i.dev_settings) refers to main.o(i.uwb_spi_init) for uwb_spi_init
+    main.o(i.dev_settings) refers to main.o(i.uwb_reset) for uwb_reset
+    main.o(i.dev_settings) refers to main.o(i.uwb_cmd_init) for uwb_cmd_init
+    main.o(i.dev_settings) refers to main.o(i.KCM_ReadWriteFunc) for KCM_ReadWriteFunc
+    main.o(i.dma_send_receive) refers to gd32f4xx_dma.o(i.dma_deinit) for dma_deinit
+    main.o(i.dma_send_receive) refers to memcpya.o(.text) for __aeabi_memcpy4
+    main.o(i.dma_send_receive) refers to gd32f4xx_dma.o(i.dma_single_data_mode_init) for dma_single_data_mode_init
+    main.o(i.dma_send_receive) refers to gd32f4xx_dma.o(i.dma_channel_subperipheral_select) for dma_channel_subperipheral_select
+    main.o(i.dma_send_receive) refers to gd32f4xx_dma.o(i.dma_channel_enable) for dma_channel_enable
+    main.o(i.dma_send_receive) refers to gd32f4xx_gpio.o(i.gpio_bit_reset) for gpio_bit_reset
+    main.o(i.dma_send_receive) refers to tasks.o(i.vTaskDelay) for vTaskDelay
+    main.o(i.dma_send_receive) refers to gd32f4xx_spi.o(i.spi_dma_enable) for spi_dma_enable
+    main.o(i.dma_send_receive) refers to gd32f4xx_dma.o(i.dma_flag_get) for dma_flag_get
+    main.o(i.dma_send_receive) refers to gd32f4xx_gpio.o(i.gpio_bit_set) for gpio_bit_set
+    main.o(i.gpio_set) refers to gd32f4xx_gpio.o(i.gpio_af_set) for gpio_af_set
+    main.o(i.gpio_set) refers to gd32f4xx_gpio.o(i.gpio_mode_set) for gpio_mode_set
+    main.o(i.gpio_set) refers to gd32f4xx_gpio.o(i.gpio_output_options_set) for gpio_output_options_set
+    main.o(i.gpio_set) refers to gd32f4xx_gpio.o(i.gpio_bit_set) for gpio_bit_set
+    main.o(i.init_task) refers to gd32f450z_eval.o(i.gd_eval_key_init) for gd_eval_key_init
+    main.o(i.init_task) refers to gd32f450z_eval.o(i.gd_eval_com_init) for gd_eval_com_init
+    main.o(i.init_task) refers to gd32f450z_eval.o(i.gd_eval_led_init) for gd_eval_led_init
+    main.o(i.init_task) refers to gd32f450z_eval.o(i.gd_eval_led_on) for gd_eval_led_on
+    main.o(i.init_task) refers to gd32f450z_eval.o(i.gd_eval_led_off) for gd_eval_led_off
+    main.o(i.init_task) refers to queue.o(i.xQueueGenericCreate) for xQueueGenericCreate
+    main.o(i.init_task) refers to tasks.o(i.xTaskCreate) for xTaskCreate
+    main.o(i.init_task) refers to tasks.o(i.vTaskDelete) for vTaskDelete
+    main.o(i.init_task) refers to main.o(.data) for binary_semaphore
+    main.o(i.init_task) refers to main.o(i.LED1_task) for LED1_task
+    main.o(i.init_task) refers to main.o(i.LED2_task) for LED2_task
+    main.o(i.led_spark) refers to gd32f450z_eval.o(i.gd_eval_led_on) for gd_eval_led_on
+    main.o(i.led_spark) refers to gd32f450z_eval.o(i.gd_eval_led_off) for gd_eval_led_off
+    main.o(i.led_spark) refers to main.o(.data) for timingdelaylocal
+    main.o(i.main) refers to main.o(i.dev_settings) for dev_settings
+    main.o(i.main) refers to gd32f4xx_misc.o(i.nvic_priority_group_set) for nvic_priority_group_set
+    main.o(i.main) refers to tasks.o(i.xTaskCreate) for xTaskCreate
+    main.o(i.main) refers to tasks.o(i.vTaskStartScheduler) for vTaskStartScheduler
+    main.o(i.main) refers to tasks.o(i.vTaskDelay) for vTaskDelay
+    main.o(i.main) refers to main.o(i.init_task) for init_task
+    main.o(i.main) refers to main.o(.data) for run_status
+    main.o(i.rcu_init) refers to gd32f4xx_rcu.o(i.rcu_periph_clock_enable) for rcu_periph_clock_enable
+    main.o(i.uwb_cmd_init) refers to memcpya.o(.text) for __aeabi_memcpy4
+    main.o(i.uwb_cmd_init) refers to main.o(.constdata) for .constdata
+    main.o(i.uwb_cmd_init) refers to main.o(.data) for dev_id
+    main.o(i.uwb_reset) refers to gd32f4xx_gpio.o(i.gpio_bit_reset) for gpio_bit_reset
+    main.o(i.uwb_reset) refers to tasks.o(i.vTaskDelay) for vTaskDelay
+    main.o(i.uwb_reset) refers to gd32f4xx_gpio.o(i.gpio_input_bit_get) for gpio_input_bit_get
+    main.o(i.uwb_spi_init) refers to gd32f4xx_spi.o(i.spi_init) for spi_init
+    main.o(i.uwb_spi_init) refers to gd32f4xx_spi.o(i.spi_enable) for spi_enable
+    gd32f4xx_adc.o(i.adc_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_adc.o(i.adc_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_can.o(i.can_debug_freeze_disable) refers to gd32f4xx_dbg.o(i.dbg_periph_disable) for dbg_periph_disable
+    gd32f4xx_can.o(i.can_debug_freeze_enable) refers to gd32f4xx_dbg.o(i.dbg_periph_enable) for dbg_periph_enable
+    gd32f4xx_can.o(i.can_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_can.o(i.can_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_ctc.o(i.ctc_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_ctc.o(i.ctc_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_dac.o(i.dac_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_dac.o(i.dac_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_dci.o(i.dci_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_dci.o(i.dci_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_enet.o(i.enet_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_enet.o(i.enet_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_enet.o(i.enet_deinit) refers to gd32f4xx_enet.o(i.enet_initpara_reset) for enet_initpara_reset
+    gd32f4xx_enet.o(i.enet_descriptors_chain_init) refers to gd32f4xx_enet.o(.bss) for txdesc_tab
+    gd32f4xx_enet.o(i.enet_descriptors_chain_init) refers to gd32f4xx_enet.o(.data) for dma_current_txdesc
+    gd32f4xx_enet.o(i.enet_descriptors_ring_init) refers to gd32f4xx_enet.o(.bss) for txdesc_tab
+    gd32f4xx_enet.o(i.enet_descriptors_ring_init) refers to gd32f4xx_enet.o(.data) for dma_current_txdesc
+    gd32f4xx_enet.o(i.enet_disable) refers to gd32f4xx_enet.o(i.enet_tx_disable) for enet_tx_disable
+    gd32f4xx_enet.o(i.enet_disable) refers to gd32f4xx_enet.o(i.enet_rx_disable) for enet_rx_disable
+    gd32f4xx_enet.o(i.enet_enable) refers to gd32f4xx_enet.o(i.enet_tx_enable) for enet_tx_enable
+    gd32f4xx_enet.o(i.enet_enable) refers to gd32f4xx_enet.o(i.enet_rx_enable) for enet_rx_enable
+    gd32f4xx_enet.o(i.enet_frame_receive) refers to gd32f4xx_enet.o(.data) for dma_current_rxdesc
+    gd32f4xx_enet.o(i.enet_frame_transmit) refers to gd32f4xx_enet.o(.data) for dma_current_txdesc
+    gd32f4xx_enet.o(i.enet_init) refers to gd32f4xx_enet.o(i.enet_phy_config) for enet_phy_config
+    gd32f4xx_enet.o(i.enet_init) refers to gd32f4xx_enet.o(i.enet_delay) for enet_delay
+    gd32f4xx_enet.o(i.enet_init) refers to gd32f4xx_enet.o(i.enet_default_init) for enet_default_init
+    gd32f4xx_enet.o(i.enet_init) refers to gd32f4xx_enet.o(i.enet_phy_write_read) for enet_phy_write_read
+    gd32f4xx_enet.o(i.enet_init) refers to gd32f4xx_enet.o(.bss) for enet_initpara
+    gd32f4xx_enet.o(i.enet_initpara_config) refers to gd32f4xx_enet.o(.bss) for enet_initpara
+    gd32f4xx_enet.o(i.enet_initpara_reset) refers to gd32f4xx_enet.o(.bss) for enet_initpara
+    gd32f4xx_enet.o(i.enet_phy_config) refers to gd32f4xx_rcu.o(i.rcu_clock_freq_get) for rcu_clock_freq_get
+    gd32f4xx_enet.o(i.enet_phy_config) refers to gd32f4xx_enet.o(i.enet_phy_write_read) for enet_phy_write_read
+    gd32f4xx_enet.o(i.enet_phy_config) refers to gd32f4xx_enet.o(i.enet_delay) for enet_delay
+    gd32f4xx_enet.o(i.enet_phyloopback_disable) refers to gd32f4xx_enet.o(i.enet_phy_write_read) for enet_phy_write_read
+    gd32f4xx_enet.o(i.enet_phyloopback_enable) refers to gd32f4xx_enet.o(i.enet_phy_write_read) for enet_phy_write_read
+    gd32f4xx_enet.o(i.enet_ptp_normal_descriptors_chain_init) refers to gd32f4xx_enet.o(.bss) for txdesc_tab
+    gd32f4xx_enet.o(i.enet_ptp_normal_descriptors_chain_init) refers to gd32f4xx_enet.o(.data) for dma_current_txdesc
+    gd32f4xx_enet.o(i.enet_ptp_normal_descriptors_ring_init) refers to gd32f4xx_enet.o(.bss) for txdesc_tab
+    gd32f4xx_enet.o(i.enet_ptp_normal_descriptors_ring_init) refers to gd32f4xx_enet.o(.data) for dma_current_txdesc
+    gd32f4xx_enet.o(i.enet_ptpframe_receive_normal_mode) refers to gd32f4xx_enet.o(.data) for dma_current_rxdesc
+    gd32f4xx_enet.o(i.enet_ptpframe_transmit_normal_mode) refers to gd32f4xx_enet.o(.data) for dma_current_txdesc
+    gd32f4xx_enet.o(i.enet_registers_get) refers to gd32f4xx_enet.o(.constdata) for enet_reg_tab
+    gd32f4xx_enet.o(i.enet_rxframe_drop) refers to gd32f4xx_enet.o(.data) for dma_current_rxdesc
+    gd32f4xx_enet.o(i.enet_rxframe_size_get) refers to gd32f4xx_enet.o(i.enet_rxframe_drop) for enet_rxframe_drop
+    gd32f4xx_enet.o(i.enet_rxframe_size_get) refers to gd32f4xx_enet.o(.data) for dma_current_rxdesc
+    gd32f4xx_enet.o(i.enet_rxprocess_check_recovery) refers to gd32f4xx_enet.o(.data) for dma_current_rxdesc
+    gd32f4xx_enet.o(i.enet_tx_disable) refers to gd32f4xx_enet.o(i.enet_txfifo_flush) for enet_txfifo_flush
+    gd32f4xx_enet.o(i.enet_tx_enable) refers to gd32f4xx_enet.o(i.enet_txfifo_flush) for enet_txfifo_flush
+    gd32f4xx_fmc.o(i.fmc_bank0_erase) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.fmc_bank1_erase) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.fmc_byte_program) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.fmc_halfword_program) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.fmc_mass_erase) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.fmc_ready_wait) refers to gd32f4xx_fmc.o(i.fmc_state_get) for fmc_state_get
+    gd32f4xx_fmc.o(i.fmc_sector_erase) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.fmc_word_program) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.ob_drp0_disable) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.ob_drp0_enable) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.ob_drp1_disable) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.ob_drp1_enable) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.ob_security_protection_config) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.ob_user_write) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.ob_write_protection0_disable) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.ob_write_protection0_enable) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.ob_write_protection1_disable) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_fmc.o(i.ob_write_protection1_enable) refers to gd32f4xx_fmc.o(i.fmc_ready_wait) for fmc_ready_wait
+    gd32f4xx_gpio.o(i.gpio_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_gpio.o(i.gpio_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_i2c.o(i.i2c_clock_config) refers to gd32f4xx_rcu.o(i.rcu_clock_freq_get) for rcu_clock_freq_get
+    gd32f4xx_i2c.o(i.i2c_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_i2c.o(i.i2c_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_ipa.o(i.ipa_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_ipa.o(i.ipa_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_iref.o(i.iref_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_iref.o(i.iref_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_pmu.o(i.pmu_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_pmu.o(i.pmu_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_pmu.o(i.pmu_highdriver_switch_select) refers to gd32f4xx_pmu.o(i.pmu_flag_get) for pmu_flag_get
+    gd32f4xx_rcu.o(i.rcu_deinit) refers to gd32f4xx_rcu.o(i.rcu_osci_stab_wait) for rcu_osci_stab_wait
+    gd32f4xx_rcu.o(i.rcu_osci_stab_wait) refers to gd32f4xx_rcu.o(i.rcu_flag_get) for rcu_flag_get
+    gd32f4xx_rtc.o(i.rtc_coarse_calibration_config) refers to gd32f4xx_rtc.o(i.rtc_init_mode_enter) for rtc_init_mode_enter
+    gd32f4xx_rtc.o(i.rtc_coarse_calibration_config) refers to gd32f4xx_rtc.o(i.rtc_init_mode_exit) for rtc_init_mode_exit
+    gd32f4xx_rtc.o(i.rtc_coarse_calibration_disable) refers to gd32f4xx_rtc.o(i.rtc_init_mode_enter) for rtc_init_mode_enter
+    gd32f4xx_rtc.o(i.rtc_coarse_calibration_disable) refers to gd32f4xx_rtc.o(i.rtc_init_mode_exit) for rtc_init_mode_exit
+    gd32f4xx_rtc.o(i.rtc_coarse_calibration_enable) refers to gd32f4xx_rtc.o(i.rtc_init_mode_enter) for rtc_init_mode_enter
+    gd32f4xx_rtc.o(i.rtc_coarse_calibration_enable) refers to gd32f4xx_rtc.o(i.rtc_init_mode_exit) for rtc_init_mode_exit
+    gd32f4xx_rtc.o(i.rtc_deinit) refers to gd32f4xx_rtc.o(i.rtc_init_mode_enter) for rtc_init_mode_enter
+    gd32f4xx_rtc.o(i.rtc_deinit) refers to gd32f4xx_rtc.o(i.rtc_register_sync_wait) for rtc_register_sync_wait
+    gd32f4xx_rtc.o(i.rtc_init) refers to gd32f4xx_rtc.o(i.rtc_init_mode_enter) for rtc_init_mode_enter
+    gd32f4xx_rtc.o(i.rtc_init) refers to gd32f4xx_rtc.o(i.rtc_init_mode_exit) for rtc_init_mode_exit
+    gd32f4xx_rtc.o(i.rtc_init) refers to gd32f4xx_rtc.o(i.rtc_register_sync_wait) for rtc_register_sync_wait
+    gd32f4xx_rtc.o(i.rtc_refclock_detection_disable) refers to gd32f4xx_rtc.o(i.rtc_init_mode_enter) for rtc_init_mode_enter
+    gd32f4xx_rtc.o(i.rtc_refclock_detection_disable) refers to gd32f4xx_rtc.o(i.rtc_init_mode_exit) for rtc_init_mode_exit
+    gd32f4xx_rtc.o(i.rtc_refclock_detection_enable) refers to gd32f4xx_rtc.o(i.rtc_init_mode_enter) for rtc_init_mode_enter
+    gd32f4xx_rtc.o(i.rtc_refclock_detection_enable) refers to gd32f4xx_rtc.o(i.rtc_init_mode_exit) for rtc_init_mode_exit
+    gd32f4xx_rtc.o(i.rtc_second_adjust) refers to gd32f4xx_rtc.o(i.rtc_register_sync_wait) for rtc_register_sync_wait
+    gd32f4xx_sdio.o(i.sdio_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_sdio.o(i.sdio_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_spi.o(i.i2s_psc_config) refers to gd32f4xx_rcu.o(i.rcu_osci_on) for rcu_osci_on
+    gd32f4xx_spi.o(i.i2s_psc_config) refers to gd32f4xx_rcu.o(i.rcu_osci_stab_wait) for rcu_osci_stab_wait
+    gd32f4xx_spi.o(i.i2s_psc_config) refers to gd32f4xx_rcu.o(i.rcu_i2s_clock_config) for rcu_i2s_clock_config
+    gd32f4xx_spi.o(i.spi_i2s_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_spi.o(i.spi_i2s_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_syscfg.o(i.syscfg_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_syscfg.o(i.syscfg_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_timer.o(i.timer_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_timer.o(i.timer_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_timer.o(i.timer_external_clock_mode0_config) refers to gd32f4xx_timer.o(i.timer_external_trigger_config) for timer_external_trigger_config
+    gd32f4xx_timer.o(i.timer_external_clock_mode1_config) refers to gd32f4xx_timer.o(i.timer_external_trigger_config) for timer_external_trigger_config
+    gd32f4xx_timer.o(i.timer_external_trigger_as_external_clock_config) refers to gd32f4xx_timer.o(i.timer_input_trigger_source_select) for timer_input_trigger_source_select
+    gd32f4xx_timer.o(i.timer_input_capture_config) refers to gd32f4xx_timer.o(i.timer_channel_input_capture_prescaler_config) for timer_channel_input_capture_prescaler_config
+    gd32f4xx_timer.o(i.timer_input_pwm_capture_config) refers to gd32f4xx_timer.o(i.timer_channel_input_capture_prescaler_config) for timer_channel_input_capture_prescaler_config
+    gd32f4xx_timer.o(i.timer_internal_trigger_as_external_clock_config) refers to gd32f4xx_timer.o(i.timer_input_trigger_source_select) for timer_input_trigger_source_select
+    gd32f4xx_tli.o(i.tli_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_tli.o(i.tli_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_trng.o(i.trng_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_trng.o(i.trng_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_usart.o(i.usart_baudrate_set) refers to gd32f4xx_rcu.o(i.rcu_clock_freq_get) for rcu_clock_freq_get
+    gd32f4xx_usart.o(i.usart_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_usart.o(i.usart_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    gd32f4xx_wwdgt.o(i.wwdgt_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_enable) for rcu_periph_reset_enable
+    gd32f4xx_wwdgt.o(i.wwdgt_deinit) refers to gd32f4xx_rcu.o(i.rcu_periph_reset_disable) for rcu_periph_reset_disable
+    event_groups.o(i.vEventGroupClearBitsCallback) refers to event_groups.o(i.xEventGroupClearBits) for xEventGroupClearBits
+    event_groups.o(i.vEventGroupDelete) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    event_groups.o(i.vEventGroupDelete) refers to tasks.o(i.vTaskRemoveFromUnorderedEventList) for vTaskRemoveFromUnorderedEventList
+    event_groups.o(i.vEventGroupDelete) refers to heap_4.o(i.vPortFree) for vPortFree
+    event_groups.o(i.vEventGroupDelete) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    event_groups.o(i.vEventGroupSetBitsCallback) refers to event_groups.o(i.xEventGroupSetBits) for xEventGroupSetBits
+    event_groups.o(i.xEventGroupClearBits) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    event_groups.o(i.xEventGroupClearBits) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    event_groups.o(i.xEventGroupCreate) refers to heap_4.o(i.pvPortMalloc) for pvPortMalloc
+    event_groups.o(i.xEventGroupCreate) refers to list.o(i.vListInitialise) for vListInitialise
+    event_groups.o(i.xEventGroupSetBits) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    event_groups.o(i.xEventGroupSetBits) refers to tasks.o(i.vTaskRemoveFromUnorderedEventList) for vTaskRemoveFromUnorderedEventList
+    event_groups.o(i.xEventGroupSetBits) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    event_groups.o(i.xEventGroupSync) refers to tasks.o(i.xTaskGetSchedulerState) for xTaskGetSchedulerState
+    event_groups.o(i.xEventGroupSync) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    event_groups.o(i.xEventGroupSync) refers to event_groups.o(i.xEventGroupSetBits) for xEventGroupSetBits
+    event_groups.o(i.xEventGroupSync) refers to tasks.o(i.vTaskPlaceOnUnorderedEventList) for vTaskPlaceOnUnorderedEventList
+    event_groups.o(i.xEventGroupSync) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    event_groups.o(i.xEventGroupSync) refers to tasks.o(i.uxTaskResetEventItemValue) for uxTaskResetEventItemValue
+    event_groups.o(i.xEventGroupSync) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    event_groups.o(i.xEventGroupSync) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    event_groups.o(i.xEventGroupWaitBits) refers to tasks.o(i.xTaskGetSchedulerState) for xTaskGetSchedulerState
+    event_groups.o(i.xEventGroupWaitBits) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    event_groups.o(i.xEventGroupWaitBits) refers to event_groups.o(i.prvTestWaitCondition) for prvTestWaitCondition
+    event_groups.o(i.xEventGroupWaitBits) refers to tasks.o(i.vTaskPlaceOnUnorderedEventList) for vTaskPlaceOnUnorderedEventList
+    event_groups.o(i.xEventGroupWaitBits) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    event_groups.o(i.xEventGroupWaitBits) refers to tasks.o(i.uxTaskResetEventItemValue) for uxTaskResetEventItemValue
+    event_groups.o(i.xEventGroupWaitBits) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    event_groups.o(i.xEventGroupWaitBits) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    queue.o(i.pcQueueGetName) refers to queue.o(.bss) for xQueueRegistry
+    queue.o(i.prvCopyDataFromQueue) refers to memcpya.o(.text) for __aeabi_memcpy
+    queue.o(i.prvCopyDataToQueue) refers to tasks.o(i.xTaskPriorityDisinherit) for xTaskPriorityDisinherit
+    queue.o(i.prvCopyDataToQueue) refers to memcpya.o(.text) for __aeabi_memcpy
+    queue.o(i.prvInitialiseMutex) refers to queue.o(i.xQueueGenericSend) for xQueueGenericSend
+    queue.o(i.prvInitialiseNewQueue) refers to queue.o(i.xQueueGenericReset) for xQueueGenericReset
+    queue.o(i.prvIsQueueEmpty) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    queue.o(i.prvIsQueueEmpty) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    queue.o(i.prvIsQueueFull) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    queue.o(i.prvIsQueueFull) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    queue.o(i.prvUnlockQueue) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    queue.o(i.prvUnlockQueue) refers to tasks.o(i.xTaskRemoveFromEventList) for xTaskRemoveFromEventList
+    queue.o(i.prvUnlockQueue) refers to tasks.o(i.vTaskMissedYield) for vTaskMissedYield
+    queue.o(i.prvUnlockQueue) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    queue.o(i.uxQueueMessagesWaiting) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    queue.o(i.uxQueueMessagesWaiting) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    queue.o(i.uxQueueSpacesAvailable) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    queue.o(i.uxQueueSpacesAvailable) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    queue.o(i.vQueueAddToRegistry) refers to queue.o(.bss) for xQueueRegistry
+    queue.o(i.vQueueDelete) refers to queue.o(i.vQueueUnregisterQueue) for vQueueUnregisterQueue
+    queue.o(i.vQueueDelete) refers to heap_4.o(i.vPortFree) for vPortFree
+    queue.o(i.vQueueUnregisterQueue) refers to queue.o(.bss) for xQueueRegistry
+    queue.o(i.xQueueCreateCountingSemaphore) refers to queue.o(i.xQueueGenericCreate) for xQueueGenericCreate
+    queue.o(i.xQueueCreateMutex) refers to queue.o(i.xQueueGenericCreate) for xQueueGenericCreate
+    queue.o(i.xQueueCreateMutex) refers to queue.o(i.prvInitialiseMutex) for prvInitialiseMutex
+    queue.o(i.xQueueGenericCreate) refers to heap_4.o(i.pvPortMalloc) for pvPortMalloc
+    queue.o(i.xQueueGenericCreate) refers to queue.o(i.prvInitialiseNewQueue) for prvInitialiseNewQueue
+    queue.o(i.xQueueGenericReset) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    queue.o(i.xQueueGenericReset) refers to tasks.o(i.xTaskRemoveFromEventList) for xTaskRemoveFromEventList
+    queue.o(i.xQueueGenericReset) refers to list.o(i.vListInitialise) for vListInitialise
+    queue.o(i.xQueueGenericReset) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    queue.o(i.xQueueGenericSend) refers to tasks.o(i.xTaskGetSchedulerState) for xTaskGetSchedulerState
+    queue.o(i.xQueueGenericSend) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    queue.o(i.xQueueGenericSend) refers to queue.o(i.prvCopyDataToQueue) for prvCopyDataToQueue
+    queue.o(i.xQueueGenericSend) refers to tasks.o(i.xTaskRemoveFromEventList) for xTaskRemoveFromEventList
+    queue.o(i.xQueueGenericSend) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    queue.o(i.xQueueGenericSend) refers to tasks.o(i.vTaskInternalSetTimeOutState) for vTaskInternalSetTimeOutState
+    queue.o(i.xQueueGenericSend) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    queue.o(i.xQueueGenericSend) refers to tasks.o(i.xTaskCheckForTimeOut) for xTaskCheckForTimeOut
+    queue.o(i.xQueueGenericSend) refers to queue.o(i.prvIsQueueFull) for prvIsQueueFull
+    queue.o(i.xQueueGenericSend) refers to tasks.o(i.vTaskPlaceOnEventList) for vTaskPlaceOnEventList
+    queue.o(i.xQueueGenericSend) refers to queue.o(i.prvUnlockQueue) for prvUnlockQueue
+    queue.o(i.xQueueGenericSend) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    queue.o(i.xQueueGenericSendFromISR) refers to port.o(i.vPortValidateInterruptPriority) for vPortValidateInterruptPriority
+    queue.o(i.xQueueGenericSendFromISR) refers to queue.o(i.prvCopyDataToQueue) for prvCopyDataToQueue
+    queue.o(i.xQueueGenericSendFromISR) refers to tasks.o(i.xTaskRemoveFromEventList) for xTaskRemoveFromEventList
+    queue.o(i.xQueueGiveFromISR) refers to port.o(i.vPortValidateInterruptPriority) for vPortValidateInterruptPriority
+    queue.o(i.xQueueGiveFromISR) refers to tasks.o(i.xTaskRemoveFromEventList) for xTaskRemoveFromEventList
+    queue.o(i.xQueueGiveMutexRecursive) refers to tasks.o(i.xTaskGetCurrentTaskHandle) for xTaskGetCurrentTaskHandle
+    queue.o(i.xQueueGiveMutexRecursive) refers to queue.o(i.xQueueGenericSend) for xQueueGenericSend
+    queue.o(i.xQueuePeek) refers to tasks.o(i.xTaskGetSchedulerState) for xTaskGetSchedulerState
+    queue.o(i.xQueuePeek) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    queue.o(i.xQueuePeek) refers to queue.o(i.prvCopyDataFromQueue) for prvCopyDataFromQueue
+    queue.o(i.xQueuePeek) refers to tasks.o(i.xTaskRemoveFromEventList) for xTaskRemoveFromEventList
+    queue.o(i.xQueuePeek) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    queue.o(i.xQueuePeek) refers to tasks.o(i.vTaskInternalSetTimeOutState) for vTaskInternalSetTimeOutState
+    queue.o(i.xQueuePeek) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    queue.o(i.xQueuePeek) refers to tasks.o(i.xTaskCheckForTimeOut) for xTaskCheckForTimeOut
+    queue.o(i.xQueuePeek) refers to queue.o(i.prvIsQueueEmpty) for prvIsQueueEmpty
+    queue.o(i.xQueuePeek) refers to tasks.o(i.vTaskPlaceOnEventList) for vTaskPlaceOnEventList
+    queue.o(i.xQueuePeek) refers to queue.o(i.prvUnlockQueue) for prvUnlockQueue
+    queue.o(i.xQueuePeek) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    queue.o(i.xQueuePeekFromISR) refers to port.o(i.vPortValidateInterruptPriority) for vPortValidateInterruptPriority
+    queue.o(i.xQueuePeekFromISR) refers to queue.o(i.prvCopyDataFromQueue) for prvCopyDataFromQueue
+    queue.o(i.xQueueReceive) refers to tasks.o(i.xTaskGetSchedulerState) for xTaskGetSchedulerState
+    queue.o(i.xQueueReceive) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    queue.o(i.xQueueReceive) refers to queue.o(i.prvCopyDataFromQueue) for prvCopyDataFromQueue
+    queue.o(i.xQueueReceive) refers to tasks.o(i.xTaskRemoveFromEventList) for xTaskRemoveFromEventList
+    queue.o(i.xQueueReceive) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    queue.o(i.xQueueReceive) refers to tasks.o(i.vTaskInternalSetTimeOutState) for vTaskInternalSetTimeOutState
+    queue.o(i.xQueueReceive) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    queue.o(i.xQueueReceive) refers to tasks.o(i.xTaskCheckForTimeOut) for xTaskCheckForTimeOut
+    queue.o(i.xQueueReceive) refers to queue.o(i.prvIsQueueEmpty) for prvIsQueueEmpty
+    queue.o(i.xQueueReceive) refers to tasks.o(i.vTaskPlaceOnEventList) for vTaskPlaceOnEventList
+    queue.o(i.xQueueReceive) refers to queue.o(i.prvUnlockQueue) for prvUnlockQueue
+    queue.o(i.xQueueReceive) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    queue.o(i.xQueueReceiveFromISR) refers to port.o(i.vPortValidateInterruptPriority) for vPortValidateInterruptPriority
+    queue.o(i.xQueueReceiveFromISR) refers to queue.o(i.prvCopyDataFromQueue) for prvCopyDataFromQueue
+    queue.o(i.xQueueReceiveFromISR) refers to tasks.o(i.xTaskRemoveFromEventList) for xTaskRemoveFromEventList
+    queue.o(i.xQueueSemaphoreTake) refers to tasks.o(i.xTaskGetSchedulerState) for xTaskGetSchedulerState
+    queue.o(i.xQueueSemaphoreTake) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    queue.o(i.xQueueSemaphoreTake) refers to tasks.o(i.pvTaskIncrementMutexHeldCount) for pvTaskIncrementMutexHeldCount
+    queue.o(i.xQueueSemaphoreTake) refers to tasks.o(i.xTaskRemoveFromEventList) for xTaskRemoveFromEventList
+    queue.o(i.xQueueSemaphoreTake) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    queue.o(i.xQueueSemaphoreTake) refers to tasks.o(i.vTaskInternalSetTimeOutState) for vTaskInternalSetTimeOutState
+    queue.o(i.xQueueSemaphoreTake) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    queue.o(i.xQueueSemaphoreTake) refers to tasks.o(i.xTaskCheckForTimeOut) for xTaskCheckForTimeOut
+    queue.o(i.xQueueSemaphoreTake) refers to queue.o(i.prvIsQueueEmpty) for prvIsQueueEmpty
+    queue.o(i.xQueueSemaphoreTake) refers to tasks.o(i.xTaskPriorityInherit) for xTaskPriorityInherit
+    queue.o(i.xQueueSemaphoreTake) refers to tasks.o(i.vTaskPlaceOnEventList) for vTaskPlaceOnEventList
+    queue.o(i.xQueueSemaphoreTake) refers to queue.o(i.prvUnlockQueue) for prvUnlockQueue
+    queue.o(i.xQueueSemaphoreTake) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    queue.o(i.xQueueSemaphoreTake) refers to queue.o(i.prvGetDisinheritPriorityAfterTimeout) for prvGetDisinheritPriorityAfterTimeout
+    queue.o(i.xQueueSemaphoreTake) refers to tasks.o(i.vTaskPriorityDisinheritAfterTimeout) for vTaskPriorityDisinheritAfterTimeout
+    queue.o(i.xQueueTakeMutexRecursive) refers to tasks.o(i.xTaskGetCurrentTaskHandle) for xTaskGetCurrentTaskHandle
+    queue.o(i.xQueueTakeMutexRecursive) refers to queue.o(i.xQueueSemaphoreTake) for xQueueSemaphoreTake
+    tasks.o(i.eTaskGetState) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.eTaskGetState) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.eTaskGetState) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.eTaskGetState) refers to tasks.o(.bss) for xSuspendedTaskList
+    tasks.o(i.pcTaskGetName) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.prvAddCurrentTaskToDelayedList) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.prvAddCurrentTaskToDelayedList) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.prvAddCurrentTaskToDelayedList) refers to list.o(i.vListInsert) for vListInsert
+    tasks.o(i.prvAddCurrentTaskToDelayedList) refers to tasks.o(.data) for xTickCount
+    tasks.o(i.prvAddCurrentTaskToDelayedList) refers to tasks.o(.bss) for xSuspendedTaskList
+    tasks.o(i.prvAddNewTaskToReadyList) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.prvAddNewTaskToReadyList) refers to tasks.o(i.prvInitialiseTaskLists) for prvInitialiseTaskLists
+    tasks.o(i.prvAddNewTaskToReadyList) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.prvAddNewTaskToReadyList) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.prvAddNewTaskToReadyList) refers to tasks.o(.data) for uxCurrentNumberOfTasks
+    tasks.o(i.prvAddNewTaskToReadyList) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.prvCheckTasksWaitingTermination) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.prvCheckTasksWaitingTermination) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.prvCheckTasksWaitingTermination) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.prvCheckTasksWaitingTermination) refers to tasks.o(i.prvDeleteTCB) for prvDeleteTCB
+    tasks.o(i.prvCheckTasksWaitingTermination) refers to tasks.o(.bss) for xTasksWaitingTermination
+    tasks.o(i.prvCheckTasksWaitingTermination) refers to tasks.o(.data) for uxCurrentNumberOfTasks
+    tasks.o(i.prvDeleteTCB) refers to heap_4.o(i.vPortFree) for vPortFree
+    tasks.o(i.prvIdleTask) refers to tasks.o(i.prvCheckTasksWaitingTermination) for prvCheckTasksWaitingTermination
+    tasks.o(i.prvIdleTask) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.prvInitialiseNewTask) refers to memseta.o(.text) for __aeabi_memset
+    tasks.o(i.prvInitialiseNewTask) refers to list.o(i.vListInitialiseItem) for vListInitialiseItem
+    tasks.o(i.prvInitialiseNewTask) refers to port.o(i.pxPortInitialiseStack) for pxPortInitialiseStack
+    tasks.o(i.prvInitialiseTaskLists) refers to list.o(i.vListInitialise) for vListInitialise
+    tasks.o(i.prvInitialiseTaskLists) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.prvInitialiseTaskLists) refers to tasks.o(.data) for pxDelayedTaskList
+    tasks.o(i.prvListTasksWithinSingleList) refers to tasks.o(i.vTaskGetInfo) for vTaskGetInfo
+    tasks.o(i.prvResetNextTaskUnblockTime) refers to tasks.o(.data) for pxDelayedTaskList
+    tasks.o(i.prvTaskIsTaskSuspended) refers to tasks.o(.bss) for xSuspendedTaskList
+    tasks.o(i.pvTaskIncrementMutexHeldCount) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.ulTaskNotifyTake) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.ulTaskNotifyTake) refers to tasks.o(i.prvAddCurrentTaskToDelayedList) for prvAddCurrentTaskToDelayedList
+    tasks.o(i.ulTaskNotifyTake) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.ulTaskNotifyTake) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.uxTaskGetNumberOfTasks) refers to tasks.o(.data) for uxCurrentNumberOfTasks
+    tasks.o(i.uxTaskGetStackHighWaterMark) refers to tasks.o(i.prvTaskCheckFreeStackSpace) for prvTaskCheckFreeStackSpace
+    tasks.o(i.uxTaskGetStackHighWaterMark) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.uxTaskGetSystemState) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    tasks.o(i.uxTaskGetSystemState) refers to tasks.o(i.prvListTasksWithinSingleList) for prvListTasksWithinSingleList
+    tasks.o(i.uxTaskGetSystemState) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    tasks.o(i.uxTaskGetSystemState) refers to tasks.o(.data) for uxCurrentNumberOfTasks
+    tasks.o(i.uxTaskGetSystemState) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.uxTaskPriorityGet) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.uxTaskPriorityGet) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.uxTaskPriorityGet) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.uxTaskPriorityGetFromISR) refers to port.o(i.vPortValidateInterruptPriority) for vPortValidateInterruptPriority
+    tasks.o(i.uxTaskPriorityGetFromISR) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.uxTaskResetEventItemValue) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.vTaskDelay) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    tasks.o(i.vTaskDelay) refers to tasks.o(i.prvAddCurrentTaskToDelayedList) for prvAddCurrentTaskToDelayedList
+    tasks.o(i.vTaskDelay) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    tasks.o(i.vTaskDelay) refers to tasks.o(.data) for uxSchedulerSuspended
+    tasks.o(i.vTaskDelayUntil) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    tasks.o(i.vTaskDelayUntil) refers to tasks.o(i.prvAddCurrentTaskToDelayedList) for prvAddCurrentTaskToDelayedList
+    tasks.o(i.vTaskDelayUntil) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    tasks.o(i.vTaskDelayUntil) refers to tasks.o(.data) for uxSchedulerSuspended
+    tasks.o(i.vTaskDelete) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.vTaskDelete) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.vTaskDelete) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.vTaskDelete) refers to tasks.o(i.prvDeleteTCB) for prvDeleteTCB
+    tasks.o(i.vTaskDelete) refers to tasks.o(i.prvResetNextTaskUnblockTime) for prvResetNextTaskUnblockTime
+    tasks.o(i.vTaskDelete) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.vTaskDelete) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.vTaskDelete) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.vTaskEndScheduler) refers to port.o(i.vPortEndScheduler) for vPortEndScheduler
+    tasks.o(i.vTaskEndScheduler) refers to tasks.o(.data) for xSchedulerRunning
+    tasks.o(i.vTaskGetInfo) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    tasks.o(i.vTaskGetInfo) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    tasks.o(i.vTaskGetInfo) refers to tasks.o(i.eTaskGetState) for eTaskGetState
+    tasks.o(i.vTaskGetInfo) refers to tasks.o(i.prvTaskCheckFreeStackSpace) for prvTaskCheckFreeStackSpace
+    tasks.o(i.vTaskGetInfo) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.vTaskInternalSetTimeOutState) refers to tasks.o(.data) for xNumOfOverflows
+    tasks.o(i.vTaskMissedYield) refers to tasks.o(.data) for xYieldPending
+    tasks.o(i.vTaskNotifyGiveFromISR) refers to port.o(i.vPortValidateInterruptPriority) for vPortValidateInterruptPriority
+    tasks.o(i.vTaskNotifyGiveFromISR) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.vTaskNotifyGiveFromISR) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.vTaskNotifyGiveFromISR) refers to tasks.o(.data) for uxSchedulerSuspended
+    tasks.o(i.vTaskNotifyGiveFromISR) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.vTaskPlaceOnEventList) refers to list.o(i.vListInsert) for vListInsert
+    tasks.o(i.vTaskPlaceOnEventList) refers to tasks.o(i.prvAddCurrentTaskToDelayedList) for prvAddCurrentTaskToDelayedList
+    tasks.o(i.vTaskPlaceOnEventList) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.vTaskPlaceOnUnorderedEventList) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.vTaskPlaceOnUnorderedEventList) refers to tasks.o(i.prvAddCurrentTaskToDelayedList) for prvAddCurrentTaskToDelayedList
+    tasks.o(i.vTaskPlaceOnUnorderedEventList) refers to tasks.o(.data) for uxSchedulerSuspended
+    tasks.o(i.vTaskPriorityDisinheritAfterTimeout) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.vTaskPriorityDisinheritAfterTimeout) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.vTaskPriorityDisinheritAfterTimeout) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.vTaskPriorityDisinheritAfterTimeout) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.vTaskPrioritySet) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.vTaskPrioritySet) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.vTaskPrioritySet) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.vTaskPrioritySet) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.vTaskPrioritySet) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.vTaskPrioritySet) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.vTaskRemoveFromUnorderedEventList) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.vTaskRemoveFromUnorderedEventList) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.vTaskRemoveFromUnorderedEventList) refers to tasks.o(.data) for uxSchedulerSuspended
+    tasks.o(i.vTaskRemoveFromUnorderedEventList) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.vTaskResume) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.vTaskResume) refers to tasks.o(i.prvTaskIsTaskSuspended) for prvTaskIsTaskSuspended
+    tasks.o(i.vTaskResume) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.vTaskResume) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.vTaskResume) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.vTaskResume) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.vTaskResume) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.vTaskSetTimeOutState) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.vTaskSetTimeOutState) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.vTaskSetTimeOutState) refers to tasks.o(.data) for xNumOfOverflows
+    tasks.o(i.vTaskStartScheduler) refers to tasks.o(i.xTaskCreate) for xTaskCreate
+    tasks.o(i.vTaskStartScheduler) refers to port.o(i.xPortStartScheduler) for xPortStartScheduler
+    tasks.o(i.vTaskStartScheduler) refers to tasks.o(.data) for xIdleTaskHandle
+    tasks.o(i.vTaskStartScheduler) refers to tasks.o(i.prvIdleTask) for prvIdleTask
+    tasks.o(i.vTaskSuspend) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.vTaskSuspend) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.vTaskSuspend) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.vTaskSuspend) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.vTaskSuspend) refers to tasks.o(i.prvResetNextTaskUnblockTime) for prvResetNextTaskUnblockTime
+    tasks.o(i.vTaskSuspend) refers to tasks.o(i.vTaskSwitchContext) for vTaskSwitchContext
+    tasks.o(i.vTaskSuspend) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.vTaskSuspend) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.vTaskSuspendAll) refers to tasks.o(.data) for uxSchedulerSuspended
+    tasks.o(i.vTaskSwitchContext) refers to tasks.o(.data) for uxSchedulerSuspended
+    tasks.o(i.vTaskSwitchContext) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.xTaskCheckForTimeOut) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.xTaskCheckForTimeOut) refers to tasks.o(i.vTaskInternalSetTimeOutState) for vTaskInternalSetTimeOutState
+    tasks.o(i.xTaskCheckForTimeOut) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.xTaskCheckForTimeOut) refers to tasks.o(.data) for xTickCount
+    tasks.o(i.xTaskCreate) refers to heap_4.o(i.pvPortMalloc) for pvPortMalloc
+    tasks.o(i.xTaskCreate) refers to heap_4.o(i.vPortFree) for vPortFree
+    tasks.o(i.xTaskCreate) refers to tasks.o(i.prvInitialiseNewTask) for prvInitialiseNewTask
+    tasks.o(i.xTaskCreate) refers to tasks.o(i.prvAddNewTaskToReadyList) for prvAddNewTaskToReadyList
+    tasks.o(i.xTaskGenericNotify) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.xTaskGenericNotify) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.xTaskGenericNotify) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.xTaskGenericNotify) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.xTaskGenericNotify) refers to tasks.o(.data) for uxTopReadyPriority
+    tasks.o(i.xTaskGenericNotify) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.xTaskGenericNotifyFromISR) refers to port.o(i.vPortValidateInterruptPriority) for vPortValidateInterruptPriority
+    tasks.o(i.xTaskGenericNotifyFromISR) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.xTaskGenericNotifyFromISR) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.xTaskGenericNotifyFromISR) refers to tasks.o(.data) for uxSchedulerSuspended
+    tasks.o(i.xTaskGenericNotifyFromISR) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.xTaskGetCurrentTaskHandle) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.xTaskGetHandle) refers to strlen.o(.text) for strlen
+    tasks.o(i.xTaskGetHandle) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    tasks.o(i.xTaskGetHandle) refers to tasks.o(i.prvSearchForNameWithinSingleList) for prvSearchForNameWithinSingleList
+    tasks.o(i.xTaskGetHandle) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    tasks.o(i.xTaskGetHandle) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.xTaskGetHandle) refers to tasks.o(.data) for pxDelayedTaskList
+    tasks.o(i.xTaskGetSchedulerState) refers to tasks.o(.data) for xSchedulerRunning
+    tasks.o(i.xTaskGetTickCount) refers to tasks.o(.data) for xTickCount
+    tasks.o(i.xTaskGetTickCountFromISR) refers to port.o(i.vPortValidateInterruptPriority) for vPortValidateInterruptPriority
+    tasks.o(i.xTaskGetTickCountFromISR) refers to tasks.o(.data) for xTickCount
+    tasks.o(i.xTaskIncrementTick) refers to tasks.o(i.prvResetNextTaskUnblockTime) for prvResetNextTaskUnblockTime
+    tasks.o(i.xTaskIncrementTick) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.xTaskIncrementTick) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.xTaskIncrementTick) refers to tasks.o(.data) for uxSchedulerSuspended
+    tasks.o(i.xTaskIncrementTick) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.xTaskNotifyStateClear) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.xTaskNotifyStateClear) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.xTaskNotifyStateClear) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.xTaskNotifyWait) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.xTaskNotifyWait) refers to tasks.o(i.prvAddCurrentTaskToDelayedList) for prvAddCurrentTaskToDelayedList
+    tasks.o(i.xTaskNotifyWait) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.xTaskNotifyWait) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.xTaskPriorityDisinherit) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.xTaskPriorityDisinherit) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.xTaskPriorityDisinherit) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.xTaskPriorityDisinherit) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.xTaskPriorityInherit) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.xTaskPriorityInherit) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.xTaskPriorityInherit) refers to tasks.o(.data) for pxCurrentTCB
+    tasks.o(i.xTaskPriorityInherit) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.xTaskRemoveFromEventList) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.xTaskRemoveFromEventList) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.xTaskRemoveFromEventList) refers to tasks.o(.data) for uxSchedulerSuspended
+    tasks.o(i.xTaskRemoveFromEventList) refers to tasks.o(.bss) for pxReadyTasksLists
+    tasks.o(i.xTaskResumeAll) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
+    tasks.o(i.xTaskResumeAll) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.xTaskResumeAll) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.xTaskResumeAll) refers to tasks.o(i.prvResetNextTaskUnblockTime) for prvResetNextTaskUnblockTime
+    tasks.o(i.xTaskResumeAll) refers to tasks.o(i.xTaskIncrementTick) for xTaskIncrementTick
+    tasks.o(i.xTaskResumeAll) refers to port.o(i.vPortExitCritical) for vPortExitCritical
+    tasks.o(i.xTaskResumeAll) refers to tasks.o(.data) for uxSchedulerSuspended
+    tasks.o(i.xTaskResumeAll) refers to tasks.o(.bss) for xPendingReadyList
+    tasks.o(i.xTaskResumeFromISR) refers to port.o(i.vPortValidateInterruptPriority) for vPortValidateInterruptPriority
+    tasks.o(i.xTaskResumeFromISR) refers to tasks.o(i.prvTaskIsTaskSuspended) for prvTaskIsTaskSuspended
+    tasks.o(i.xTaskResumeFromISR) refers to list.o(i.uxListRemove) for uxListRemove
+    tasks.o(i.xTaskResumeFromISR) refers to list.o(i.vListInsertEnd) for vListInsertEnd
+    tasks.o(i.xTaskResumeFromISR) refers to tasks.o(.data) for uxSchedulerSuspended
+    tasks.o(i.xTaskResumeFromISR) refers to tasks.o(.bss) for pxReadyTasksLists
+    heap_4.o(i.prvHeapInit) refers to heap_4.o(.bss) for ucHeap
+    heap_4.o(i.prvHeapInit) refers to heap_4.o(.data) for xStart
+    heap_4.o(i.prvInsertBlockIntoFreeList) refers to heap_4.o(.data) for xStart
+    heap_4.o(i.pvPortMalloc) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    heap_4.o(i.pvPortMalloc) refers to heap_4.o(i.prvHeapInit) for prvHeapInit
+    heap_4.o(i.pvPortMalloc) refers to heap_4.o(i.prvInsertBlockIntoFreeList) for prvInsertBlockIntoFreeList
+    heap_4.o(i.pvPortMalloc) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    heap_4.o(i.pvPortMalloc) refers to heap_4.o(.data) for pxEnd
+    heap_4.o(i.vPortFree) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
+    heap_4.o(i.vPortFree) refers to heap_4.o(i.prvInsertBlockIntoFreeList) for prvInsertBlockIntoFreeList
+    heap_4.o(i.vPortFree) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
+    heap_4.o(i.vPortFree) refers to heap_4.o(.data) for xBlockAllocatedBit
+    heap_4.o(i.xPortGetFreeHeapSize) refers to heap_4.o(.data) for xFreeBytesRemaining
+    heap_4.o(i.xPortGetMinimumEverFreeHeapSize) refers to heap_4.o(.data) for xMinimumEverFreeBytesRemaining
+    port.o(.emb_text) refers to tasks.o(i.vTaskSwitchContext) for vTaskSwitchContext
+    port.o(.emb_text) refers to tasks.o(.data) for pxCurrentTCB
+    port.o(i.SysTick_Handler) refers to tasks.o(i.xTaskIncrementTick) for xTaskIncrementTick
+    port.o(i.prvTaskExitError) refers to port.o(.data) for uxCriticalNesting
+    port.o(i.pxPortInitialiseStack) refers to port.o(i.prvTaskExitError) for prvTaskExitError
+    port.o(i.vPortEndScheduler) refers to port.o(.data) for uxCriticalNesting
+    port.o(i.vPortEnterCritical) refers to port.o(.data) for uxCriticalNesting
+    port.o(i.vPortExitCritical) refers to port.o(.data) for uxCriticalNesting
+    port.o(i.vPortSetupTimerInterrupt) refers to system_gd32f4xx.o(.data) for SystemCoreClock
+    port.o(i.vPortValidateInterruptPriority) refers to port.o(.emb_text) for vPortGetIPSR
+    port.o(i.vPortValidateInterruptPriority) refers to port.o(.data) for ucMaxSysCallPriority
+    port.o(i.xPortStartScheduler) refers to port.o(i.vPortSetupTimerInterrupt) for vPortSetupTimerInterrupt
+    port.o(i.xPortStartScheduler) refers to port.o(.emb_text) for __asm___6_port_c_39a90d8d__prvEnableVFP
+    port.o(i.xPortStartScheduler) refers to port.o(.data) for ucMaxSysCallPriority
+    system_gd32f4xx.o(i.SystemCoreClockUpdate) refers to system_gd32f4xx.o(.data) for SystemCoreClock
+    system_gd32f4xx.o(i.SystemInit) refers to system_gd32f4xx.o(i.system_clock_config) for system_clock_config
+    system_gd32f4xx.o(i.system_clock_config) refers to system_gd32f4xx.o(i.system_clock_200m_25m_hxtal) for system_clock_200m_25m_hxtal
+    gd32f450z_eval.o(i.gd_eval_com_init) refers to gd32f4xx_rcu.o(i.rcu_periph_clock_enable) for rcu_periph_clock_enable
+    gd32f450z_eval.o(i.gd_eval_com_init) refers to gd32f4xx_gpio.o(i.gpio_af_set) for gpio_af_set
+    gd32f450z_eval.o(i.gd_eval_com_init) refers to gd32f4xx_gpio.o(i.gpio_mode_set) for gpio_mode_set
+    gd32f450z_eval.o(i.gd_eval_com_init) refers to gd32f4xx_gpio.o(i.gpio_output_options_set) for gpio_output_options_set
+    gd32f450z_eval.o(i.gd_eval_com_init) refers to gd32f4xx_usart.o(i.usart_deinit) for usart_deinit
+    gd32f450z_eval.o(i.gd_eval_com_init) refers to gd32f4xx_usart.o(i.usart_baudrate_set) for usart_baudrate_set
+    gd32f450z_eval.o(i.gd_eval_com_init) refers to gd32f4xx_usart.o(i.usart_receive_config) for usart_receive_config
+    gd32f450z_eval.o(i.gd_eval_com_init) refers to gd32f4xx_usart.o(i.usart_transmit_config) for usart_transmit_config
+    gd32f450z_eval.o(i.gd_eval_com_init) refers to gd32f4xx_usart.o(i.usart_enable) for usart_enable
+    gd32f450z_eval.o(i.gd_eval_com_init) refers to gd32f450z_eval.o(.data) for COM_CLK
+    gd32f450z_eval.o(i.gd_eval_key_init) refers to gd32f4xx_rcu.o(i.rcu_periph_clock_enable) for rcu_periph_clock_enable
+    gd32f450z_eval.o(i.gd_eval_key_init) refers to gd32f4xx_gpio.o(i.gpio_mode_set) for gpio_mode_set
+    gd32f450z_eval.o(i.gd_eval_key_init) refers to gd32f4xx_misc.o(i.nvic_irq_enable) for nvic_irq_enable
+    gd32f450z_eval.o(i.gd_eval_key_init) refers to gd32f4xx_syscfg.o(i.syscfg_exti_line_config) for syscfg_exti_line_config
+    gd32f450z_eval.o(i.gd_eval_key_init) refers to gd32f4xx_exti.o(i.exti_init) for exti_init
+    gd32f450z_eval.o(i.gd_eval_key_init) refers to gd32f4xx_exti.o(i.exti_interrupt_flag_clear) for exti_interrupt_flag_clear
+    gd32f450z_eval.o(i.gd_eval_key_init) refers to gd32f450z_eval.o(.data) for KEY_CLK
+    gd32f450z_eval.o(i.gd_eval_key_state_get) refers to gd32f4xx_gpio.o(i.gpio_input_bit_get) for gpio_input_bit_get
+    gd32f450z_eval.o(i.gd_eval_key_state_get) refers to gd32f450z_eval.o(.data) for KEY_PIN
+    gd32f450z_eval.o(i.gd_eval_led_init) refers to gd32f4xx_rcu.o(i.rcu_periph_clock_enable) for rcu_periph_clock_enable
+    gd32f450z_eval.o(i.gd_eval_led_init) refers to gd32f4xx_gpio.o(i.gpio_mode_set) for gpio_mode_set
+    gd32f450z_eval.o(i.gd_eval_led_init) refers to gd32f4xx_gpio.o(i.gpio_output_options_set) for gpio_output_options_set
+    gd32f450z_eval.o(i.gd_eval_led_init) refers to gd32f450z_eval.o(.data) for GPIO_CLK
+    gd32f450z_eval.o(i.gd_eval_led_off) refers to gd32f450z_eval.o(.data) for GPIO_PIN
+    gd32f450z_eval.o(i.gd_eval_led_on) refers to gd32f450z_eval.o(.data) for GPIO_PIN
+    gd32f450z_eval.o(i.gd_eval_led_toggle) refers to gd32f450z_eval.o(.data) for GPIO_PIN
+    startup_gd32f450.o(RESET) refers to startup_gd32f450.o(STACK) for __initial_sp
+    startup_gd32f450.o(RESET) refers to startup_gd32f450.o(.text) for Reset_Handler
+    startup_gd32f450.o(RESET) refers to gd32f4xx_it.o(i.NMI_Handler) for NMI_Handler
+    startup_gd32f450.o(RESET) refers to gd32f4xx_it.o(i.HardFault_Handler) for HardFault_Handler
+    startup_gd32f450.o(RESET) refers to gd32f4xx_it.o(i.MemManage_Handler) for MemManage_Handler
+    startup_gd32f450.o(RESET) refers to gd32f4xx_it.o(i.BusFault_Handler) for BusFault_Handler
+    startup_gd32f450.o(RESET) refers to gd32f4xx_it.o(i.UsageFault_Handler) for UsageFault_Handler
+    startup_gd32f450.o(RESET) refers to port.o(.emb_text) for SVC_Handler
+    startup_gd32f450.o(RESET) refers to port.o(i.SysTick_Handler) for SysTick_Handler
+    startup_gd32f450.o(RESET) refers to gd32f4xx_it.o(i.EXTI10_15_IRQHandler) for EXTI10_15_IRQHandler
+    startup_gd32f450.o(RESET) refers to main.o(i.SPI2_IRQHandler) for SPI2_IRQHandler
+    startup_gd32f450.o(.text) refers to system_gd32f4xx.o(i.SystemInit) for SystemInit
+    startup_gd32f450.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry8b.o(.ARM.Collect$$$$0000000A) for _main_cpp_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry9a.o(.ARM.Collect$$$$0000000B) for _main_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry5.o(.ARM.Collect$$$$00000004) for _main_scatterload
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry2.o(.ARM.Collect$$$$00000001) for _main_stk
+    printfb.o(i.__0fprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0fprintf$bare) refers to fputc.o(i.fputc) for fputc
+    printfb.o(i.__0printf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0printf$bare) refers to fputc.o(i.fputc) for fputc
+    printfb.o(i.__0printf$bare) refers to stdout.o(.data) for __stdout
+    printfb.o(i.__0snprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0snprintf$bare) refers to printfb.o(i._snputc) for _snputc
+    printfb.o(i.__0sprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0sprintf$bare) refers to printfb.o(i._sputc) for _sputc
+    printfb.o(i.__0vfprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vfprintf$bare) refers to fputc.o(i.fputc) for fputc
+    printfb.o(i.__0vprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vprintf$bare) refers to fputc.o(i.fputc) for fputc
+    printfb.o(i.__0vprintf$bare) refers to stdout.o(.data) for __stdout
+    printfb.o(i.__0vsnprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vsnprintf$bare) refers to printfb.o(i._snputc) for _snputc
+    printfb.o(i.__0vsprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vsprintf$bare) refers to printfb.o(i._sputc) for _sputc
+    printf0.o(i.__0fprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0fprintf$0) refers to fputc.o(i.fputc) for fputc
+    printf0.o(i.__0printf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0printf$0) refers to fputc.o(i.fputc) for fputc
+    printf0.o(i.__0printf$0) refers to stdout.o(.data) for __stdout
+    printf0.o(i.__0snprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0snprintf$0) refers to printf0.o(i._snputc) for _snputc
+    printf0.o(i.__0sprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0sprintf$0) refers to printf0.o(i._sputc) for _sputc
+    printf0.o(i.__0vfprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vfprintf$0) refers to fputc.o(i.fputc) for fputc
+    printf0.o(i.__0vprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vprintf$0) refers to fputc.o(i.fputc) for fputc
+    printf0.o(i.__0vprintf$0) refers to stdout.o(.data) for __stdout
+    printf0.o(i.__0vsnprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vsnprintf$0) refers to printf0.o(i._snputc) for _snputc
+    printf0.o(i.__0vsprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vsprintf$0) refers to printf0.o(i._sputc) for _sputc
+    printf1.o(i.__0fprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0fprintf$1) refers to fputc.o(i.fputc) for fputc
+    printf1.o(i.__0printf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0printf$1) refers to fputc.o(i.fputc) for fputc
+    printf1.o(i.__0printf$1) refers to stdout.o(.data) for __stdout
+    printf1.o(i.__0snprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0snprintf$1) refers to printf1.o(i._snputc) for _snputc
+    printf1.o(i.__0sprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0sprintf$1) refers to printf1.o(i._sputc) for _sputc
+    printf1.o(i.__0vfprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vfprintf$1) refers to fputc.o(i.fputc) for fputc
+    printf1.o(i.__0vprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vprintf$1) refers to fputc.o(i.fputc) for fputc
+    printf1.o(i.__0vprintf$1) refers to stdout.o(.data) for __stdout
+    printf1.o(i.__0vsnprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vsnprintf$1) refers to printf1.o(i._snputc) for _snputc
+    printf1.o(i.__0vsprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vsprintf$1) refers to printf1.o(i._sputc) for _sputc
+    printf1.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printf2.o(i.__0fprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0fprintf$2) refers to fputc.o(i.fputc) for fputc
+    printf2.o(i.__0printf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0printf$2) refers to fputc.o(i.fputc) for fputc
+    printf2.o(i.__0printf$2) refers to stdout.o(.data) for __stdout
+    printf2.o(i.__0snprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0snprintf$2) refers to printf2.o(i._snputc) for _snputc
+    printf2.o(i.__0sprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0sprintf$2) refers to printf2.o(i._sputc) for _sputc
+    printf2.o(i.__0vfprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vfprintf$2) refers to fputc.o(i.fputc) for fputc
+    printf2.o(i.__0vprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vprintf$2) refers to fputc.o(i.fputc) for fputc
+    printf2.o(i.__0vprintf$2) refers to stdout.o(.data) for __stdout
+    printf2.o(i.__0vsnprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vsnprintf$2) refers to printf2.o(i._snputc) for _snputc
+    printf2.o(i.__0vsprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vsprintf$2) refers to printf2.o(i._sputc) for _sputc
+    printf3.o(i.__0fprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0fprintf$3) refers to fputc.o(i.fputc) for fputc
+    printf3.o(i.__0printf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0printf$3) refers to fputc.o(i.fputc) for fputc
+    printf3.o(i.__0printf$3) refers to stdout.o(.data) for __stdout
+    printf3.o(i.__0snprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0snprintf$3) refers to printf3.o(i._snputc) for _snputc
+    printf3.o(i.__0sprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0sprintf$3) refers to printf3.o(i._sputc) for _sputc
+    printf3.o(i.__0vfprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vfprintf$3) refers to fputc.o(i.fputc) for fputc
+    printf3.o(i.__0vprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vprintf$3) refers to fputc.o(i.fputc) for fputc
+    printf3.o(i.__0vprintf$3) refers to stdout.o(.data) for __stdout
+    printf3.o(i.__0vsnprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vsnprintf$3) refers to printf3.o(i._snputc) for _snputc
+    printf3.o(i.__0vsprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vsprintf$3) refers to printf3.o(i._sputc) for _sputc
+    printf3.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printf4.o(i.__0fprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0fprintf$4) refers to fputc.o(i.fputc) for fputc
+    printf4.o(i.__0printf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0printf$4) refers to fputc.o(i.fputc) for fputc
+    printf4.o(i.__0printf$4) refers to stdout.o(.data) for __stdout
+    printf4.o(i.__0snprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0snprintf$4) refers to printf4.o(i._snputc) for _snputc
+    printf4.o(i.__0sprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0sprintf$4) refers to printf4.o(i._sputc) for _sputc
+    printf4.o(i.__0vfprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vfprintf$4) refers to fputc.o(i.fputc) for fputc
+    printf4.o(i.__0vprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vprintf$4) refers to fputc.o(i.fputc) for fputc
+    printf4.o(i.__0vprintf$4) refers to stdout.o(.data) for __stdout
+    printf4.o(i.__0vsnprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vsnprintf$4) refers to printf4.o(i._snputc) for _snputc
+    printf4.o(i.__0vsprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vsprintf$4) refers to printf4.o(i._sputc) for _sputc
+    printf4.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf5.o(i.__0fprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0fprintf$5) refers to fputc.o(i.fputc) for fputc
+    printf5.o(i.__0printf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0printf$5) refers to fputc.o(i.fputc) for fputc
+    printf5.o(i.__0printf$5) refers to stdout.o(.data) for __stdout
+    printf5.o(i.__0snprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0snprintf$5) refers to printf5.o(i._snputc) for _snputc
+    printf5.o(i.__0sprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0sprintf$5) refers to printf5.o(i._sputc) for _sputc
+    printf5.o(i.__0vfprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vfprintf$5) refers to fputc.o(i.fputc) for fputc
+    printf5.o(i.__0vprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vprintf$5) refers to fputc.o(i.fputc) for fputc
+    printf5.o(i.__0vprintf$5) refers to stdout.o(.data) for __stdout
+    printf5.o(i.__0vsnprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vsnprintf$5) refers to printf5.o(i._snputc) for _snputc
+    printf5.o(i.__0vsprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vsprintf$5) refers to printf5.o(i._sputc) for _sputc
+    printf5.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf6.o(i.__0fprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0fprintf$6) refers to fputc.o(i.fputc) for fputc
+    printf6.o(i.__0printf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0printf$6) refers to fputc.o(i.fputc) for fputc
+    printf6.o(i.__0printf$6) refers to stdout.o(.data) for __stdout
+    printf6.o(i.__0snprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0snprintf$6) refers to printf6.o(i._snputc) for _snputc
+    printf6.o(i.__0sprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0sprintf$6) refers to printf6.o(i._sputc) for _sputc
+    printf6.o(i.__0vfprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vfprintf$6) refers to fputc.o(i.fputc) for fputc
+    printf6.o(i.__0vprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vprintf$6) refers to fputc.o(i.fputc) for fputc
+    printf6.o(i.__0vprintf$6) refers to stdout.o(.data) for __stdout
+    printf6.o(i.__0vsnprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vsnprintf$6) refers to printf6.o(i._snputc) for _snputc
+    printf6.o(i.__0vsprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vsprintf$6) refers to printf6.o(i._sputc) for _sputc
+    printf6.o(i._printf_core) refers to printf6.o(i._printf_pre_padding) for _printf_pre_padding
+    printf6.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printf6.o(i._printf_core) refers to printf6.o(i._printf_post_padding) for _printf_post_padding
+    printf7.o(i.__0fprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0fprintf$7) refers to fputc.o(i.fputc) for fputc
+    printf7.o(i.__0printf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0printf$7) refers to fputc.o(i.fputc) for fputc
+    printf7.o(i.__0printf$7) refers to stdout.o(.data) for __stdout
+    printf7.o(i.__0snprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0snprintf$7) refers to printf7.o(i._snputc) for _snputc
+    printf7.o(i.__0sprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0sprintf$7) refers to printf7.o(i._sputc) for _sputc
+    printf7.o(i.__0vfprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vfprintf$7) refers to fputc.o(i.fputc) for fputc
+    printf7.o(i.__0vprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vprintf$7) refers to fputc.o(i.fputc) for fputc
+    printf7.o(i.__0vprintf$7) refers to stdout.o(.data) for __stdout
+    printf7.o(i.__0vsnprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vsnprintf$7) refers to printf7.o(i._snputc) for _snputc
+    printf7.o(i.__0vsprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vsprintf$7) refers to printf7.o(i._sputc) for _sputc
+    printf7.o(i._printf_core) refers to printf7.o(i._printf_pre_padding) for _printf_pre_padding
+    printf7.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf7.o(i._printf_core) refers to printf7.o(i._printf_post_padding) for _printf_post_padding
+    printf8.o(i.__0fprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0fprintf$8) refers to fputc.o(i.fputc) for fputc
+    printf8.o(i.__0printf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0printf$8) refers to fputc.o(i.fputc) for fputc
+    printf8.o(i.__0printf$8) refers to stdout.o(.data) for __stdout
+    printf8.o(i.__0snprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0snprintf$8) refers to printf8.o(i._snputc) for _snputc
+    printf8.o(i.__0sprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0sprintf$8) refers to printf8.o(i._sputc) for _sputc
+    printf8.o(i.__0vfprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vfprintf$8) refers to fputc.o(i.fputc) for fputc
+    printf8.o(i.__0vprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vprintf$8) refers to fputc.o(i.fputc) for fputc
+    printf8.o(i.__0vprintf$8) refers to stdout.o(.data) for __stdout
+    printf8.o(i.__0vsnprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vsnprintf$8) refers to printf8.o(i._snputc) for _snputc
+    printf8.o(i.__0vsprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vsprintf$8) refers to printf8.o(i._sputc) for _sputc
+    printf8.o(i._printf_core) refers to printf8.o(i._printf_pre_padding) for _printf_pre_padding
+    printf8.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf8.o(i._printf_core) refers to printf8.o(i._printf_post_padding) for _printf_post_padding
+    printfa.o(i.__0fprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0fprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0fprintf) refers to fputc.o(i.fputc) for fputc
+    printfa.o(i.__0printf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0printf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0printf) refers to fputc.o(i.fputc) for fputc
+    printfa.o(i.__0printf) refers to stdout.o(.data) for __stdout
+    printfa.o(i.__0snprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0snprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0snprintf) refers to printfa.o(i._snputc) for _snputc
+    printfa.o(i.__0sprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0sprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0sprintf) refers to printfa.o(i._sputc) for _sputc
+    printfa.o(i.__0vfprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vfprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vfprintf) refers to fputc.o(i.fputc) for fputc
+    printfa.o(i.__0vprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vprintf) refers to fputc.o(i.fputc) for fputc
+    printfa.o(i.__0vprintf) refers to stdout.o(.data) for __stdout
+    printfa.o(i.__0vsnprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vsnprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vsnprintf) refers to printfa.o(i._snputc) for _snputc
+    printfa.o(i.__0vsprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vsprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vsprintf) refers to printfa.o(i._sputc) for _sputc
+    printfa.o(i._fp_digits) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._fp_digits) refers to dmul.o(.text) for __aeabi_dmul
+    printfa.o(i._fp_digits) refers to ddiv.o(.text) for __aeabi_ddiv
+    printfa.o(i._fp_digits) refers to cdrcmple.o(.text) for __aeabi_cdrcmple
+    printfa.o(i._fp_digits) refers to dadd.o(.text) for __aeabi_dadd
+    printfa.o(i._fp_digits) refers to dfixul.o(.text) for __aeabi_d2ulz
+    printfa.o(i._fp_digits) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printfa.o(i._printf_core) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._printf_core) refers to printfa.o(i._printf_pre_padding) for _printf_pre_padding
+    printfa.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printfa.o(i._printf_core) refers to printfa.o(i._printf_post_padding) for _printf_post_padding
+    printfa.o(i._printf_core) refers to printfa.o(i._fp_digits) for _fp_digits
+    printfa.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printfa.o(i._printf_post_padding) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._printf_pre_padding) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._snputc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._sputc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    entry2.o(.ARM.Collect$$$$00000001) refers to entry2.o(.ARM.Collect$$$$00002712) for __lit__00000000
+    entry2.o(.ARM.Collect$$$$00002712) refers to startup_gd32f450.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to startup_gd32f450.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    entry5.o(.ARM.Collect$$$$00000004) refers to init.o(.text) for __scatterload
+    entry9a.o(.ARM.Collect$$$$0000000B) refers to main.o(i.main) for main
+    entry9b.o(.ARM.Collect$$$$0000000C) refers to main.o(i.main) for main
+    fputc.o(i.fputc) refers (Special) to iusesemip.o(.text) for __I$use$semihosting$fputc
+    fputc.o(i.fputc) refers (Special) to semi.o(.text) for __semihosting_library_function
+    uldiv.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    uldiv.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    dadd.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    dadd.o(.text) refers to llsshr.o(.text) for __aeabi_lasr
+    dadd.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    dmul.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    ddiv.o(.text) refers to depilogue.o(.text) for _double_round
+    dfixul.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    dfixul.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
+    depilogue.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    depilogue.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing gd32f4xx_it.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_it.o(.revsh_text), (4 bytes).
+    Removing main.o(.rev16_text), (4 bytes).
+    Removing main.o(.revsh_text), (4 bytes).
+    Removing main.o(i.dma_send_receive), (248 bytes).
+    Removing main.o(i.led_spark), (60 bytes).
+    Removing main.o(.bss), (2000 bytes).
+    Removing gd32f4xx_adc.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_adc.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_adc.o(i.adc_calibration_enable), (42 bytes).
+    Removing gd32f4xx_adc.o(i.adc_channel_16_to_18), (104 bytes).
+    Removing gd32f4xx_adc.o(i.adc_channel_length_config), (68 bytes).
+    Removing gd32f4xx_adc.o(i.adc_clock_config), (36 bytes).
+    Removing gd32f4xx_adc.o(i.adc_data_alignment_config), (22 bytes).
+    Removing gd32f4xx_adc.o(i.adc_deinit), (20 bytes).
+    Removing gd32f4xx_adc.o(i.adc_disable), (10 bytes).
+    Removing gd32f4xx_adc.o(i.adc_discontinuous_mode_config), (68 bytes).
+    Removing gd32f4xx_adc.o(i.adc_dma_mode_disable), (10 bytes).
+    Removing gd32f4xx_adc.o(i.adc_dma_mode_enable), (10 bytes).
+    Removing gd32f4xx_adc.o(i.adc_dma_request_after_last_disable), (10 bytes).
+    Removing gd32f4xx_adc.o(i.adc_dma_request_after_last_enable), (10 bytes).
+    Removing gd32f4xx_adc.o(i.adc_enable), (18 bytes).
+    Removing gd32f4xx_adc.o(i.adc_end_of_conversion_config), (34 bytes).
+    Removing gd32f4xx_adc.o(i.adc_external_trigger_config), (50 bytes).
+    Removing gd32f4xx_adc.o(i.adc_external_trigger_source_config), (46 bytes).
+    Removing gd32f4xx_adc.o(i.adc_flag_clear), (8 bytes).
+    Removing gd32f4xx_adc.o(i.adc_flag_get), (16 bytes).
+    Removing gd32f4xx_adc.o(i.adc_inserted_channel_config), (124 bytes).
+    Removing gd32f4xx_adc.o(i.adc_inserted_channel_offset_config), (32 bytes).
+    Removing gd32f4xx_adc.o(i.adc_inserted_data_read), (46 bytes).
+    Removing gd32f4xx_adc.o(i.adc_interrupt_disable), (64 bytes).
+    Removing gd32f4xx_adc.o(i.adc_interrupt_enable), (64 bytes).
+    Removing gd32f4xx_adc.o(i.adc_interrupt_flag_clear), (8 bytes).
+    Removing gd32f4xx_adc.o(i.adc_interrupt_flag_get), (112 bytes).
+    Removing gd32f4xx_adc.o(i.adc_oversample_mode_config), (56 bytes).
+    Removing gd32f4xx_adc.o(i.adc_oversample_mode_disable), (14 bytes).
+    Removing gd32f4xx_adc.o(i.adc_oversample_mode_enable), (14 bytes).
+    Removing gd32f4xx_adc.o(i.adc_regular_channel_config), (172 bytes).
+    Removing gd32f4xx_adc.o(i.adc_regular_data_read), (8 bytes).
+    Removing gd32f4xx_adc.o(i.adc_resolution_config), (16 bytes).
+    Removing gd32f4xx_adc.o(i.adc_software_trigger_enable), (34 bytes).
+    Removing gd32f4xx_adc.o(i.adc_special_function_config), (96 bytes).
+    Removing gd32f4xx_adc.o(i.adc_sync_delay_config), (36 bytes).
+    Removing gd32f4xx_adc.o(i.adc_sync_dma_config), (36 bytes).
+    Removing gd32f4xx_adc.o(i.adc_sync_dma_request_after_last_disable), (24 bytes).
+    Removing gd32f4xx_adc.o(i.adc_sync_dma_request_after_last_enable), (24 bytes).
+    Removing gd32f4xx_adc.o(i.adc_sync_mode_config), (36 bytes).
+    Removing gd32f4xx_adc.o(i.adc_sync_regular_data_read), (12 bytes).
+    Removing gd32f4xx_adc.o(i.adc_watchdog_disable), (48 bytes).
+    Removing gd32f4xx_adc.o(i.adc_watchdog_enable), (60 bytes).
+    Removing gd32f4xx_adc.o(i.adc_watchdog_single_channel_disable), (10 bytes).
+    Removing gd32f4xx_adc.o(i.adc_watchdog_single_channel_enable), (24 bytes).
+    Removing gd32f4xx_adc.o(i.adc_watchdog_threshold_config), (6 bytes).
+    Removing gd32f4xx_can.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_can.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_can.o(i.can1_filter_start_bank), (56 bytes).
+    Removing gd32f4xx_can.o(i.can_debug_freeze_disable), (44 bytes).
+    Removing gd32f4xx_can.o(i.can_debug_freeze_enable), (44 bytes).
+    Removing gd32f4xx_can.o(i.can_deinit), (52 bytes).
+    Removing gd32f4xx_can.o(i.can_error_get), (12 bytes).
+    Removing gd32f4xx_can.o(i.can_fifo_release), (26 bytes).
+    Removing gd32f4xx_can.o(i.can_filter_init), (272 bytes).
+    Removing gd32f4xx_can.o(i.can_flag_clear), (26 bytes).
+    Removing gd32f4xx_can.o(i.can_flag_get), (30 bytes).
+    Removing gd32f4xx_can.o(i.can_init), (296 bytes).
+    Removing gd32f4xx_can.o(i.can_interrupt_disable), (8 bytes).
+    Removing gd32f4xx_can.o(i.can_interrupt_enable), (8 bytes).
+    Removing gd32f4xx_can.o(i.can_interrupt_flag_clear), (26 bytes).
+    Removing gd32f4xx_can.o(i.can_interrupt_flag_get), (140 bytes).
+    Removing gd32f4xx_can.o(i.can_message_receive), (228 bytes).
+    Removing gd32f4xx_can.o(i.can_message_transmit), (344 bytes).
+    Removing gd32f4xx_can.o(i.can_receive_error_number), (8 bytes).
+    Removing gd32f4xx_can.o(i.can_receive_message_length), (26 bytes).
+    Removing gd32f4xx_can.o(i.can_time_trigger_mode_disable), (48 bytes).
+    Removing gd32f4xx_can.o(i.can_time_trigger_mode_enable), (48 bytes).
+    Removing gd32f4xx_can.o(i.can_transmission_stop), (40 bytes).
+    Removing gd32f4xx_can.o(i.can_transmit_error_number), (10 bytes).
+    Removing gd32f4xx_can.o(i.can_transmit_states), (120 bytes).
+    Removing gd32f4xx_can.o(i.can_wakeup), (48 bytes).
+    Removing gd32f4xx_can.o(i.can_working_mode_set), (168 bytes).
+    Removing gd32f4xx_crc.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_crc.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_crc.o(i.crc_block_data_calculate), (36 bytes).
+    Removing gd32f4xx_crc.o(i.crc_data_register_read), (12 bytes).
+    Removing gd32f4xx_crc.o(i.crc_data_register_reset), (20 bytes).
+    Removing gd32f4xx_crc.o(i.crc_deinit), (24 bytes).
+    Removing gd32f4xx_crc.o(i.crc_free_data_register_read), (12 bytes).
+    Removing gd32f4xx_crc.o(i.crc_free_data_register_write), (12 bytes).
+    Removing gd32f4xx_crc.o(i.crc_single_data_calculate), (16 bytes).
+    Removing gd32f4xx_ctc.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_ctc.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_clock_limit_value_config), (28 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_counter_capture_value_read), (16 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_counter_direction_read), (24 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_counter_disable), (20 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_counter_enable), (20 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_counter_reload_value_config), (28 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_counter_reload_value_read), (16 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_deinit), (20 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_flag_clear), (36 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_flag_get), (24 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_hardware_trim_mode_config), (28 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_interrupt_disable), (16 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_interrupt_enable), (16 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_interrupt_flag_clear), (36 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_interrupt_flag_get), (56 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_irc48m_trim_value_config), (28 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_irc48m_trim_value_read), (16 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_refsource_polarity_config), (28 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_refsource_prescaler_config), (28 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_refsource_signal_select), (28 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_software_refsource_pulse_generate), (20 bytes).
+    Removing gd32f4xx_ctc.o(i.ctc_usbsof_signal_select), (28 bytes).
+    Removing gd32f4xx_dac.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_dac.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_dac.o(i.dac_concurrent_data_set), (64 bytes).
+    Removing gd32f4xx_dac.o(i.dac_concurrent_disable), (24 bytes).
+    Removing gd32f4xx_dac.o(i.dac_concurrent_enable), (24 bytes).
+    Removing gd32f4xx_dac.o(i.dac_concurrent_interrupt_disable), (24 bytes).
+    Removing gd32f4xx_dac.o(i.dac_concurrent_interrupt_enable), (24 bytes).
+    Removing gd32f4xx_dac.o(i.dac_concurrent_output_buffer_disable), (24 bytes).
+    Removing gd32f4xx_dac.o(i.dac_concurrent_output_buffer_enable), (24 bytes).
+    Removing gd32f4xx_dac.o(i.dac_concurrent_software_trigger_disable), (20 bytes).
+    Removing gd32f4xx_dac.o(i.dac_concurrent_software_trigger_enable), (20 bytes).
+    Removing gd32f4xx_dac.o(i.dac_data_set), (88 bytes).
+    Removing gd32f4xx_dac.o(i.dac_deinit), (20 bytes).
+    Removing gd32f4xx_dac.o(i.dac_disable), (36 bytes).
+    Removing gd32f4xx_dac.o(i.dac_dma_disable), (36 bytes).
+    Removing gd32f4xx_dac.o(i.dac_dma_enable), (36 bytes).
+    Removing gd32f4xx_dac.o(i.dac_enable), (36 bytes).
+    Removing gd32f4xx_dac.o(i.dac_flag_clear), (36 bytes).
+    Removing gd32f4xx_dac.o(i.dac_flag_get), (40 bytes).
+    Removing gd32f4xx_dac.o(i.dac_interrupt_disable), (36 bytes).
+    Removing gd32f4xx_dac.o(i.dac_interrupt_enable), (36 bytes).
+    Removing gd32f4xx_dac.o(i.dac_interrupt_flag_clear), (36 bytes).
+    Removing gd32f4xx_dac.o(i.dac_interrupt_flag_get), (68 bytes).
+    Removing gd32f4xx_dac.o(i.dac_lfsr_noise_config), (52 bytes).
+    Removing gd32f4xx_dac.o(i.dac_output_buffer_disable), (36 bytes).
+    Removing gd32f4xx_dac.o(i.dac_output_buffer_enable), (36 bytes).
+    Removing gd32f4xx_dac.o(i.dac_output_value_get), (28 bytes).
+    Removing gd32f4xx_dac.o(i.dac_software_trigger_disable), (36 bytes).
+    Removing gd32f4xx_dac.o(i.dac_software_trigger_enable), (36 bytes).
+    Removing gd32f4xx_dac.o(i.dac_triangle_noise_config), (52 bytes).
+    Removing gd32f4xx_dac.o(i.dac_trigger_disable), (36 bytes).
+    Removing gd32f4xx_dac.o(i.dac_trigger_enable), (36 bytes).
+    Removing gd32f4xx_dac.o(i.dac_trigger_source_config), (52 bytes).
+    Removing gd32f4xx_dac.o(i.dac_wave_bit_width_config), (52 bytes).
+    Removing gd32f4xx_dac.o(i.dac_wave_mode_config), (52 bytes).
+    Removing gd32f4xx_dbg.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_dbg.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_dbg.o(i.dbg_id_get), (12 bytes).
+    Removing gd32f4xx_dbg.o(i.dbg_low_power_disable), (16 bytes).
+    Removing gd32f4xx_dbg.o(i.dbg_low_power_enable), (16 bytes).
+    Removing gd32f4xx_dbg.o(i.dbg_periph_disable), (40 bytes).
+    Removing gd32f4xx_dbg.o(i.dbg_periph_enable), (40 bytes).
+    Removing gd32f4xx_dbg.o(i.dbg_trace_pin_disable), (20 bytes).
+    Removing gd32f4xx_dbg.o(i.dbg_trace_pin_enable), (20 bytes).
+    Removing gd32f4xx_dbg.o(i.dbg_trace_pin_mode_set), (28 bytes).
+    Removing gd32f4xx_dci.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_dci.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_dci.o(i.dci_capture_disable), (20 bytes).
+    Removing gd32f4xx_dci.o(i.dci_capture_enable), (20 bytes).
+    Removing gd32f4xx_dci.o(i.dci_crop_window_config), (24 bytes).
+    Removing gd32f4xx_dci.o(i.dci_crop_window_disable), (20 bytes).
+    Removing gd32f4xx_dci.o(i.dci_crop_window_enable), (20 bytes).
+    Removing gd32f4xx_dci.o(i.dci_data_read), (12 bytes).
+    Removing gd32f4xx_dci.o(i.dci_deinit), (20 bytes).
+    Removing gd32f4xx_dci.o(i.dci_disable), (20 bytes).
+    Removing gd32f4xx_dci.o(i.dci_embedded_sync_disable), (20 bytes).
+    Removing gd32f4xx_dci.o(i.dci_embedded_sync_enable), (20 bytes).
+    Removing gd32f4xx_dci.o(i.dci_enable), (20 bytes).
+    Removing gd32f4xx_dci.o(i.dci_flag_get), (120 bytes).
+    Removing gd32f4xx_dci.o(i.dci_init), (52 bytes).
+    Removing gd32f4xx_dci.o(i.dci_interrupt_clear), (16 bytes).
+    Removing gd32f4xx_dci.o(i.dci_interrupt_disable), (16 bytes).
+    Removing gd32f4xx_dci.o(i.dci_interrupt_enable), (16 bytes).
+    Removing gd32f4xx_dci.o(i.dci_interrupt_flag_get), (24 bytes).
+    Removing gd32f4xx_dci.o(i.dci_jpeg_disable), (20 bytes).
+    Removing gd32f4xx_dci.o(i.dci_jpeg_enable), (20 bytes).
+    Removing gd32f4xx_dci.o(i.dci_sync_codes_config), (24 bytes).
+    Removing gd32f4xx_dci.o(i.dci_sync_codes_unmask_config), (24 bytes).
+    Removing gd32f4xx_dma.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_dma.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_dma.o(i.dma_channel_disable), (32 bytes).
+    Removing gd32f4xx_dma.o(i.dma_channel_enable), (32 bytes).
+    Removing gd32f4xx_dma.o(i.dma_channel_subperipheral_select), (38 bytes).
+    Removing gd32f4xx_dma.o(i.dma_circulation_disable), (32 bytes).
+    Removing gd32f4xx_dma.o(i.dma_circulation_enable), (32 bytes).
+    Removing gd32f4xx_dma.o(i.dma_deinit), (164 bytes).
+    Removing gd32f4xx_dma.o(i.dma_fifo_status_get), (20 bytes).
+    Removing gd32f4xx_dma.o(i.dma_flag_clear), (62 bytes).
+    Removing gd32f4xx_dma.o(i.dma_flag_get), (76 bytes).
+    Removing gd32f4xx_dma.o(i.dma_flow_controller_config), (64 bytes).
+    Removing gd32f4xx_dma.o(i.dma_interrupt_disable), (62 bytes).
+    Removing gd32f4xx_dma.o(i.dma_interrupt_enable), (62 bytes).
+    Removing gd32f4xx_dma.o(i.dma_interrupt_flag_clear), (62 bytes).
+    Removing gd32f4xx_dma.o(i.dma_interrupt_flag_get), (516 bytes).
+    Removing gd32f4xx_dma.o(i.dma_memory_address_config), (32 bytes).
+    Removing gd32f4xx_dma.o(i.dma_memory_address_generation_config), (64 bytes).
+    Removing gd32f4xx_dma.o(i.dma_memory_burst_beats_config), (36 bytes).
+    Removing gd32f4xx_dma.o(i.dma_memory_width_config), (36 bytes).
+    Removing gd32f4xx_dma.o(i.dma_multi_data_mode_init), (364 bytes).
+    Removing gd32f4xx_dma.o(i.dma_periph_address_config), (16 bytes).
+    Removing gd32f4xx_dma.o(i.dma_periph_burst_beats_config), (36 bytes).
+    Removing gd32f4xx_dma.o(i.dma_periph_width_config), (36 bytes).
+    Removing gd32f4xx_dma.o(i.dma_peripheral_address_generation_config), (126 bytes).
+    Removing gd32f4xx_dma.o(i.dma_priority_config), (36 bytes).
+    Removing gd32f4xx_dma.o(i.dma_single_data_mode_init), (352 bytes).
+    Removing gd32f4xx_dma.o(i.dma_switch_buffer_mode_config), (76 bytes).
+    Removing gd32f4xx_dma.o(i.dma_switch_buffer_mode_enable), (66 bytes).
+    Removing gd32f4xx_dma.o(i.dma_transfer_direction_config), (36 bytes).
+    Removing gd32f4xx_dma.o(i.dma_transfer_number_config), (16 bytes).
+    Removing gd32f4xx_dma.o(i.dma_transfer_number_get), (16 bytes).
+    Removing gd32f4xx_dma.o(i.dma_using_memory_get), (28 bytes).
+    Removing gd32f4xx_enet.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_enet.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_enet.o(i.enet_address_filter_config), (32 bytes).
+    Removing gd32f4xx_enet.o(i.enet_address_filter_disable), (24 bytes).
+    Removing gd32f4xx_enet.o(i.enet_address_filter_enable), (24 bytes).
+    Removing gd32f4xx_enet.o(i.enet_current_desc_address_get), (16 bytes).
+    Removing gd32f4xx_enet.o(i.enet_debug_status_get), (108 bytes).
+    Removing gd32f4xx_enet.o(i.enet_default_init), (120 bytes).
+    Removing gd32f4xx_enet.o(i.enet_deinit), (24 bytes).
+    Removing gd32f4xx_enet.o(i.enet_delay), (14 bytes).
+    Removing gd32f4xx_enet.o(i.enet_desc_flag_clear), (8 bytes).
+    Removing gd32f4xx_enet.o(i.enet_desc_flag_get), (14 bytes).
+    Removing gd32f4xx_enet.o(i.enet_desc_flag_set), (8 bytes).
+    Removing gd32f4xx_enet.o(i.enet_desc_information_get), (100 bytes).
+    Removing gd32f4xx_enet.o(i.enet_desc_select_normal_mode), (20 bytes).
+    Removing gd32f4xx_enet.o(i.enet_descriptors_chain_init), (200 bytes).
+    Removing gd32f4xx_enet.o(i.enet_descriptors_ring_init), (236 bytes).
+    Removing gd32f4xx_enet.o(i.enet_disable), (12 bytes).
+    Removing gd32f4xx_enet.o(i.enet_dma_feature_disable), (16 bytes).
+    Removing gd32f4xx_enet.o(i.enet_dma_feature_enable), (16 bytes).
+    Removing gd32f4xx_enet.o(i.enet_dmaprocess_resume), (28 bytes).
+    Removing gd32f4xx_enet.o(i.enet_dmaprocess_state_get), (16 bytes).
+    Removing gd32f4xx_enet.o(i.enet_enable), (12 bytes).
+    Removing gd32f4xx_enet.o(i.enet_flag_clear), (24 bytes).
+    Removing gd32f4xx_enet.o(i.enet_flag_get), (36 bytes).
+    Removing gd32f4xx_enet.o(i.enet_fliter_feature_disable), (16 bytes).
+    Removing gd32f4xx_enet.o(i.enet_fliter_feature_enable), (16 bytes).
+    Removing gd32f4xx_enet.o(i.enet_flowcontrol_feature_disable), (40 bytes).
+    Removing gd32f4xx_enet.o(i.enet_flowcontrol_feature_enable), (40 bytes).
+    Removing gd32f4xx_enet.o(i.enet_flowcontrol_threshold_config), (16 bytes).
+    Removing gd32f4xx_enet.o(i.enet_forward_feature_disable), (48 bytes).
+    Removing gd32f4xx_enet.o(i.enet_forward_feature_enable), (48 bytes).
+    Removing gd32f4xx_enet.o(i.enet_frame_receive), (248 bytes).
+    Removing gd32f4xx_enet.o(i.enet_frame_transmit), (204 bytes).
+    Removing gd32f4xx_enet.o(i.enet_init), (868 bytes).
+    Removing gd32f4xx_enet.o(i.enet_initpara_config), (356 bytes).
+    Removing gd32f4xx_enet.o(i.enet_initpara_reset), (40 bytes).
+    Removing gd32f4xx_enet.o(i.enet_interrupt_disable), (72 bytes).
+    Removing gd32f4xx_enet.o(i.enet_interrupt_enable), (72 bytes).
+    Removing gd32f4xx_enet.o(i.enet_interrupt_flag_clear), (24 bytes).
+    Removing gd32f4xx_enet.o(i.enet_interrupt_flag_get), (36 bytes).
+    Removing gd32f4xx_enet.o(i.enet_mac_address_get), (60 bytes).
+    Removing gd32f4xx_enet.o(i.enet_mac_address_set), (48 bytes).
+    Removing gd32f4xx_enet.o(i.enet_missed_frame_counter_get), (24 bytes).
+    Removing gd32f4xx_enet.o(i.enet_msc_counters_get), (12 bytes).
+    Removing gd32f4xx_enet.o(i.enet_msc_counters_preset_config), (36 bytes).
+    Removing gd32f4xx_enet.o(i.enet_msc_counters_reset), (24 bytes).
+    Removing gd32f4xx_enet.o(i.enet_msc_feature_disable), (24 bytes).
+    Removing gd32f4xx_enet.o(i.enet_msc_feature_enable), (24 bytes).
+    Removing gd32f4xx_enet.o(i.enet_pauseframe_config), (44 bytes).
+    Removing gd32f4xx_enet.o(i.enet_pauseframe_detect_config), (28 bytes).
+    Removing gd32f4xx_enet.o(i.enet_pauseframe_generate), (36 bytes).
+    Removing gd32f4xx_enet.o(i.enet_phy_config), (216 bytes).
+    Removing gd32f4xx_enet.o(i.enet_phy_write_read), (156 bytes).
+    Removing gd32f4xx_enet.o(i.enet_phyloopback_disable), (50 bytes).
+    Removing gd32f4xx_enet.o(i.enet_phyloopback_enable), (48 bytes).
+    Removing gd32f4xx_enet.o(i.enet_ptp_expected_time_config), (16 bytes).
+    Removing gd32f4xx_enet.o(i.enet_ptp_feature_disable), (16 bytes).
+    Removing gd32f4xx_enet.o(i.enet_ptp_feature_enable), (16 bytes).
+    Removing gd32f4xx_enet.o(i.enet_ptp_normal_descriptors_chain_init), (236 bytes).
+    Removing gd32f4xx_enet.o(i.enet_ptp_normal_descriptors_ring_init), (280 bytes).
+    Removing gd32f4xx_enet.o(i.enet_ptp_pps_output_frequency_config), (12 bytes).
+    Removing gd32f4xx_enet.o(i.enet_ptp_subsecond_increment_config), (12 bytes).
+    Removing gd32f4xx_enet.o(i.enet_ptp_system_time_get), (32 bytes).
+    Removing gd32f4xx_enet.o(i.enet_ptp_timestamp_addend_config), (12 bytes).
+    Removing gd32f4xx_enet.o(i.enet_ptp_timestamp_function_config), (256 bytes).
+    Removing gd32f4xx_enet.o(i.enet_ptp_timestamp_update_config), (24 bytes).
+    Removing gd32f4xx_enet.o(i.enet_ptpframe_receive_normal_mode), (340 bytes).
+    Removing gd32f4xx_enet.o(i.enet_ptpframe_transmit_normal_mode), (444 bytes).
+    Removing gd32f4xx_enet.o(i.enet_registers_get), (56 bytes).
+    Removing gd32f4xx_enet.o(i.enet_rx_desc_delay_receive_complete_interrupt), (20 bytes).
+    Removing gd32f4xx_enet.o(i.enet_rx_desc_immediate_receive_complete_interrupt), (10 bytes).
+    Removing gd32f4xx_enet.o(i.enet_rx_disable), (36 bytes).
+    Removing gd32f4xx_enet.o(i.enet_rx_enable), (36 bytes).
+    Removing gd32f4xx_enet.o(i.enet_rxframe_drop), (172 bytes).
+    Removing gd32f4xx_enet.o(i.enet_rxframe_size_get), (152 bytes).
+    Removing gd32f4xx_enet.o(i.enet_rxprocess_check_recovery), (48 bytes).
+    Removing gd32f4xx_enet.o(i.enet_software_reset), (60 bytes).
+    Removing gd32f4xx_enet.o(i.enet_transmit_checksum_config), (16 bytes).
+    Removing gd32f4xx_enet.o(i.enet_tx_disable), (40 bytes).
+    Removing gd32f4xx_enet.o(i.enet_tx_enable), (40 bytes).
+    Removing gd32f4xx_enet.o(i.enet_txfifo_flush), (52 bytes).
+    Removing gd32f4xx_enet.o(i.enet_wum_feature_disable), (16 bytes).
+    Removing gd32f4xx_enet.o(i.enet_wum_feature_enable), (16 bytes).
+    Removing gd32f4xx_enet.o(i.enet_wum_filter_config), (28 bytes).
+    Removing gd32f4xx_enet.o(i.enet_wum_filter_register_pointer_reset), (20 bytes).
+    Removing gd32f4xx_enet.o(.bss), (15460 bytes).
+    Removing gd32f4xx_enet.o(.constdata), (116 bytes).
+    Removing gd32f4xx_enet.o(.data), (20 bytes).
+    Removing gd32f4xx_exmc.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_exmc.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_ecc_get), (12 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_flag_clear), (52 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_flag_get), (52 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_interrupt_disable), (56 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_interrupt_enable), (56 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_interrupt_flag_clear), (56 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_interrupt_flag_get), (72 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_nand_deinit), (42 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_nand_disable), (22 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_nand_ecc_config), (48 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_nand_enable), (22 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_nand_init), (172 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_nand_parameter_init), (54 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_norsram_consecutive_clock_config), (42 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_norsram_deinit), (52 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_norsram_disable), (22 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_norsram_enable), (22 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_norsram_init), (228 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_norsram_page_size_config), (40 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_norsram_parameter_init), (106 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_pccard_deinit), (40 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_pccard_disable), (24 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_pccard_enable), (24 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_pccard_init), (188 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_pccard_parameter_init), (60 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sdram_autorefresh_number_set), (32 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sdram_bankstatus_get), (32 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sdram_command_config), (28 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sdram_deinit), (56 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sdram_init), (280 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sdram_parameter_init), (66 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sdram_readsample_config), (40 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sdram_readsample_enable), (44 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sdram_refresh_count_set), (36 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sdram_write_protection_config), (64 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sqpipsram_deinit), (44 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sqpipsram_high_id_get), (12 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sqpipsram_init), (24 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sqpipsram_low_id_get), (12 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sqpipsram_parameter_init), (20 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sqpipsram_read_command_set), (28 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sqpipsram_read_id_command_send), (24 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sqpipsram_send_command_state_get), (48 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sqpipsram_write_cmd_send), (24 bytes).
+    Removing gd32f4xx_exmc.o(i.exmc_sqpipsram_write_command_set), (28 bytes).
+    Removing gd32f4xx_exti.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_exti.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_exti.o(i.exti_deinit), (28 bytes).
+    Removing gd32f4xx_exti.o(i.exti_event_disable), (16 bytes).
+    Removing gd32f4xx_exti.o(i.exti_event_enable), (16 bytes).
+    Removing gd32f4xx_exti.o(i.exti_flag_clear), (12 bytes).
+    Removing gd32f4xx_exti.o(i.exti_flag_get), (24 bytes).
+    Removing gd32f4xx_exti.o(i.exti_interrupt_disable), (16 bytes).
+    Removing gd32f4xx_exti.o(i.exti_interrupt_enable), (16 bytes).
+    Removing gd32f4xx_exti.o(i.exti_software_interrupt_disable), (16 bytes).
+    Removing gd32f4xx_exti.o(i.exti_software_interrupt_enable), (16 bytes).
+    Removing gd32f4xx_fmc.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_fmc.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_bank0_erase), (60 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_bank1_erase), (60 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_byte_program), (72 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_flag_clear), (12 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_flag_get), (24 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_halfword_program), (76 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_interrupt_disable), (16 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_interrupt_enable), (16 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_lock), (20 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_mass_erase), (64 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_ready_wait), (20 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_sector_erase), (88 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_state_get), (84 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_unlock), (36 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_word_program), (76 bytes).
+    Removing gd32f4xx_fmc.o(i.fmc_wscnt_set), (24 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_boot_mode_config), (24 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_drp0_disable), (32 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_drp0_enable), (32 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_drp0_get), (16 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_drp1_disable), (32 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_drp1_enable), (32 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_drp1_get), (16 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_drp_config), (28 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_lock), (20 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_security_protection_config), (40 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_spc_get), (28 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_start), (20 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_unlock), (36 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_user_bor_threshold), (24 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_user_bor_threshold_get), (16 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_user_get), (16 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_user_write), (48 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_write_protection0_disable), (32 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_write_protection0_enable), (32 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_write_protection0_get), (16 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_write_protection1_disable), (32 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_write_protection1_enable), (32 bytes).
+    Removing gd32f4xx_fmc.o(i.ob_write_protection1_get), (16 bytes).
+    Removing gd32f4xx_fwdgt.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_fwdgt.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_fwdgt.o(i.fwdgt_config), (104 bytes).
+    Removing gd32f4xx_fwdgt.o(i.fwdgt_counter_reload), (16 bytes).
+    Removing gd32f4xx_fwdgt.o(i.fwdgt_enable), (16 bytes).
+    Removing gd32f4xx_fwdgt.o(i.fwdgt_flag_get), (24 bytes).
+    Removing gd32f4xx_fwdgt.o(i.fwdgt_write_disable), (12 bytes).
+    Removing gd32f4xx_gpio.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_gpio.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_gpio.o(i.gpio_bit_toggle), (4 bytes).
+    Removing gd32f4xx_gpio.o(i.gpio_bit_write), (10 bytes).
+    Removing gd32f4xx_gpio.o(i.gpio_deinit), (206 bytes).
+    Removing gd32f4xx_gpio.o(i.gpio_input_port_get), (8 bytes).
+    Removing gd32f4xx_gpio.o(i.gpio_output_bit_get), (16 bytes).
+    Removing gd32f4xx_gpio.o(i.gpio_output_port_get), (8 bytes).
+    Removing gd32f4xx_gpio.o(i.gpio_pin_lock), (18 bytes).
+    Removing gd32f4xx_gpio.o(i.gpio_port_toggle), (8 bytes).
+    Removing gd32f4xx_gpio.o(i.gpio_port_write), (4 bytes).
+    Removing gd32f4xx_i2c.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_i2c.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_ack_config), (24 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_ackpos_config), (22 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_analog_noise_filter_disable), (10 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_analog_noise_filter_enable), (10 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_clock_config), (216 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_deinit), (88 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_digital_noise_filter_config), (8 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_disable), (10 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_dma_enable), (16 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_dma_last_transfer_enable), (16 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_dualaddr_enable), (24 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_enable), (10 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_flag_clear), (18 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_flag_get), (50 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_interrupt_disable), (8 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_interrupt_enable), (8 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_master_addressing), (20 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_mode_addr_config), (24 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_pec_enable), (16 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_pec_transfer_enable), (16 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_pec_value), (10 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_receive_data), (8 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_sam_disable), (14 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_sam_enable), (14 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_sam_flag_clear), (12 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_sam_flag_get), (20 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_sam_interrupt_disable), (12 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_sam_interrupt_enable), (12 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_sam_timeout_disable), (14 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_sam_timeout_enable), (14 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_slave_response_to_gcall_config), (16 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_smbus_alert_issue), (16 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_smbus_arp_enable), (16 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_smbus_type_config), (24 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_software_reset_config), (16 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_start_on_bus), (10 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_stop_on_bus), (10 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_stretch_scl_low_config), (16 bytes).
+    Removing gd32f4xx_i2c.o(i.i2c_transmit_data), (4 bytes).
+    Removing gd32f4xx_ipa.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_ipa.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_background_init), (124 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_background_lut_init), (64 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_background_lut_loading_enable), (20 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_deinit), (20 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_destination_init), (276 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_foreground_init), (124 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_foreground_lut_init), (64 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_foreground_lut_loading_enable), (20 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_inter_timer_config), (36 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_interrupt_disable), (16 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_interrupt_enable), (16 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_interrupt_flag_clear), (16 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_interrupt_flag_get), (24 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_interval_clock_num_config), (28 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_line_mark_config), (24 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_pixel_format_convert_mod), (16 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_transfer_enable), (20 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_transfer_hangup_disable), (20 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_transfer_hangup_enable), (20 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_transfer_stop_disable), (20 bytes).
+    Removing gd32f4xx_ipa.o(i.ipa_transfer_stop_enable), (20 bytes).
+    Removing gd32f4xx_iref.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_iref.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_iref.o(i.iref_deinit), (20 bytes).
+    Removing gd32f4xx_iref.o(i.iref_disable), (20 bytes).
+    Removing gd32f4xx_iref.o(i.iref_enable), (20 bytes).
+    Removing gd32f4xx_iref.o(i.iref_mode_set), (28 bytes).
+    Removing gd32f4xx_iref.o(i.iref_precision_trim_value_set), (28 bytes).
+    Removing gd32f4xx_iref.o(i.iref_sink_set), (28 bytes).
+    Removing gd32f4xx_iref.o(i.iref_step_data_config), (28 bytes).
+    Removing gd32f4xx_misc.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_misc.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_misc.o(i.nvic_irq_disable), (24 bytes).
+    Removing gd32f4xx_misc.o(i.nvic_vector_table_set), (20 bytes).
+    Removing gd32f4xx_misc.o(i.system_lowpower_reset), (16 bytes).
+    Removing gd32f4xx_misc.o(i.system_lowpower_set), (16 bytes).
+    Removing gd32f4xx_misc.o(i.systick_clksource_set), (40 bytes).
+    Removing gd32f4xx_pmu.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_pmu.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_backup_ldo_config), (28 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_backup_write_disable), (20 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_backup_write_enable), (20 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_deinit), (20 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_flag_get), (24 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_flag_reset), (48 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_highdriver_mode_disable), (20 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_highdriver_mode_enable), (20 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_highdriver_switch_select), (44 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_ldo_output_select), (28 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_low_driver_mode_enable), (28 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_lowdriver_lowpower_config), (28 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_lowdriver_normalpower_config), (28 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_lvd_disable), (20 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_lvd_select), (48 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_to_deepsleepmode), (68 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_to_sleepmode), (28 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_to_standbymode), (52 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_wakeup_pin_disable), (20 bytes).
+    Removing gd32f4xx_pmu.o(i.pmu_wakeup_pin_enable), (20 bytes).
+    Removing gd32f4xx_rcu.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_rcu.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_ahb_clock_config), (24 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_all_reset_flag_clear), (20 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_apb1_clock_config), (24 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_apb2_clock_config), (24 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_bkp_reset_disable), (20 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_bkp_reset_enable), (20 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_ck48m_clock_config), (24 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_ckout0_config), (28 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_ckout1_config), (28 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_deepsleep_voltage_set), (16 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_deinit), (124 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_flag_get), (36 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_hxtal_clock_monitor_disable), (20 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_hxtal_clock_monitor_enable), (20 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_i2s_clock_config), (24 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_interrupt_disable), (36 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_interrupt_enable), (36 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_interrupt_flag_clear), (36 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_interrupt_flag_get), (36 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_irc16m_adjust_value_set), (28 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_lxtal_drive_capability_config), (24 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_osci_bypass_mode_disable), (116 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_osci_bypass_mode_enable), (116 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_osci_off), (36 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_osci_on), (36 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_osci_stab_wait), (344 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_periph_clock_disable), (36 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_periph_clock_sleep_disable), (36 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_periph_clock_sleep_enable), (36 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_pll48m_clock_config), (24 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_pll_config), (132 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_plli2s_config), (60 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_pllsai_config), (84 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_rtc_clock_config), (24 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_spread_spectrum_config), (32 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_spread_spectrum_disable), (20 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_spread_spectrum_enable), (20 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_system_clock_source_config), (24 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_system_clock_source_get), (16 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_timer_clock_prescaler_config), (36 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_tli_clock_div_config), (24 bytes).
+    Removing gd32f4xx_rcu.o(i.rcu_voltage_key_unlock), (16 bytes).
+    Removing gd32f4xx_rtc.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_rtc.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_alarm_config), (100 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_alarm_disable), (128 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_alarm_enable), (60 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_alarm_get), (68 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_alarm_output_config), (84 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_alarm_subsecond_config), (52 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_alarm_subsecond_get), (32 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_bypass_shadow_disable), (40 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_bypass_shadow_enable), (40 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_calibration_output_config), (48 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_coarse_calibration_config), (116 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_coarse_calibration_disable), (56 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_coarse_calibration_enable), (56 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_current_time_get), (100 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_deinit), (204 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_flag_clear), (16 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_flag_get), (20 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_hour_adjust), (36 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_init), (196 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_init_mode_enter), (72 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_init_mode_exit), (20 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_interrupt_disable), (60 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_interrupt_enable), (60 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_refclock_detection_disable), (56 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_refclock_detection_enable), (56 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_register_sync_wait), (96 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_second_adjust), (108 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_smooth_calibration_config), (80 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_subsecond_get), (20 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_tamper0_pin_map), (28 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_tamper_disable), (16 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_tamper_enable), (164 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_timestamp_disable), (40 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_timestamp_enable), (48 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_timestamp_get), (60 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_timestamp_pin_map), (28 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_timestamp_subsecond_get), (12 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_wakeup_clock_set), (92 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_wakeup_disable), (84 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_wakeup_enable), (40 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_wakeup_timer_get), (12 bytes).
+    Removing gd32f4xx_rtc.o(i.rtc_wakeup_timer_set), (76 bytes).
+    Removing gd32f4xx_sdio.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_sdio.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_bus_mode_set), (28 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_ceata_command_completion_disable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_ceata_command_completion_enable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_ceata_command_disable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_ceata_command_enable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_ceata_interrupt_disable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_ceata_interrupt_enable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_clock_config), (52 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_clock_disable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_clock_enable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_command_index_get), (12 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_command_response_config), (44 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_csm_disable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_csm_enable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_data_config), (60 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_data_counter_get), (12 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_data_read), (12 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_data_transfer_config), (28 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_data_write), (12 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_deinit), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_dma_disable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_dma_enable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_dsm_disable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_dsm_enable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_fifo_counter_get), (12 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_flag_clear), (12 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_flag_get), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_hardware_clock_disable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_hardware_clock_enable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_interrupt_disable), (16 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_interrupt_enable), (16 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_interrupt_flag_clear), (12 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_interrupt_flag_get), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_operation_disable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_operation_enable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_power_state_get), (12 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_power_state_set), (12 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_readwait_disable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_readwait_enable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_readwait_type_set), (40 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_response_get), (60 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_stop_readwait_disable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_stop_readwait_enable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_suspend_disable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_suspend_enable), (20 bytes).
+    Removing gd32f4xx_sdio.o(i.sdio_wait_type_set), (28 bytes).
+    Removing gd32f4xx_spi.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_spi.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_spi.o(i.i2s_disable), (10 bytes).
+    Removing gd32f4xx_spi.o(i.i2s_enable), (10 bytes).
+    Removing gd32f4xx_spi.o(i.i2s_full_duplex_mode_config), (50 bytes).
+    Removing gd32f4xx_spi.o(i.i2s_init), (28 bytes).
+    Removing gd32f4xx_spi.o(i.i2s_psc_config), (292 bytes).
+    Removing gd32f4xx_spi.o(i.qspi_disable), (14 bytes).
+    Removing gd32f4xx_spi.o(i.qspi_enable), (14 bytes).
+    Removing gd32f4xx_spi.o(i.qspi_io23_output_disable), (14 bytes).
+    Removing gd32f4xx_spi.o(i.qspi_io23_output_enable), (14 bytes).
+    Removing gd32f4xx_spi.o(i.qspi_read_enable), (14 bytes).
+    Removing gd32f4xx_spi.o(i.qspi_write_enable), (14 bytes).
+    Removing gd32f4xx_spi.o(i.spi_bidirectional_transfer_config), (26 bytes).
+    Removing gd32f4xx_spi.o(i.spi_crc_error_clear), (10 bytes).
+    Removing gd32f4xx_spi.o(i.spi_crc_get), (16 bytes).
+    Removing gd32f4xx_spi.o(i.spi_crc_next), (10 bytes).
+    Removing gd32f4xx_spi.o(i.spi_crc_off), (10 bytes).
+    Removing gd32f4xx_spi.o(i.spi_crc_on), (10 bytes).
+    Removing gd32f4xx_spi.o(i.spi_crc_polynomial_get), (8 bytes).
+    Removing gd32f4xx_spi.o(i.spi_crc_polynomial_set), (12 bytes).
+    Removing gd32f4xx_spi.o(i.spi_disable), (10 bytes).
+    Removing gd32f4xx_spi.o(i.spi_dma_disable), (22 bytes).
+    Removing gd32f4xx_spi.o(i.spi_dma_enable), (22 bytes).
+    Removing gd32f4xx_spi.o(i.spi_i2s_data_frame_format_config), (16 bytes).
+    Removing gd32f4xx_spi.o(i.spi_i2s_deinit), (172 bytes).
+    Removing gd32f4xx_spi.o(i.spi_i2s_interrupt_disable), (48 bytes).
+    Removing gd32f4xx_spi.o(i.spi_i2s_interrupt_enable), (48 bytes).
+    Removing gd32f4xx_spi.o(i.spi_i2s_interrupt_flag_get), (112 bytes).
+    Removing gd32f4xx_spi.o(i.spi_nss_internal_high), (10 bytes).
+    Removing gd32f4xx_spi.o(i.spi_nss_internal_low), (10 bytes).
+    Removing gd32f4xx_spi.o(i.spi_nss_output_disable), (10 bytes).
+    Removing gd32f4xx_spi.o(i.spi_nss_output_enable), (10 bytes).
+    Removing gd32f4xx_spi.o(i.spi_ti_mode_disable), (10 bytes).
+    Removing gd32f4xx_spi.o(i.spi_ti_mode_enable), (10 bytes).
+    Removing gd32f4xx_syscfg.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_syscfg.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_syscfg.o(i.syscfg_bootmode_config), (28 bytes).
+    Removing gd32f4xx_syscfg.o(i.syscfg_compensation_config), (24 bytes).
+    Removing gd32f4xx_syscfg.o(i.syscfg_deinit), (20 bytes).
+    Removing gd32f4xx_syscfg.o(i.syscfg_enet_phy_interface_config), (24 bytes).
+    Removing gd32f4xx_syscfg.o(i.syscfg_exmc_swap_config), (24 bytes).
+    Removing gd32f4xx_syscfg.o(i.syscfg_flag_get), (24 bytes).
+    Removing gd32f4xx_syscfg.o(i.syscfg_fmc_swap_config), (24 bytes).
+    Removing gd32f4xx_timer.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_timer.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_timer.o(i.timer_auto_reload_shadow_disable), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_auto_reload_shadow_enable), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_automatic_output_disable), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_automatic_output_enable), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_autoreload_value_config), (4 bytes).
+    Removing gd32f4xx_timer.o(i.timer_break_config), (30 bytes).
+    Removing gd32f4xx_timer.o(i.timer_break_disable), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_break_enable), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_capture_value_register_read), (42 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_complementary_output_polarity_config), (70 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_complementary_output_state_config), (70 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_control_shadow_config), (24 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_control_shadow_update_config), (26 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_dma_request_source_select), (26 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_input_capture_prescaler_config), (90 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_output_clear_config), (90 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_output_config), (492 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_output_fast_config), (90 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_output_mode_config), (90 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_output_polarity_config), (92 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_output_pulse_value_config), (38 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_output_shadow_config), (90 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_output_state_config), (92 bytes).
+    Removing gd32f4xx_timer.o(i.timer_channel_remap_config), (4 bytes).
+    Removing gd32f4xx_timer.o(i.timer_counter_alignment), (16 bytes).
+    Removing gd32f4xx_timer.o(i.timer_counter_down_direction), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_counter_read), (8 bytes).
+    Removing gd32f4xx_timer.o(i.timer_counter_up_direction), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_counter_value_config), (4 bytes).
+    Removing gd32f4xx_timer.o(i.timer_deinit), (388 bytes).
+    Removing gd32f4xx_timer.o(i.timer_disable), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_dma_disable), (8 bytes).
+    Removing gd32f4xx_timer.o(i.timer_dma_enable), (8 bytes).
+    Removing gd32f4xx_timer.o(i.timer_dma_transfer_config), (24 bytes).
+    Removing gd32f4xx_timer.o(i.timer_enable), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_event_software_generate), (8 bytes).
+    Removing gd32f4xx_timer.o(i.timer_external_clock_mode0_config), (40 bytes).
+    Removing gd32f4xx_timer.o(i.timer_external_clock_mode1_config), (32 bytes).
+    Removing gd32f4xx_timer.o(i.timer_external_clock_mode1_disable), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_external_trigger_as_external_clock_config), (164 bytes).
+    Removing gd32f4xx_timer.o(i.timer_external_trigger_config), (30 bytes).
+    Removing gd32f4xx_timer.o(i.timer_flag_clear), (8 bytes).
+    Removing gd32f4xx_timer.o(i.timer_flag_get), (16 bytes).
+    Removing gd32f4xx_timer.o(i.timer_hall_mode_config), (26 bytes).
+    Removing gd32f4xx_timer.o(i.timer_init), (152 bytes).
+    Removing gd32f4xx_timer.o(i.timer_input_capture_config), (326 bytes).
+    Removing gd32f4xx_timer.o(i.timer_input_pwm_capture_config), (356 bytes).
+    Removing gd32f4xx_timer.o(i.timer_input_trigger_source_select), (16 bytes).
+    Removing gd32f4xx_timer.o(i.timer_internal_clock_config), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_internal_trigger_as_external_clock_config), (32 bytes).
+    Removing gd32f4xx_timer.o(i.timer_interrupt_disable), (8 bytes).
+    Removing gd32f4xx_timer.o(i.timer_interrupt_enable), (8 bytes).
+    Removing gd32f4xx_timer.o(i.timer_interrupt_flag_clear), (8 bytes).
+    Removing gd32f4xx_timer.o(i.timer_interrupt_flag_get), (24 bytes).
+    Removing gd32f4xx_timer.o(i.timer_master_output_trigger_source_select), (16 bytes).
+    Removing gd32f4xx_timer.o(i.timer_master_slave_mode_config), (26 bytes).
+    Removing gd32f4xx_timer.o(i.timer_output_value_selection_config), (34 bytes).
+    Removing gd32f4xx_timer.o(i.timer_prescaler_config), (14 bytes).
+    Removing gd32f4xx_timer.o(i.timer_prescaler_read), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_primary_output_config), (24 bytes).
+    Removing gd32f4xx_timer.o(i.timer_quadrature_decoder_mode_config), (64 bytes).
+    Removing gd32f4xx_timer.o(i.timer_repetition_value_config), (4 bytes).
+    Removing gd32f4xx_timer.o(i.timer_single_pulse_mode_config), (26 bytes).
+    Removing gd32f4xx_timer.o(i.timer_slave_mode_select), (16 bytes).
+    Removing gd32f4xx_timer.o(i.timer_update_event_disable), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_update_event_enable), (10 bytes).
+    Removing gd32f4xx_timer.o(i.timer_update_source_config), (26 bytes).
+    Removing gd32f4xx_timer.o(i.timer_write_cc_register_config), (34 bytes).
+    Removing gd32f4xx_tli.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_tli.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_tli.o(i.tli_ckey_init), (16 bytes).
+    Removing gd32f4xx_tli.o(i.tli_color_key_disable), (14 bytes).
+    Removing gd32f4xx_tli.o(i.tli_color_key_enable), (14 bytes).
+    Removing gd32f4xx_tli.o(i.tli_current_pos_get), (12 bytes).
+    Removing gd32f4xx_tli.o(i.tli_deinit), (20 bytes).
+    Removing gd32f4xx_tli.o(i.tli_disable), (20 bytes).
+    Removing gd32f4xx_tli.o(i.tli_dither_config), (36 bytes).
+    Removing gd32f4xx_tli.o(i.tli_enable), (20 bytes).
+    Removing gd32f4xx_tli.o(i.tli_flag_get), (36 bytes).
+    Removing gd32f4xx_tli.o(i.tli_init), (188 bytes).
+    Removing gd32f4xx_tli.o(i.tli_interrupt_disable), (16 bytes).
+    Removing gd32f4xx_tli.o(i.tli_interrupt_enable), (16 bytes).
+    Removing gd32f4xx_tli.o(i.tli_interrupt_flag_clear), (16 bytes).
+    Removing gd32f4xx_tli.o(i.tli_interrupt_flag_get), (36 bytes).
+    Removing gd32f4xx_tli.o(i.tli_layer_disable), (14 bytes).
+    Removing gd32f4xx_tli.o(i.tli_layer_enable), (14 bytes).
+    Removing gd32f4xx_tli.o(i.tli_layer_init), (162 bytes).
+    Removing gd32f4xx_tli.o(i.tli_layer_window_offset_modify), (228 bytes).
+    Removing gd32f4xx_tli.o(i.tli_line_mark_set), (24 bytes).
+    Removing gd32f4xx_tli.o(i.tli_lut_disable), (14 bytes).
+    Removing gd32f4xx_tli.o(i.tli_lut_enable), (14 bytes).
+    Removing gd32f4xx_tli.o(i.tli_lut_init), (36 bytes).
+    Removing gd32f4xx_tli.o(i.tli_reload_config), (36 bytes).
+    Removing gd32f4xx_trng.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_trng.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_trng.o(i.trng_deinit), (20 bytes).
+    Removing gd32f4xx_trng.o(i.trng_disable), (20 bytes).
+    Removing gd32f4xx_trng.o(i.trng_enable), (20 bytes).
+    Removing gd32f4xx_trng.o(i.trng_flag_get), (24 bytes).
+    Removing gd32f4xx_trng.o(i.trng_get_true_random_data), (12 bytes).
+    Removing gd32f4xx_trng.o(i.trng_interrupt_disable), (20 bytes).
+    Removing gd32f4xx_trng.o(i.trng_interrupt_enable), (20 bytes).
+    Removing gd32f4xx_trng.o(i.trng_interrupt_flag_clear), (16 bytes).
+    Removing gd32f4xx_trng.o(i.trng_interrupt_flag_get), (24 bytes).
+    Removing gd32f4xx_usart.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_usart.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_usart.o(i.usart_address_config), (20 bytes).
+    Removing gd32f4xx_usart.o(i.usart_block_length_config), (28 bytes).
+    Removing gd32f4xx_usart.o(i.usart_break_frame_coherence_config), (24 bytes).
+    Removing gd32f4xx_usart.o(i.usart_data_first_config), (20 bytes).
+    Removing gd32f4xx_usart.o(i.usart_data_receive), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_data_transmit), (8 bytes).
+    Removing gd32f4xx_usart.o(i.usart_disable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_dma_receive_config), (16 bytes).
+    Removing gd32f4xx_usart.o(i.usart_dma_transmit_config), (16 bytes).
+    Removing gd32f4xx_usart.o(i.usart_flag_clear), (26 bytes).
+    Removing gd32f4xx_usart.o(i.usart_flag_get), (30 bytes).
+    Removing gd32f4xx_usart.o(i.usart_guard_time_config), (24 bytes).
+    Removing gd32f4xx_usart.o(i.usart_halfduplex_disable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_halfduplex_enable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_hardware_flow_coherence_config), (24 bytes).
+    Removing gd32f4xx_usart.o(i.usart_hardware_flow_cts_config), (16 bytes).
+    Removing gd32f4xx_usart.o(i.usart_hardware_flow_rts_config), (16 bytes).
+    Removing gd32f4xx_usart.o(i.usart_interrupt_disable), (70 bytes).
+    Removing gd32f4xx_usart.o(i.usart_interrupt_enable), (70 bytes).
+    Removing gd32f4xx_usart.o(i.usart_interrupt_flag_get), (30 bytes).
+    Removing gd32f4xx_usart.o(i.usart_invert_config), (104 bytes).
+    Removing gd32f4xx_usart.o(i.usart_irda_lowpower_config), (20 bytes).
+    Removing gd32f4xx_usart.o(i.usart_irda_mode_disable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_irda_mode_enable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_lin_break_dection_length_config), (20 bytes).
+    Removing gd32f4xx_usart.o(i.usart_lin_mode_disable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_lin_mode_enable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_mute_mode_disable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_mute_mode_enable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_mute_mode_wakeup_config), (16 bytes).
+    Removing gd32f4xx_usart.o(i.usart_oversample_config), (16 bytes).
+    Removing gd32f4xx_usart.o(i.usart_parity_check_coherence_config), (24 bytes).
+    Removing gd32f4xx_usart.o(i.usart_parity_config), (16 bytes).
+    Removing gd32f4xx_usart.o(i.usart_prescaler_config), (16 bytes).
+    Removing gd32f4xx_usart.o(i.usart_receiver_timeout_disable), (14 bytes).
+    Removing gd32f4xx_usart.o(i.usart_receiver_timeout_enable), (14 bytes).
+    Removing gd32f4xx_usart.o(i.usart_receiver_timeout_threshold_config), (20 bytes).
+    Removing gd32f4xx_usart.o(i.usart_sample_bit_config), (16 bytes).
+    Removing gd32f4xx_usart.o(i.usart_send_break), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_smartcard_autoretry_config), (26 bytes).
+    Removing gd32f4xx_usart.o(i.usart_smartcard_mode_disable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_smartcard_mode_enable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_smartcard_mode_nack_disable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_smartcard_mode_nack_enable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_stop_bit_set), (16 bytes).
+    Removing gd32f4xx_usart.o(i.usart_synchronous_clock_config), (32 bytes).
+    Removing gd32f4xx_usart.o(i.usart_synchronous_clock_disable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_synchronous_clock_enable), (10 bytes).
+    Removing gd32f4xx_usart.o(i.usart_word_length_set), (16 bytes).
+    Removing gd32f4xx_wwdgt.o(.rev16_text), (4 bytes).
+    Removing gd32f4xx_wwdgt.o(.revsh_text), (4 bytes).
+    Removing gd32f4xx_wwdgt.o(i.wwdgt_config), (56 bytes).
+    Removing gd32f4xx_wwdgt.o(i.wwdgt_counter_update), (28 bytes).
+    Removing gd32f4xx_wwdgt.o(i.wwdgt_deinit), (20 bytes).
+    Removing gd32f4xx_wwdgt.o(i.wwdgt_enable), (20 bytes).
+    Removing gd32f4xx_wwdgt.o(i.wwdgt_flag_clear), (20 bytes).
+    Removing gd32f4xx_wwdgt.o(i.wwdgt_flag_get), (24 bytes).
+    Removing gd32f4xx_wwdgt.o(i.wwdgt_interrupt_enable), (20 bytes).
+    Removing event_groups.o(i.prvTestWaitCondition), (30 bytes).
+    Removing event_groups.o(i.uxEventGroupGetNumber), (14 bytes).
+    Removing event_groups.o(i.vEventGroupClearBitsCallback), (16 bytes).
+    Removing event_groups.o(i.vEventGroupDelete), (82 bytes).
+    Removing event_groups.o(i.vEventGroupSetBitsCallback), (16 bytes).
+    Removing event_groups.o(i.vEventGroupSetNumber), (4 bytes).
+    Removing event_groups.o(i.xEventGroupClearBits), (92 bytes).
+    Removing event_groups.o(i.xEventGroupCreate), (26 bytes).
+    Removing event_groups.o(i.xEventGroupGetBitsFromISR), (44 bytes).
+    Removing event_groups.o(i.xEventGroupSetBits), (206 bytes).
+    Removing event_groups.o(i.xEventGroupSync), (272 bytes).
+    Removing event_groups.o(i.xEventGroupWaitBits), (344 bytes).
+    Removing queue.o(i.pcQueueGetName), (44 bytes).
+    Removing queue.o(i.prvCopyDataFromQueue), (42 bytes).
+    Removing queue.o(i.prvCopyDataToQueue), (126 bytes).
+    Removing queue.o(i.prvInitialiseMutex), (30 bytes).
+    Removing queue.o(i.prvIsQueueFull), (30 bytes).
+    Removing queue.o(i.ucQueueGetQueueType), (8 bytes).
+    Removing queue.o(i.uxQueueGetQueueNumber), (6 bytes).
+    Removing queue.o(i.uxQueueMessagesWaiting), (42 bytes).
+    Removing queue.o(i.uxQueueMessagesWaitingFromISR), (34 bytes).
+    Removing queue.o(i.uxQueueSpacesAvailable), (48 bytes).
+    Removing queue.o(i.vQueueAddToRegistry), (44 bytes).
+    Removing queue.o(i.vQueueDelete), (44 bytes).
+    Removing queue.o(i.vQueueSetQueueNumber), (4 bytes).
+    Removing queue.o(i.vQueueUnregisterQueue), (48 bytes).
+    Removing queue.o(i.xQueueCreateCountingSemaphore), (92 bytes).
+    Removing queue.o(i.xQueueCreateMutex), (34 bytes).
+    Removing queue.o(i.xQueueGenericSend), (424 bytes).
+    Removing queue.o(i.xQueueGenericSendFromISR), (248 bytes).
+    Removing queue.o(i.xQueueGiveMutexRecursive), (72 bytes).
+    Removing queue.o(i.xQueueIsQueueEmptyFromISR), (42 bytes).
+    Removing queue.o(i.xQueueIsQueueFullFromISR), (46 bytes).
+    Removing queue.o(i.xQueuePeek), (368 bytes).
+    Removing queue.o(i.xQueuePeekFromISR), (176 bytes).
+    Removing queue.o(i.xQueueReceive), (360 bytes).
+    Removing queue.o(i.xQueueReceiveFromISR), (202 bytes).
+    Removing queue.o(i.xQueueTakeMutexRecursive), (78 bytes).
+    Removing queue.o(.bss), (64 bytes).
+    Removing tasks.o(i.eTaskGetState), (148 bytes).
+    Removing tasks.o(i.pcTaskGetName), (48 bytes).
+    Removing tasks.o(i.prvListTasksWithinSingleList), (106 bytes).
+    Removing tasks.o(i.prvSearchForNameWithinSingleList), (176 bytes).
+    Removing tasks.o(i.prvTaskCheckFreeStackSpace), (22 bytes).
+    Removing tasks.o(i.prvTaskIsTaskSuspended), (88 bytes).
+    Removing tasks.o(i.ulTaskNotifyTake), (116 bytes).
+    Removing tasks.o(i.uxTaskGetNumberOfTasks), (12 bytes).
+    Removing tasks.o(i.uxTaskGetStackHighWaterMark), (40 bytes).
+    Removing tasks.o(i.uxTaskGetSystemState), (176 bytes).
+    Removing tasks.o(i.uxTaskGetTaskNumber), (14 bytes).
+    Removing tasks.o(i.uxTaskPriorityGet), (36 bytes).
+    Removing tasks.o(i.uxTaskPriorityGetFromISR), (68 bytes).
+    Removing tasks.o(i.uxTaskResetEventItemValue), (28 bytes).
+    Removing tasks.o(i.vTaskDelayUntil), (212 bytes).
+    Removing tasks.o(i.vTaskEndScheduler), (36 bytes).
+    Removing tasks.o(i.vTaskGetInfo), (132 bytes).
+    Removing tasks.o(i.vTaskNotifyGiveFromISR), (240 bytes).
+    Removing tasks.o(i.vTaskPlaceOnUnorderedEventList), (108 bytes).
+    Removing tasks.o(i.vTaskPrioritySet), (276 bytes).
+    Removing tasks.o(i.vTaskRemoveFromUnorderedEventList), (164 bytes).
+    Removing tasks.o(i.vTaskResume), (144 bytes).
+    Removing tasks.o(i.vTaskSetTaskNumber), (8 bytes).
+    Removing tasks.o(i.vTaskSetTimeOutState), (60 bytes).
+    Removing tasks.o(i.vTaskSuspend), (244 bytes).
+    Removing tasks.o(i.xTaskGenericNotify), (296 bytes).
+    Removing tasks.o(i.xTaskGenericNotifyFromISR), (360 bytes).
+    Removing tasks.o(i.xTaskGetCurrentTaskHandle), (12 bytes).
+    Removing tasks.o(i.xTaskGetHandle), (164 bytes).
+    Removing tasks.o(i.xTaskGetTickCount), (12 bytes).
+    Removing tasks.o(i.xTaskGetTickCountFromISR), (20 bytes).
+    Removing tasks.o(i.xTaskNotifyStateClear), (52 bytes).
+    Removing tasks.o(i.xTaskNotifyWait), (160 bytes).
+    Removing tasks.o(i.xTaskPriorityDisinherit), (200 bytes).
+    Removing tasks.o(i.xTaskResumeFromISR), (180 bytes).
+    Removing heap_4.o(i.vPortInitialiseBlocks), (2 bytes).
+    Removing heap_4.o(i.xPortGetFreeHeapSize), (12 bytes).
+    Removing heap_4.o(i.xPortGetMinimumEverFreeHeapSize), (12 bytes).
+    Removing port.o(i.vPortEndScheduler), (48 bytes).
+    Removing system_gd32f4xx.o(.rev16_text), (4 bytes).
+    Removing system_gd32f4xx.o(.revsh_text), (4 bytes).
+    Removing system_gd32f4xx.o(i.SystemCoreClockUpdate), (272 bytes).
+    Removing gd32f450z_eval.o(.rev16_text), (4 bytes).
+    Removing gd32f450z_eval.o(.revsh_text), (4 bytes).
+    Removing gd32f450z_eval.o(i.gd_eval_key_state_get), (32 bytes).
+    Removing startup_gd32f450.o(HEAP), (1024 bytes).
+    Removing dadd.o(.text), (334 bytes).
+    Removing dmul.o(.text), (228 bytes).
+    Removing ddiv.o(.text), (222 bytes).
+    Removing dfixul.o(.text), (48 bytes).
+    Removing cdrcmple.o(.text), (48 bytes).
+    Removing depilogue.o(.text), (186 bytes).
+
+959 unused section(s) (total 64674 bytes) removed from the image.
