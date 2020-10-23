@@ -61,9 +61,9 @@ uint8_t rx_size              = 32;
 
 void wifi_task(void){ 
 
-    //wifi_rcu_init();
-    //wifi_gpio_init();
-    //SET_WIFI_POWER_ON
+    wifi_rcu_init();
+    wifi_gpio_init();
+    SET_WIFI_POWER_OFF //as GD said
     /*
     wifi_uart_init();
     xTaskCreate(rx_task, "uart_rx_task", 1024*2, NULL, WIFI_TASK_PRIO, NULL);
@@ -78,11 +78,15 @@ void wifi_task(void){
 }
 void wifi_rcu_init(void){
     rcu_periph_clock_enable(RCU_GPIOA);
+    rcu_periph_clock_enable(RCU_GPIOB);
 }
 void wifi_gpio_init(void){
-    //UWB IRQ
-    gpio_mode_set(GPIOA, GPIO_MODE_OUTPUT,GPIO_PUPD_NONE, GPIO_PIN_11);
-    gpio_output_options_set(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, GPIO_PIN_11);
+    gpio_af_set(GPIOA, GPIO_AF_5, GPIO_PIN_0);
+    gpio_mode_set(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO_PIN_0);
+    gpio_output_options_set(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, GPIO_PIN_0);
+    //wifi gpio settings
+    gpio_mode_set(GPIOA,GPIO_MODE_INPUT,GPIO_PUPD_NONE,GPIO_PIN_11);
+    gpio_output_options_set(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, GPIO_PIN_11); 
 } 
 
 void wifi_uart_init(void) {

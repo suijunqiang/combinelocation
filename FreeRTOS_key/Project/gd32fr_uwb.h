@@ -51,9 +51,9 @@ OF SUCH DAMAGE.
 #define SET_SPI1_NSS_LOW           gpio_bit_reset(GPIOA,GPIO_PIN_4);
 #define SET_SPI0_NSS_LOW           gpio_bit_reset(GPIOA,GPIO_PIN_4);
 //UWB power on
-#define SET_SPI1_SWITCH_HIGH       gpio_bit_set(GPIOB,GPIO_PIN_15);
+#define SET_UWB_POWER_ON       gpio_bit_set(GPIOB,GPIO_PIN_15);
 //UWB power off
-#define SET_SPI1_SWITCH_LOW        gpio_bit_reset(GPIOB,GPIO_PIN_15);
+#define SET_UWB_POWER_OFF        gpio_bit_reset(GPIOB,GPIO_PIN_15);
 //Set UWB 
 #define SET_UWB_SET                gpio_bit_set(GPIOC,GPIO_PIN_5);
 //Reset UWB 
@@ -198,6 +198,7 @@ void uwb_gpio_init(void){
     //gpio_af_set(GPIOA, GPIO_AF_10, GPIO_PIN_10);
     //gpio_mode_set(GPIOA,GPIO_MODE_INPUT,GPIO_PUPD_PULLUP,GPIO_PIN_10); 
 
+
     #ifdef JLINK
         gpio_mode_set(GPIOA,GPIO_MODE_INPUT,GPIO_PUPD_PULLDOWN,GPIO_PIN_9); 
         //gpio_mode_set(GPIOA,GPIO_MODE_INPUT,GPIO_PUPD_PULLDOWN,GPIO_PIN_10);
@@ -238,11 +239,11 @@ void uwb_rcu_init(void){
 }
 void uwb_reset(void){
      SET_UWB_RESET
-     vTaskDelay(5 / portTICK_RATE_MS);
+    vTaskDelay(100 / portTICK_RATE_MS);
+     //vTaskDelay(5 / portTICK_RATE_MS);
      //SET_UWB_SET;
-     vTaskDelay(5 / portTICK_RATE_MS);
-    for(uint32_t i = 0; i < 100; ++i)
-    {
+     //vTaskDelay(5 / portTICK_RATE_MS);
+    for(uint32_t i = 0; i < 100; ++i){
         if(!KCM_BUSY())
         return;
         vTaskDelay(100 / portTICK_RATE_MS);

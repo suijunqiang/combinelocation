@@ -69,12 +69,11 @@ void init_task(void){
     #ifdef SPIIRQ
     irq_init();
     #endif
+    #ifdef UWB_TASK
     uwb_rcu_init(); 
     uwb_gpio_init(); 
-    #ifdef WIFI_TASK
-    wifi_gpio_init();
+    SET_UWB_POWER_ON; 
     #endif
-    SET_SPI1_SWITCH_HIGH; 
     vTaskDelay(2000 / portTICK_RATE_MS);
     start_tasks();
    
