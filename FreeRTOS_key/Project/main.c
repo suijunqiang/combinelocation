@@ -61,8 +61,7 @@ void start_tasks(void){
     #ifdef UM4B0_TASK
     /* UM4B0 task */
     xTaskCreate(um4b0_task, "UM4B0_TASK", configMINIMAL_STACK_SIZE, NULL, UM4B0_TASK_PRIO, NULL);
-    #endif
- 
+    #endif 
 }
 
 void init_task(void){ 

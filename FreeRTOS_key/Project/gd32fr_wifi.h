@@ -49,6 +49,8 @@ OF SUCH DAMAGE.
 
 #define SET_WIFI_POWER_ON  gpio_bit_set(GPIOA, GPIO_PIN_11);
 #define SET_WIFI_POWER_OFF gpio_bit_reset(GPIOA, GPIO_PIN_11);
+#define SET_WIFI_RESET     gpio_bit_reset(GPIOB, GPIO_PIN_0);
+#define SET_WIFI_SET       gpio_bit_set(GPIOB, GPIO_PIN_0);
 
 //USART2
 #define EVAL_COM2                        USART2

@@ -574,7 +574,7 @@ void GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 }
 #endif //UWB_TASK
-
+#if 0
 /* retarget the C library printf function to the USART */
 int fputc(int ch, FILE *f)
 {
@@ -582,5 +582,5 @@ int fputc(int ch, FILE *f)
     while (RESET == usart_flag_get(EVAL_COM1, USART_FLAG_TBE));
     return ch;
 }
-
+#endif
 #endif  //GD32FR_UWB_H
