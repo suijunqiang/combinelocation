@@ -50,9 +50,9 @@ typedef enum{
 dev_status static run_status = IDLE;
 
 #define JLINK
-#define UWB_TASK
+//#define UWB_TASK
 #define WIFI_TASK
-#define UM4B0_TASK
+//#define UM4B0_TASK
 //#define SPIIRQ
 #define ENABLE_DMA
 

@@ -35,7 +35,6 @@ OF SUCH DAMAGE.
 */
 
 #include "gd32f4xx.h"
-#include "gd32f450z_eval.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "semphr.h"
@@ -44,6 +43,7 @@ OF SUCH DAMAGE.
 #include "gd32fr_wifi.h"
 #include "gd32fr_global.h"
 #include <stdio.h>
+#include "systick.h"
 
 /* Binary semaphore handle definition. */
 SemaphoreHandle_t binary_semaphore;
@@ -85,6 +85,8 @@ void init_task(void){
 */
 int main(void)
 {
+    
+ 
     binary_semaphore = xSemaphoreCreateBinary();
     /* init tasks */ 
     xTaskCreate(init_task, "INIT_TASK", configMINIMAL_STACK_SIZE, NULL, INIT_TASK_PRIO, NULL); 

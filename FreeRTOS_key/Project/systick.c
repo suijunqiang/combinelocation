@@ -1,12 +1,13 @@
 /*!
-    \file  gd32fr_um4b0.c
-    \brief the header file of the machine
-
-    \version 2020-09-16, V1.0.0, firmware for GD32F4xx
+    \file    systick.c
+    \brief   the systick configuration file
+    
+    \version 2016-08-15, V1.0.0, firmware for GD32F4xx
+    \version 2018-12-12, V2.0.0, firmware for GD32F4xx
 */
 
 /*
-    Copyright (c) 2020, VKing.
+    Copyright (c) 2018, GigaDevice Semiconductor Inc.
 
     All rights reserved.
 
@@ -34,16 +35,52 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 OF SUCH DAMAGE.
 */
 
-#include "gd32fr_um4b0.h"
+#include "gd32f4xx.h"
+#include "systick.h"
 
-#ifdef UM4B0_TASK
-    void um4b0_task(void){ 
-        printf("um4b0 task");
-        while(1);
+volatile static uint32_t delay;
+
+/*!
+    \brief      configure systick
+    \param[in]  none
+    \param[out] none
+    \retval     none
+*/
+void systick_config(void)
+{
+    /* setup systick timer for 1000Hz interrupts */
+    if (SysTick_Config(SystemCoreClock / 1000U)){
+        /* capture error */
+        while (1){
+        }
     }
+    /* configure the systick handler priority */
+    NVIC_SetPriority(SysTick_IRQn, 0x00U);
+}
 
-    void eprintf(uint32_t *str){
+/*!
+    \brief      delay a time in milliseconds
+    \param[in]  count: count in milliseconds
+    \param[out] none
+    \retval     none
+*/
+void delay_1ms(uint32_t count)
+{
+    delay = count;
 
+    while(0U != delay){
     }
+}
 
-#endif 
+/*!
+    \brief      delay decrement
+    \param[in]  none
+    \param[out] none
+    \retval     none
+*/
+void delay_decrement(void)
+{
+    if (0U != delay){
+        delay--;
+    }
+}

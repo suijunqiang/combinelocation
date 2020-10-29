@@ -9,8 +9,6 @@
 /*
     Copyright (c) 2018, GigaDevice Semiconductor Inc.
 
-    All rights reserved.
-
     Redistribution and use in source and binary forms, with or without modification, 
 are permitted provided that the following conditions are met:
 
@@ -35,8 +33,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 OF SUCH DAMAGE.
 */
 
-#ifndef GD32F450Z_EVAL_H
 #define GD32F450Z_EVAL_H
+#ifndef GD32F450Z_EVAL_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -81,15 +79,15 @@ typedef enum
 #define LED3_GPIO_CLK                    RCU_GPIOG
 
 #define COMn                             1U
-#define EVAL_COM1                        USART0
-#define EVAL_COM1_CLK                    RCU_USART0
+#define EVAL_COM0                        USART0
+#define EVAL_COM0_CLK                    RCU_USART0
 
-#define EVAL_COM1_TX_PIN                 GPIO_PIN_9
-#define EVAL_COM1_RX_PIN                 GPIO_PIN_10
+#define EVAL_COM0_TX_PIN                 GPIO_PIN_9
+#define EVAL_COM0_RX_PIN                 GPIO_PIN_10
 
-#define EVAL_COM_GPIO_PORT               GPIOA
-#define EVAL_COM_GPIO_CLK                RCU_GPIOA
-#define EVAL_COM_AF                      GPIO_AF_7
+#define EVAL_COM0_GPIO_PORT              GPIOA
+#define EVAL_COM0_GPIO_CLK               RCU_GPIOA
+#define EVAL_COM0_AF                     GPIO_AF_7
 
 #define KEYn                             3U
 

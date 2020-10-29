@@ -38,6 +38,8 @@ OF SUCH DAMAGE.
 #include "gd32f4xx_usart.h"
 #include "FreeRTOS.h"
 #include "gd32fr_global.h"
+#include "systick.h"
+#include "gd32f450i_eval.h"
 
 #ifdef WIFI_TASK
 
@@ -61,24 +63,36 @@ uint8_t tx_size              = TRANSMIT_SIZE;
 uint8_t rx_size              = 32;
 
 void wifi_task(void){ 
+    systick_config();
+    #if 0
+    /* configure EVAL_COM1 */
+    gd_eval_com_init(EVAL_COM0);
+    printf("hello!");
+    while(1){
+			usart_data_transmit(EVAL_COM0, 'X');
+			gd_eval_led_toggle(LED1);
+      vTaskDelay(500 / portTICK_RATE_MS);
+    }
+    #endif
     SET_WIFI_POWER_OFF //as GD said 
     vTaskDelay(5000 / portTICK_RATE_MS);
     SET_WIFI_RESET
-    gd_eval_com_init(USART2);
+    vTaskDelay(5000 / portTICK_RATE_MS);
+    gd_eval_com_init(EVAL_COM0);
     #if 0
+    gd_eval_com_init(USART2);
     wifi_uart_init();
     SET_WIFI_RESET
-    vTaskDelay(5000 / portTICK_RATE_MS);
     SET_WIFI_SET
     vTaskDelay(5000 / portTICK_RATE_MS);
     SET_WIFI_RESET
     vTaskDelay(200 / portTICK_RATE_MS);
-    #endif
-    //xTaskCreate(tx_task, "uart_tx_task", 1024*2, NULL, WIFI_TASK_PRIO, NULL);
-    //xTaskCreate(rx_task, "uart_rx_task", 1024*2, NULL, WIFI_TASK_PRIO, NULL);
+    #endif 
+    xTaskCreate(tx_task, "uart_tx_task", 1024, NULL, WIFI_TASK_PRIO, NULL);
+    xTaskCreate(rx_task, "uart_rx_task", 1024*2, NULL, WIFI_TASK_PRIO + 1, NULL);
     //printf("wifi task"); 
     while(1){ 
-         usart_data_transmit(USART2, 'O');
+        //usart_data_transmit(USART2, 'O');
         //doing nothing now
     } 
 }
@@ -120,13 +134,14 @@ int sendData(const char* logName, const char* data) {
     int len = strlen(data);
     int txBytes = len;
     //const int txBytes =usart_data_transmit(USART2, data, len);
+    printf(data);
+    #if 0
     while(len){
     /* enable GPIO clock */
         usart_data_transmit(USART2, (uint32_t) data++); 
         while(RESET == usart_flag_get(USART2, USART_FLAG_TBE)); 
         len--;
     }
-    #if 0
     int i=32;
     int j=0;
     uint16_t tmp[32] = {0};
@@ -147,10 +162,10 @@ static void tx_task(void) {
     static const char *TX_TASK_TAG = "TX_TASK";
     //esp_log_level_set(TX_TASK_TAG, ESP_LOG_INFO);
         //sendData(TX_TASK_TAG, txATAPCMD);
-        vTaskDelay(5000 / portTICK_RATE_MS);
-        sendData(TX_TASK_TAG, txATCMDTEST);
-        vTaskDelay(100 / portTICK_RATE_MS);
+
     while (1) {
+        sendData(TX_TASK_TAG,txATCMDTEST);
+        vTaskDelay(8000 / portTICK_RATE_MS);
     }
 }
 
@@ -169,13 +184,40 @@ uint16_t usart_wifi_data_receive(uint32_t usart_periph)
 
 static void rx_task(void) {
     static const char *RX_TASK_TAG = "RX_TASK";
-    at_enum_status at_status;
+    at_enum_status at_status = AP_SETTINGS_OK;
     uint8_t* data = (uint8_t*) malloc(RX_BUF_SIZE+1);
-    int rxBytes[100];
+    static uint8_t RXLEN = 100;
+    uint8_t rxBytes[100] ={'\n'};
+    uint8_t i = 0;    
+    while (1) {   
+        while(RESET == usart_flag_get(EVAL_COM0, USART_FLAG_RBNE));
+        rxBytes[i++] = usart_data_receive(EVAL_COM0);
+        if(rxBytes[i] == 0x00){ 
+            i = 0;
+            printf(rxBytes);
+        }
 
-    while (1) {
-        
-        usart_data_receive(USART2);
+        #if 0
+        do{                
+            rxBytes[i++] = usart_data_receive(EVAL_COM0);
+            if(rxBytes[i] == '\n') {
+                break;
+            }
+            if(i >= RXLEN){
+                i = 0;
+                printf("WIFI_LOG: you input is overlength\r\n");
+                break;
+            } 
+            while(RESET == usart_flag_get(EVAL_COM0, USART_FLAG_TBE));
+        }while(1);
+                        
+        if(i < RXLEN) {
+            //printf("you input is ");
+					printf(rxBytes);
+        }
+        //i++;
+        #endif
+
         switch(at_status) {
             case AP_SETTINGS_OK:  
                 //rxBytes[0] = uart_wifi_data_receive(USART2, data, RX_BUF_SIZE, 1000 / portTICK_RATE_MS);
@@ -238,14 +280,14 @@ void USART2_IRQHandler(void) {
         }
         #endif
     }
-    printf("USART2 IRQ");
+    printf("USART2 IRQ\r\n");
 
 }
 /* retarget the C library printf function to the USART */
 int fputc(int ch, FILE *f)
 {
-    usart_data_transmit(USART2, (uint8_t)ch);
-    while(RESET == usart_flag_get(USART2, USART_FLAG_TBE));
+    usart_data_transmit(EVAL_COM0, (uint8_t)ch);
+    while(RESET == usart_flag_get(EVAL_COM0, USART_FLAG_TBE));
     return ch;
 }
 #endif 

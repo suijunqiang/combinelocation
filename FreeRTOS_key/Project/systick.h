@@ -1,12 +1,13 @@
 /*!
-    \file  gd32fr_um4b0.c
-    \brief the header file of the machine
-
-    \version 2020-09-16, V1.0.0, firmware for GD32F4xx
+    \file    systick.h
+    \brief   the header file of systick
+    
+    \version 2016-08-15, V1.0.0, firmware for GD32F4xx
+    \version 2018-12-12, V2.0.0, firmware for GD32F4xx
 */
 
 /*
-    Copyright (c) 2020, VKing.
+    Copyright (c) 2018, GigaDevice Semiconductor Inc.
 
     All rights reserved.
 
@@ -34,16 +35,16 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 OF SUCH DAMAGE.
 */
 
-#include "gd32fr_um4b0.h"
+#ifndef SYS_TICK_H
+#define SYS_TICK_H
 
-#ifdef UM4B0_TASK
-    void um4b0_task(void){ 
-        printf("um4b0 task");
-        while(1);
-    }
+#include <stdint.h>
 
-    void eprintf(uint32_t *str){
+/* configure systick */
+void systick_config(void);
+/* delay a time in milliseconds */
+void delay_1ms(uint32_t count);
+/* delay decrement */
+void delay_decrement(void);
 
-    }
-
-#endif 
+#endif /* SYS_TICK_H */

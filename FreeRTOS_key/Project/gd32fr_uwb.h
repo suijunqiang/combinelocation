@@ -38,7 +38,7 @@ OF SUCH DAMAGE.
 #define GD32FR_UWB_H
 
 #include "gd32f4xx.h"
-#include "gd32f450z_eval.h"
+#include "gd32f450i_eval.h"
 #include "gd32fr_global.h"
 #include "kcm_driver.h"
 #include "stdio.h"
@@ -88,6 +88,7 @@ unsigned char* ptr_receive = NULL;
 uint16_t tmp_buffer[1000] ={0};
 int tmp_len = 0;
 static void KCM_ReadWriteFunc(unsigned char* send, unsigned char* recv, unsigned int len);
+uint8_t UWB_LOG[] = "UWB_LOG:";
 
 typedef enum
 {
@@ -131,8 +132,8 @@ static void uwb_cmd_init(void){
     /* dev id is correct */
     if(KCM2000_DEV_ID == dev_id){
         //printf("\n\rdev_id:%s\n\r", dev_id);
-        printf("\n\rdev_id:%x\n\r", dev_id);
-        printf("\n\rSPI device id: Read ID Fail!\n\r");
+        printf("\n\rUWB_LOG: dev_id:%x\n\r", dev_id);
+        printf("\n\rUWB_LOG: SPI device id: Read ID Fail!\n\r");
 
     }else{
         /* spi read id fail */
@@ -249,7 +250,7 @@ void uwb_reset(void){
         vTaskDelay(100 / portTICK_RATE_MS);
     }
     
-    printf("[KCM Init] BUSY_PIN Timeout.");  
+    printf("UWB_LOG: [KCM Init] BUSY_PIN Timeout.");  
 }
 
 void dma_send_receive(unsigned char *send, unsigned char *recv, unsigned int len){
@@ -340,7 +341,7 @@ static void KCM_ReadWriteFunc(unsigned char* send, unsigned char* recv, unsigned
   while(KCM_BUSY()){
     if(--wait_cnt==0)
     {
-      printf("\n\r[KCM WR] BUSY_PIN Timeout.\n\r");
+      printf("\n\rUWB_LOG: [KCM WR] BUSY_PIN Timeout.\n\r");
       return;
     }
   }
@@ -350,7 +351,7 @@ static void KCM_ReadWriteFunc(unsigned char* send, unsigned char* recv, unsigned
         while(KCM_BUSY()){
             if(--wait_cnt==0)
             {
-            printf("\n\r[KCM WR] BUSY_PIN Timeout.\n\r");
+            printf("\n\r UWB_LOG: [KCM WR] BUSY_PIN Timeout.\n\r");
             return;
             }
         }
@@ -370,7 +371,7 @@ static void KCM_ReadWriteFunc(unsigned char* send, unsigned char* recv, unsigned
         while(KCM_BUSY()){
             if(--wait_cnt==0)
             {
-            printf("\n\r[KCM WR] BUSY_PIN Timeout.\n\r");
+            printf("\n\rUWB_LOG: [KCM WR] BUSY_PIN Timeout.\n\r");
             return;
             }
         }
@@ -469,13 +470,13 @@ void SPI0_IRQHandler(void)
         //kcm_get_rx_quality(CQI);
     }
 
-    printf("PDU:%02x%02x%02x%02x%02x%02x%02x%02x TP:%02x%02x%02x%02x%02x%02x DFTP:%d", \
+    printf("UWB_LOG: PDU:%02x%02x%02x%02x%02x%02x%02x%02x TP:%02x%02x%02x%02x%02x%02x DFTP:%d", \
         pdu[0],pdu[1],pdu[2],pdu[3],pdu[4],pdu[5],pdu[6],pdu[7],\
         tp[0],tp[1],tp[2],tp[3],tp[4],tp[5], diff_tp);
 }
 
 static void HandleErrFrame(uint16_t status) {
-    printf("Error Occurred. Reg:[%04x]", status);
+    printf("UWB_LOG:Error Occurred. Reg:[%04x]", status);
 }
 
 static void HandleTxDone(void){
@@ -483,11 +484,11 @@ static void HandleTxDone(void){
     
     kcm_get_tx_time_stamp(tp);
 
-    printf("Tx Done.  TP:%02x%02x%02x%02x%02x%02x",tp[0],tp[1],tp[2],tp[3],tp[4],tp[5]); 
+    printf("UWB_LOG:Tx Done.  TP:%02x%02x%02x%02x%02x%02x",tp[0],tp[1],tp[2],tp[3],tp[4],tp[5]); 
 }
 
 static void HandleTxFail(void){
-    printf("KCM Tx Fail.");
+    printf("UWB_LOG:KCM Tx Fail.");
 }
 static void HandleKCMIRQ(void){
     uint16_t status = kcm_get_int_status();
@@ -503,7 +504,7 @@ static void HandleKCMIRQ(void){
     else if(status &KCM_INT_TX_FAIL)
         HandleTxFail();
     else
-        printf("Invalid status value. %04x", status);
+        printf("UWB_LOG:Invalid status value. %04x", status);
 }
 
 void uwb_task(void){ 
@@ -542,7 +543,7 @@ void uwb_task(void){
                 HandleKCMIRQ();
                 break;
             default:
-                printf("Unknown MTSK Msg Type.");
+                printf("UWB_LOG:Unknown MTSK Msg Type.");
                 break;
         }
     }

@@ -37,7 +37,8 @@ OF SUCH DAMAGE.
 #ifndef GD32FR_UM4B0_H
 #define GD32FR_UW4B0_H
 
-#include "gd32f450z_eval.h"
+//#include "gd32f450z_eval.h"
+#include "gd32f450i_eval.h"
 #include "gd32fr_global.h"
 //#include "gd32f4xx_rcu.h"
 #include "stdio.h"
