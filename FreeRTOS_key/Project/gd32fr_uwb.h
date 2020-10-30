@@ -59,13 +59,13 @@ OF SUCH DAMAGE.
 //Reset UWB 
 #define SET_UWB_RESET              gpio_bit_reset(GPIOC,GPIO_PIN_5);
 
-#ifdef JLINK //BUSY is PA9
-    #define KCM_BUSY()                 gpio_input_bit_get(GPIOA, GPIO_PIN_9)
+#ifdef JLINK //BUSY is PB 13
+    #define KCM_BUSY()                 gpio_input_bit_get(GPIOB, GPIO_PIN_13)     //Busy PB 13
 #else
     //BUSY pin is 14 not 13
     #define KCM_BUSY()                 gpio_input_bit_get(GPIOA, GPIO_PIN_13)
 #endif
-#define KCM_INT_PIN_GET                   gpio_input_bit_get(GPIOA, GPIO_PIN_10)
+#define KCM_INT_PIN_GET                   gpio_input_bit_get(GPIOB, GPIO_PIN_12) //Int PB 12
 #define KCM_INT_PIN_RESET                 gpio_bit_reset(GPIOA, GPIO_PIN_10)
 
 #define NOP 0x00 
@@ -194,6 +194,11 @@ void uwb_gpio_init(void){
     //UWB IRQ
     gpio_af_set(GPIOA, GPIO_AF_10, GPIO_PIN_10);
     gpio_mode_set(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, GPIO_PIN_10);
+
+    gpio_af_set(GPIOB, GPIO_AF_10, GPIO_PIN_12);
+    gpio_mode_set(GPIOB, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, GPIO_PIN_12);
+    gpio_af_set(GPIOB, GPIO_AF_10, GPIO_PIN_13);
+    gpio_mode_set(GPIOB, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, GPIO_PIN_13);
     //gpio_output_options_set(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, GPIO_PIN_10); 
     //GPIO_BC()
     //gpio_af_set(GPIOA, GPIO_AF_10, GPIO_PIN_10);
@@ -202,6 +207,8 @@ void uwb_gpio_init(void){
 
     #ifdef JLINK
         gpio_mode_set(GPIOA,GPIO_MODE_INPUT,GPIO_PUPD_PULLDOWN,GPIO_PIN_9); 
+        gpio_mode_set(GPIOB,GPIO_MODE_INPUT,GPIO_PUPD_PULLDOWN,GPIO_PIN_13); 
+        gpio_mode_set(GPIOB,GPIO_MODE_INPUT,GPIO_PUPD_PULLDOWN,GPIO_PIN_14); 
         //gpio_mode_set(GPIOA,GPIO_MODE_INPUT,GPIO_PUPD_PULLDOWN,GPIO_PIN_10);
     #else 
         gpio_mode_set(GPIOA,GPIO_MODE_INPUT,GPIO_PUPD_PULLDOWN,GPIO_PIN_13); 

@@ -85,8 +85,6 @@ void init_task(void){
 */
 int main(void)
 {
-    
- 
     binary_semaphore = xSemaphoreCreateBinary();
     /* init tasks */ 
     xTaskCreate(init_task, "INIT_TASK", configMINIMAL_STACK_SIZE, NULL, INIT_TASK_PRIO, NULL); 
@@ -94,6 +92,7 @@ int main(void)
     vTaskStartScheduler();
     //Status machine for monitor all devices
     //IDLE: nothing to do
+    #if 0
 	while(1){
         switch(run_status){
             case IDLE:
@@ -122,6 +121,7 @@ int main(void)
             break;
         }
 	}
+    #endif
 
 }
 

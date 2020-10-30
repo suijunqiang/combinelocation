@@ -61,9 +61,22 @@ __IO uint8_t txcount         = 0;
 __IO uint16_t rxcount        = 0; 
 uint8_t tx_size              = TRANSMIT_SIZE;
 uint8_t rx_size              = 32;
+//static QueueHandle_t s_ATMsgQueue;
+
+typedef enum
+{
+ MT_ATOK,
+ MT_ATERROR,
+ MT_ATBUSY,
+ MT_ATDATA
+}MainTaskMsg;
+
 
 void wifi_task(void){ 
-    systick_config();
+    systick_config(); 
+
+    MainTaskMsg event;
+    //s_ATMsgQueue = xQueueCreate(20, sizeof(MainTaskMsg));
     #if 0
     /* configure EVAL_COM1 */
     gd_eval_com_init(EVAL_COM0);
@@ -88,7 +101,7 @@ void wifi_task(void){
     SET_WIFI_RESET
     vTaskDelay(200 / portTICK_RATE_MS);
     #endif 
-    xTaskCreate(tx_task, "uart_tx_task", 1024, NULL, WIFI_TASK_PRIO, NULL);
+    xTaskCreate(tx_task, "uart_tx_task", 1024, NULL, WIFI_TASK_PRIO + 1, NULL);
     xTaskCreate(rx_task, "uart_rx_task", 1024*2, NULL, WIFI_TASK_PRIO + 1, NULL);
     //printf("wifi task"); 
     while(1){ 
@@ -163,8 +176,8 @@ static void tx_task(void) {
     //esp_log_level_set(TX_TASK_TAG, ESP_LOG_INFO);
         //sendData(TX_TASK_TAG, txATAPCMD);
 
-    while (1) {
-        sendData(TX_TASK_TAG,txATCMDTEST);
+    while(1){
+        sendData(TX_TASK_TAG,txATAPCMD);
         vTaskDelay(8000 / portTICK_RATE_MS);
     }
 }
@@ -189,11 +202,12 @@ static void rx_task(void) {
     static uint8_t RXLEN = 100;
     uint8_t rxBytes[100] ={'\n'};
     uint8_t i = 0;    
-    while (1) {   
+    while(1){   
         while(RESET == usart_flag_get(EVAL_COM0, USART_FLAG_RBNE));
         rxBytes[i++] = usart_data_receive(EVAL_COM0);
         if(rxBytes[i] == 0x00){ 
             i = 0;
+            printf("WIFI_LOG: get data from wifi :");
             printf(rxBytes);
         }
 
