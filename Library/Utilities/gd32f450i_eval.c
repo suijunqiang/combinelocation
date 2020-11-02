@@ -190,7 +190,7 @@ void gd_eval_com_init(uint32_t com)
 {
     /* enable GPIO clock */
     uint32_t COM_ID = 0;
-    if(EVAL_COM0 == com)
+    if(USART2 == com)
     {
         COM_ID = 0U;
     }
@@ -208,11 +208,11 @@ void gd_eval_com_init(uint32_t com)
 
     /* configure USART Tx as alternate function push-pull */
     gpio_mode_set(EVAL_COM0_GPIO_PORT, GPIO_MODE_AF, GPIO_PUPD_PULLUP,COM_TX_PIN[COM_ID]);
-    gpio_output_options_set(EVAL_COM0_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ,COM_TX_PIN[COM_ID]);
+    gpio_output_options_set(EVAL_COM0_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ,COM_TX_PIN[COM_ID]);
 
     /* configure USART Rx as alternate function push-pull */
     gpio_mode_set(EVAL_COM0_GPIO_PORT, GPIO_MODE_AF, GPIO_PUPD_PULLUP,COM_RX_PIN[COM_ID]);
-    gpio_output_options_set(EVAL_COM0_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ,COM_RX_PIN[COM_ID]);
+    gpio_output_options_set(EVAL_COM0_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ,COM_RX_PIN[COM_ID]);
 
     /* USART configure */
     usart_deinit(com);

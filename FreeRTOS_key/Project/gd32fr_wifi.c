@@ -40,17 +40,18 @@ OF SUCH DAMAGE.
 #include "gd32fr_global.h"
 #include "systick.h"
 #include "gd32f450i_eval.h"
+#include "queue.h"
 
 #ifdef WIFI_TASK
 
 #define TXD_PIN (GPIO_PIN_11)
 #define RXD_PIN (GPIO_PIN_11) 
-uint8_t txATCMDTEST[]        = "AT";
-uint8_t txATAPCMD[]          = "AT+CWJAP=SJQiPhone,sjqjesus";
-uint8_t txATHostCMD[]        = "\n\rAT+CWJAP=<ssid>,<pwd>[,<bssid>][,<pci_en>][,<reconn_interval>][,<listen_interval>][,<scan_mode>]\n\r";
-uint8_t txATCWAUTOCONNCMD[]  = "\n\rAT+CWAUTOCONN=1\n\r";
-//uint8_t txATHttpClient[]     = "\n\rAT+HTTPCLIENT=<opt>,<content-type>,[<url>],[<host>],[<path>],<transport_type>,[<data>][,"http_req_header"][,"http_req_header"][...] \n\r";
-
+uint8_t txATCMDTEST[]        = "AT\r\n";
+uint8_t txATAPCMD[]          = "AT+CWJAP=\"SJQiPhone\",\"sjqjesus\"\r\n";
+uint8_t txATHostCMD[]        = "AT+CWJAP=<ssid>,<pwd>[,<bssid>][,<pci_en>][,<reconn_interval>][,<listen_interval>][,<scan_mode>]\r\n";
+uint8_t txATCWAUTOCONNCMD[]  = "AT+CWAUTOCONN=1\r\n";
+uint8_t txATRESULTOK[]       = "\r\nOK\r\n";
+//uint8_t txATHttpClient[]     = "AT+HTTPCLIENT=<opt>,<content-type>,[<url>],[<host>],[<path>],<transport_type>,[<data>][,"http_req_header"][,"http_req_header"][...] \r\n"; 
 
 #define ARRAYNUM(arr_nanme)      (uint32_t)(sizeof(arr_nanme) / sizeof(*(arr_nanme)))
 #define TRANSMIT_SIZE            (ARRAYNUM(txATAPCMD) - 1)
@@ -61,21 +62,25 @@ __IO uint8_t txcount         = 0;
 __IO uint16_t rxcount        = 0; 
 uint8_t tx_size              = TRANSMIT_SIZE;
 uint8_t rx_size              = 32;
-//static QueueHandle_t s_ATMsgQueue;
+static QueueHandle_t s_ATMsgQueue;
 
 typedef enum
 {
- MT_ATOK,
- MT_ATERROR,
- MT_ATBUSY,
- MT_ATDATA
+ MT_ATOK,         //AT cmd done
+ MT_ATERROR,      //AT cmd done with error
+ MT_ATBUSY,       //AT is busy with error
+ MT_ATDATA,       //AT done with data
+ MT_ATINIT,       //AT initiallzing
+ MT_ATCMDTEST,    //AT test cmd
+ MT_ATPAUSE,      //AT in idel status
+ MT_ATAPSETTINGS, //AT settings AP info
+ MT_ATNONE        //AT none status
 }MainTaskMsg;
 
 
 void wifi_task(void){ 
     systick_config(); 
 
-    MainTaskMsg event;
     //s_ATMsgQueue = xQueueCreate(20, sizeof(MainTaskMsg));
     #if 0
     /* configure EVAL_COM1 */
@@ -91,7 +96,7 @@ void wifi_task(void){
     vTaskDelay(5000 / portTICK_RATE_MS);
     SET_WIFI_RESET
     vTaskDelay(5000 / portTICK_RATE_MS);
-    gd_eval_com_init(EVAL_COM0);
+    gd_eval_com_init(USART2);
     #if 0
     gd_eval_com_init(USART2);
     wifi_uart_init();
@@ -104,10 +109,6 @@ void wifi_task(void){
     xTaskCreate(tx_task, "uart_tx_task", 1024, NULL, WIFI_TASK_PRIO + 1, NULL);
     xTaskCreate(rx_task, "uart_rx_task", 1024*2, NULL, WIFI_TASK_PRIO + 1, NULL);
     //printf("wifi task"); 
-    while(1){ 
-        //usart_data_transmit(USART2, 'O');
-        //doing nothing now
-    } 
 }
 void wifi_uart_init(void){
     rcu_periph_clock_enable(RCU_GPIOA);
@@ -121,8 +122,8 @@ void wifi_uart_init(void){
 
     gpio_mode_set(GPIOA,GPIO_MODE_OUTPUT,GPIO_PUPD_NONE,GPIO_PIN_11);
     gpio_output_options_set(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, GPIO_PIN_11); 
- 
-    gpio_mode_set(GPIOB, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, GPIO_PIN_0);
+    //wifi reset
+    gpio_mode_set(GPIOB, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLUP, GPIO_PIN_0);
     //wifi gpio settings
     /* configure USART Tx as alternate function push-pull */
     gpio_mode_set(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE,GPIO_PIN_10);
@@ -147,6 +148,7 @@ int sendData(const char* logName, const char* data) {
     int len = strlen(data);
     int txBytes = len;
     //const int txBytes =usart_data_transmit(USART2, data, len);
+    //printf("ATE0\r\n");
     printf(data);
     #if 0
     while(len){
@@ -173,12 +175,58 @@ int sendData(const char* logName, const char* data) {
 //static void tx_task(void *arg) {
 static void tx_task(void) {
     static const char *TX_TASK_TAG = "TX_TASK";
+    MainTaskMsg event     = MT_ATNONE;
+    s_ATMsgQueue          = xQueueCreate(20, sizeof(MainTaskMsg));
+    MainTaskMsg event_pri = MT_ATNONE;
     //esp_log_level_set(TX_TASK_TAG, ESP_LOG_INFO);
-        //sendData(TX_TASK_TAG, txATAPCMD);
+    //sendData(TX_TASK_TAG, txATAPCMD);
 
+    //printf("AT+RST\r\n");
+    //vTaskDelay(8000 / portTICK_RATE_MS);
     while(1){
-        sendData(TX_TASK_TAG,txATAPCMD);
-        vTaskDelay(8000 / portTICK_RATE_MS);
+        switch(event){
+            case MT_ATOK:
+                switch(event_pri){
+                    case MT_ATCMDTEST:
+                        event     = MT_ATAPSETTINGS;
+                        event_pri = event;
+                        sendData(TX_TASK_TAG,txATAPCMD);
+                        /* wait until end of transmit */
+                        //while(RESET == usart_flag_get(USART2, USART_FLAG_TC));
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break;
+                    case MT_ATINIT:
+                    case MT_ATPAUSE:
+                    case MT_ATAPSETTINGS:
+                    case MT_ATERROR:
+                    case MT_ATBUSY:
+                    default:
+                    break;
+
+                }
+            break;
+            break;
+            case MT_ATERROR:
+            break;
+            case MT_ATBUSY:
+            break;
+            case MT_ATNONE:
+                event     = MT_ATCMDTEST;
+                event_pri = event;
+                sendData(TX_TASK_TAG,txATCMDTEST);
+                /* wait until end of transmit */
+                //while(RESET == usart_flag_get(USART2, USART_FLAG_TC));
+                xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+            break;
+            case MT_ATDATA:
+            break;
+            case MT_ATINIT:
+            case MT_ATPAUSE:
+            default:
+                event     = MT_ATNONE;
+            break;
+        }
+        vTaskDelay(1000 / portTICK_RATE_MS);
     }
 }
 
@@ -202,18 +250,38 @@ static void rx_task(void) {
     static uint8_t RXLEN = 100;
     uint8_t rxBytes[100] ={'\n'};
     uint8_t i = 0;    
+    uint8_t j = 0;
+    MainTaskMsg event                          = MT_ATNONE;
     while(1){   
-        while(RESET == usart_flag_get(EVAL_COM0, USART_FLAG_RBNE));
-        rxBytes[i++] = usart_data_receive(EVAL_COM0);
+        while(RESET == usart_flag_get(USART2, USART_FLAG_RBNE));
+        uint8_t tmp[1] = {0};
+        rxBytes[i++] = usart_data_receive(USART2);
+        if(strstr(rxBytes, txATRESULTOK)){
+            i=0;
+            xQueueSend(s_ATMsgQueue, &event, 0); 
+        }
+        #if 0
+        if(rxBytes[i-1]=='\0x0D'){ 
+            j++;
+            if(i==99){
+                i=0;
+                xQueueSend(s_ATMsgQueue, &event, 0); 
+            }
+            //if(j == 2 ){ 
+            //    i = 0;
+            //}
+
+            //printf(rxBytes);
+        }
+ 
         if(rxBytes[i] == 0x00){ 
             i = 0;
-            printf("WIFI_LOG: get data from wifi :");
-            printf(rxBytes);
+            //printf(rxBytes);
         }
-
+        #endif
         #if 0
         do{                
-            rxBytes[i++] = usart_data_receive(EVAL_COM0);
+            rxBytes[i++] = usart_data_receive(USART2);
             if(rxBytes[i] == '\n') {
                 break;
             }
@@ -222,7 +290,7 @@ static void rx_task(void) {
                 printf("WIFI_LOG: you input is overlength\r\n");
                 break;
             } 
-            while(RESET == usart_flag_get(EVAL_COM0, USART_FLAG_TBE));
+            while(RESET == usart_flag_get(USART2, USART_FLAG_TBE));
         }while(1);
                         
         if(i < RXLEN) {
@@ -275,8 +343,8 @@ void app_main(void){
     \retval     none
 */
 void USART2_IRQHandler(void) {
-    if((RESET != usart_interrupt_flag_get(USART0, USART_INT_FLAG_RBNE)) && 
-       (RESET != usart_flag_get(USART0, USART_FLAG_RBNE))){
+    if((RESET != usart_interrupt_flag_get(USART2, USART_INT_FLAG_RBNE)) && 
+       (RESET != usart_flag_get(USART2, USART_FLAG_RBNE))){
         /* receive data */
         rxbuffer[rxcount++] = usart_data_receive(USART2);
         if(rxcount == rx_size){
@@ -300,8 +368,26 @@ void USART2_IRQHandler(void) {
 /* retarget the C library printf function to the USART */
 int fputc(int ch, FILE *f)
 {
-    usart_data_transmit(EVAL_COM0, (uint8_t)ch);
-    while(RESET == usart_flag_get(EVAL_COM0, USART_FLAG_TBE));
+    usart_data_transmit(USART2, (uint8_t)ch);
+    while(RESET == usart_flag_get(USART2, USART_FLAG_TBE));
     return ch;
 }
+
+int checkstr(char *s, char *t, int flag,int lenstr)
+{
+    char *q;
+    for (; *(s + lenstr); s++) {
+        if(flag){ //case not sensetive 
+          for (q = t; (*s == *q||*s-32==*q||*s+32==*q) && *q; s++, q++) ; 
+        }else{ //case sensitive 
+            for (q = t; *s == *q && *q; s++, q++) ;
+        } 
+        if (!*q) {
+            return 1;
+        }
+    }
+
+    return 0;
+} 
+
 #endif 
