@@ -34,14 +34,15 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 OF SUCH DAMAGE.
 */
 
-#ifndef GD32FR_UM4B0_H
-#define GD32FR_UW4B0_H
+#ifndef GD32FR_WIFI_H
+#define GD32FR_WIFI_H
 
 //#include "gd32f450z_eval.h"
 #include "gd32f450i_eval.h"
 #include "gd32fr_global.h"
 //#include "gd32f4xx_rcu.h"
 #include "stdio.h"
+#include "queue.h"
 
 #ifdef WIFI_TASK //setting wifi devices
 
@@ -83,7 +84,9 @@ void tx_task(void);
 void rx_task(void);
 void wifi_com_init(uint32_t com);
 uint16_t usart_wifi_data_receive(uint32_t usart_periph);
-#endif
 
 
-#endif  //GD32F450I_EVAL_H
+#endif //WIFI_TASK
+
+
+#endif  //GD32FR_WIFI_H

@@ -44,24 +44,11 @@ OF SUCH DAMAGE.
 
 #ifdef WIFI_TASK
 
-#define TXD_PIN (GPIO_PIN_11)
-#define RXD_PIN (GPIO_PIN_11) 
-uint8_t txATCMDTEST[]        = "AT\r\n";
-uint8_t txATAPCMD[]          = "AT+CWJAP=\"SJQiPhone\",\"sjqjesus\"\r\n";
-uint8_t txATHostCMD[]        = "AT+CWJAP=<ssid>,<pwd>[,<bssid>][,<pci_en>][,<reconn_interval>][,<listen_interval>][,<scan_mode>]\r\n";
-uint8_t txATCWAUTOCONNCMD[]  = "AT+CWAUTOCONN=1\r\n";
-uint8_t txATRESULTOK[]       = "\r\nOK\r\n";
-//uint8_t txATHttpClient[]     = "AT+HTTPCLIENT=<opt>,<content-type>,[<url>],[<host>],[<path>],<transport_type>,[<data>][,"http_req_header"][,"http_req_header"][...] \r\n"; 
-
 #define ARRAYNUM(arr_nanme)      (uint32_t)(sizeof(arr_nanme) / sizeof(*(arr_nanme)))
 #define TRANSMIT_SIZE            (ARRAYNUM(txATAPCMD) - 1)
+#define TXD_PIN (GPIO_PIN_11)
+#define RXD_PIN (GPIO_PIN_11) 
 
-uint8_t rxbuffer[32];
-static const int RX_BUF_SIZE = 1024; 
-__IO uint8_t txcount         = 0; 
-__IO uint16_t rxcount        = 0; 
-uint8_t tx_size              = TRANSMIT_SIZE;
-uint8_t rx_size              = 32;
 static QueueHandle_t s_ATMsgQueue;
 
 typedef enum
@@ -74,24 +61,39 @@ typedef enum
  MT_ATCMDTEST,    //AT test cmd
  MT_ATPAUSE,      //AT in idel status
  MT_ATAPSETTINGS, //AT settings AP info
+ MT_ATCIPSTART,   //AT UDP/IP start
+ MT_ATECHO0,      //AT echo off
+ MT_ATCIPSEND,    //AT CIP udp send 
+ MT_ATCIPMUX,     //AT udp single/mult
+ MT_ATUDPDATA,    //AT udp data
  MT_ATNONE        //AT none status
-}MainTaskMsg;
+}MainWifiTaskMsg;
 
+uint8_t txATCMDTEST[]                    = "AT\r\n";
+uint8_t txATAPCMD[]                      = "AT+CWJAP=\"SJQiPhone\",\"sjqjesus\"\r\n";
+uint8_t txATHostCMD[]                    = "AT+CWJAP=<ssid>,<pwd>[,<bssid>][,<pci_en>][,<reconn_interval>][,<listen_interval>][,<scan_mode>]\r\n";
+uint8_t txATCWAUTOCONNCMD[]              = "AT+CWAUTOCONN=1\r\n";
+uint8_t txATCIPSTART[]                   = "AT+CIPSTART=\"UDP\",\"180.156.207.166\",3000\r\n";
+uint8_t txATCIPSEND[]                    = "AT+CIPSEND=5\r\n";
+uint8_t txATUDPDATA[]                    = "hello";
+uint8_t txATCIPMUX[]                     = "AT+CIPMUX=0\r\n";
+//AT results
+uint8_t txATRESULTOK[]                   = "\r\nOK\r\n";
+uint8_t txATRESULTWIFICONNECTED[]        = "WIFI CONNECTED\r\nWIFI GOT IP\r\n";
+uint8_t txATRESULTWIFIGOTIP[]            = "WIFI GOT IP\r\n";
+uint8_t txATRESULTWIFIDISCONNECTED[]     = "WIFI DISCONNECTED\r\n";
+uint8_t txATRESULTUDPCONNECTED[]         = "CONNECT\r\n\r\nOK\r\n";
+
+uint8_t rxbuffer[32];
+static const int RX_BUF_SIZE = 1024; 
+__IO uint8_t txcount         = 0; 
+__IO uint16_t rxcount        = 0; 
+uint8_t tx_size              = TRANSMIT_SIZE;
+uint8_t rx_size              = 32;
 
 void wifi_task(void){ 
     systick_config(); 
 
-    //s_ATMsgQueue = xQueueCreate(20, sizeof(MainTaskMsg));
-    #if 0
-    /* configure EVAL_COM1 */
-    gd_eval_com_init(EVAL_COM0);
-    printf("hello!");
-    while(1){
-			usart_data_transmit(EVAL_COM0, 'X');
-			gd_eval_led_toggle(LED1);
-      vTaskDelay(500 / portTICK_RATE_MS);
-    }
-    #endif
     SET_WIFI_POWER_OFF //as GD said 
     vTaskDelay(5000 / portTICK_RATE_MS);
     SET_WIFI_RESET
@@ -172,39 +174,70 @@ int sendData(const char* logName, const char* data) {
 	return txBytes;
 }
 
-//static void tx_task(void *arg) {
 static void tx_task(void) {
     static const char *TX_TASK_TAG = "TX_TASK";
-    MainTaskMsg event     = MT_ATNONE;
-    s_ATMsgQueue          = xQueueCreate(20, sizeof(MainTaskMsg));
-    MainTaskMsg event_pri = MT_ATNONE;
-    //esp_log_level_set(TX_TASK_TAG, ESP_LOG_INFO);
-    //sendData(TX_TASK_TAG, txATAPCMD);
+    MainWifiTaskMsg event          = MT_ATNONE;
+    MainWifiTaskMsg event_pri      = MT_ATNONE;
+    s_ATMsgQueue                   = xQueueCreate(20, sizeof(MainWifiTaskMsg));
 
-    //printf("AT+RST\r\n");
-    //vTaskDelay(8000 / portTICK_RATE_MS);
+    printf("ATE0\r\n");
+    vTaskDelay(1000 / portTICK_RATE_MS);
     while(1){
         switch(event){
             case MT_ATOK:
                 switch(event_pri){
                     case MT_ATCMDTEST:
-                        event     = MT_ATAPSETTINGS;
+                        event     = MT_ATCIPMUX;
                         event_pri = event;
-                        sendData(TX_TASK_TAG,txATAPCMD);
-                        /* wait until end of transmit */
-                        //while(RESET == usart_flag_get(USART2, USART_FLAG_TC));
+                        vTaskDelay(1000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATCIPMUX);
                         xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
                         break;
+                    case MT_ATECHO0:
+                        event     = MT_ATOK;
+                        event_pri = event;
+                        vTaskDelay(1000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATCMDTEST);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                    case MT_ATCIPMUX:
+                        event     = MT_ATAPSETTINGS;
+                        event_pri = event;
+                        vTaskDelay(1000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATAPCMD);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                     case MT_ATCIPSTART:
+                        event     = MT_ATCIPSEND;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATCIPSEND);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                      case MT_ATCIPSEND:
+                        //event     = MT_ATUDPDATA;
+                        event     = MT_ATCIPSTART;
+                        event_pri = event;
+                        vTaskDelay(1000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATUDPDATA);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                     case MT_ATAPSETTINGS:
+                        event     = MT_ATCIPSTART;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATCIPSTART);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+ 
                     case MT_ATINIT:
                     case MT_ATPAUSE:
-                    case MT_ATAPSETTINGS:
-                    case MT_ATERROR:
+                   case MT_ATERROR:
                     case MT_ATBUSY:
                     default:
                     break;
 
                 }
-            break;
             break;
             case MT_ATERROR:
             break;
@@ -213,9 +246,8 @@ static void tx_task(void) {
             case MT_ATNONE:
                 event     = MT_ATCMDTEST;
                 event_pri = event;
+                vTaskDelay(1000 / portTICK_RATE_MS);
                 sendData(TX_TASK_TAG,txATCMDTEST);
-                /* wait until end of transmit */
-                //while(RESET == usart_flag_get(USART2, USART_FLAG_TC));
                 xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
             break;
             case MT_ATDATA:
@@ -251,15 +283,32 @@ static void rx_task(void) {
     uint8_t rxBytes[100] ={'\n'};
     uint8_t i = 0;    
     uint8_t j = 0;
-    MainTaskMsg event                          = MT_ATNONE;
+    MainWifiTaskMsg event                          = MT_ATNONE;
     while(1){   
         while(RESET == usart_flag_get(USART2, USART_FLAG_RBNE));
         uint8_t tmp[1] = {0};
         rxBytes[i++] = usart_data_receive(USART2);
-        if(strstr(rxBytes, txATRESULTOK)){
+        if(strstr(rxBytes, txATRESULTUDPCONNECTED)){
+            i=0;
+            event = MT_ATOK;
+            xQueueSend(s_ATMsgQueue, &event, 0); 
+        }
+        else if(strstr(rxBytes, txATRESULTOK)){
+            i=0;
+            event = MT_ATOK;
+            xQueueSend(s_ATMsgQueue, &event, 0); 
+        }
+        //else if(strstr(rxBytes, txATRESULTWIFICONNECTED)||strstr(rxBytes, txATRESULTWIFIGOTIP)){
+        else if(strstr(rxBytes, txATRESULTWIFICONNECTED)){
+            i=0;
+            xQueueSend(s_ATMsgQueue, &event, 0); 
+        } 
+        /*
+        else if(strstr(rxBytes, txATCIPSTART)){
             i=0;
             xQueueSend(s_ATMsgQueue, &event, 0); 
         }
+        */
         #if 0
         if(rxBytes[i-1]=='\0x0D'){ 
             j++;
