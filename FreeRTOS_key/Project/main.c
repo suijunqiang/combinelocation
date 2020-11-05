@@ -50,6 +50,7 @@ SemaphoreHandle_t binary_semaphore;
 //internal function declare
 /* */
 void start_tasks(void){
+    systick_config(); 
     #ifdef UWB_TASK
     /* UWB task */
     xTaskCreate(uwb_task, "UWB_TASK", configMINIMAL_STACK_SIZE, NULL, UWB_TASK_PRIO, NULL);

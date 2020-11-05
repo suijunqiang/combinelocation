@@ -49,25 +49,6 @@ OF SUCH DAMAGE.
 #define TXD_PIN (GPIO_PIN_11)
 #define RXD_PIN (GPIO_PIN_11) 
 
-static QueueHandle_t s_ATMsgQueue;
-
-typedef enum
-{
- MT_ATOK,         //AT cmd done
- MT_ATERROR,      //AT cmd done with error
- MT_ATBUSY,       //AT is busy with error
- MT_ATDATA,       //AT done with data
- MT_ATINIT,       //AT initiallzing
- MT_ATCMDTEST,    //AT test cmd
- MT_ATPAUSE,      //AT in idel status
- MT_ATAPSETTINGS, //AT settings AP info
- MT_ATCIPSTART,   //AT UDP/IP start
- MT_ATECHO0,      //AT echo off
- MT_ATCIPSEND,    //AT CIP udp send 
- MT_ATCIPMUX,     //AT udp single/mult
- MT_ATUDPDATA,    //AT udp data
- MT_ATNONE        //AT none status
-}MainWifiTaskMsg;
 
 uint8_t txATCMDTEST[]                    = "AT\r\n";
 uint8_t txATAPCMD[]                      = "AT+CWJAP=\"SJQiPhone\",\"sjqjesus\"\r\n";
@@ -92,7 +73,6 @@ uint8_t tx_size              = TRANSMIT_SIZE;
 uint8_t rx_size              = 32;
 
 void wifi_task(void){ 
-    systick_config(); 
 
     SET_WIFI_POWER_OFF //as GD said 
     vTaskDelay(5000 / portTICK_RATE_MS);
@@ -108,8 +88,8 @@ void wifi_task(void){
     SET_WIFI_RESET
     vTaskDelay(200 / portTICK_RATE_MS);
     #endif 
-    xTaskCreate(tx_task, "uart_tx_task", 1024, NULL, WIFI_TASK_PRIO + 1, NULL);
-    xTaskCreate(rx_task, "uart_rx_task", 1024*2, NULL, WIFI_TASK_PRIO + 1, NULL);
+    xTaskCreate(tx_task, "uart_tx_task", 500, NULL, WIFI_TASK_PRIO, NULL);
+    xTaskCreate(rx_task, "uart_rx_task", 300, NULL, WIFI_TASK_PRIO, NULL);
     //printf("wifi task"); 
 }
 void wifi_uart_init(void){
@@ -215,6 +195,7 @@ static void tx_task(void) {
                         xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
                         break; 
                       case MT_ATCIPSEND:
+                      case MT_ATUDPDATA:
                         //event     = MT_ATUDPDATA;
                         event     = MT_ATCIPSTART;
                         event_pri = event;
@@ -252,6 +233,15 @@ static void tx_task(void) {
             break;
             case MT_ATDATA:
             break;
+            case MT_ATUDPDATA:
+                //event     = MT_ATUDPDATA;
+                event     = MT_ATCIPSTART;
+                event_pri = event;
+                vTaskDelay(1000 / portTICK_RATE_MS);
+                sendData(TX_TASK_TAG,txATUDPDATA);
+                xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                break; 
+
             case MT_ATINIT:
             case MT_ATPAUSE:
             default:
@@ -278,7 +268,6 @@ uint16_t usart_wifi_data_receive(uint32_t usart_periph)
 static void rx_task(void) {
     static const char *RX_TASK_TAG = "RX_TASK";
     at_enum_status at_status = AP_SETTINGS_OK;
-    uint8_t* data = (uint8_t*) malloc(RX_BUF_SIZE+1);
     static uint8_t RXLEN = 100;
     uint8_t rxBytes[100] ={'\n'};
     uint8_t i = 0;    
@@ -379,7 +368,6 @@ static void rx_task(void) {
         #endif
         /* code */
     }
-   free(data);
 }
 
 void app_main(void){

@@ -43,6 +43,7 @@ OF SUCH DAMAGE.
 #include "kcm_driver.h"
 #include "stdio.h"
 #include "stdbool.h"
+#include "gd32fr_wifi.h"
 
 //UWB NSS high is disable
 #define SET_SPI1_NSS_HIGH          gpio_bit_set(GPIOA,GPIO_PIN_4);
@@ -132,8 +133,8 @@ static void uwb_cmd_init(void){
     /* dev id is correct */
     if(KCM2000_DEV_ID == dev_id){
         //printf("\n\rdev_id:%s\n\r", dev_id);
-        printf("\n\rUWB_LOG: dev_id:%x\n\r", dev_id);
-        printf("\n\rUWB_LOG: SPI device id: Read ID Fail!\n\r");
+        //printf("\n\rUWB_LOG: dev_id:%x\n\r", dev_id);
+        //printf("\n\rUWB_LOG: SPI device id: Read ID Fail!\n\r");
 
     }else{
         /* spi read id fail */
@@ -191,14 +192,16 @@ void uwb_gpio_init(void){
     gpio_mode_set(GPIOC,GPIO_MODE_OUTPUT,GPIO_PUPD_NONE,GPIO_PIN_5);
     gpio_output_options_set(GPIOC, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, GPIO_PIN_5); 
 
-    //UWB IRQ
+    //USART0_RX
     gpio_af_set(GPIOA, GPIO_AF_10, GPIO_PIN_10);
-    gpio_mode_set(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, GPIO_PIN_10);
+    gpio_mode_set(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, GPIO_PIN_10); 
 
-    gpio_af_set(GPIOB, GPIO_AF_10, GPIO_PIN_12);
+    //UWB Int
+    gpio_af_set(GPIOB, GPIO_AF_12, GPIO_PIN_12);
     gpio_mode_set(GPIOB, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, GPIO_PIN_12);
-    gpio_af_set(GPIOB, GPIO_AF_10, GPIO_PIN_13);
-    gpio_mode_set(GPIOB, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, GPIO_PIN_13);
+
+    //gpio_af_set(GPIOB, GPIO_AF_13, GPIO_PIN_13);
+    //gpio_mode_set(GPIOB, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, GPIO_PIN_13);
     //gpio_output_options_set(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, GPIO_PIN_10); 
     //GPIO_BC()
     //gpio_af_set(GPIOA, GPIO_AF_10, GPIO_PIN_10);
@@ -208,7 +211,6 @@ void uwb_gpio_init(void){
     #ifdef JLINK
         gpio_mode_set(GPIOA,GPIO_MODE_INPUT,GPIO_PUPD_PULLDOWN,GPIO_PIN_9); 
         gpio_mode_set(GPIOB,GPIO_MODE_INPUT,GPIO_PUPD_PULLDOWN,GPIO_PIN_13); 
-        gpio_mode_set(GPIOB,GPIO_MODE_INPUT,GPIO_PUPD_PULLDOWN,GPIO_PIN_14); 
         //gpio_mode_set(GPIOA,GPIO_MODE_INPUT,GPIO_PUPD_PULLDOWN,GPIO_PIN_10);
     #else 
         gpio_mode_set(GPIOA,GPIO_MODE_INPUT,GPIO_PUPD_PULLDOWN,GPIO_PIN_13); 
@@ -227,11 +229,11 @@ void irq_init(void){
 void uwb_exti_irq_init(void){
     /* NVIC config */
     nvic_irq_enable(EXTI10_15_IRQn, 2U, 0U); 
-    syscfg_exti_line_config(EXTI_SOURCE_GPIOA, EXTI_SOURCE_PIN10);
+    syscfg_exti_line_config(EXTI_SOURCE_GPIOB, EXTI_SOURCE_PIN12);
     /* configure key EXTI line */
-    exti_init(EXTI_10, EXTI_INTERRUPT, EXTI_TRIG_RISING);
+    exti_init(EXTI_12, EXTI_INTERRUPT, EXTI_TRIG_RISING);
     NVIC_SetPriorityGrouping(0);
-    exti_interrupt_flag_clear(EXTI_10);
+    exti_interrupt_flag_clear(EXTI_12);
 }
 
 void uwb_rcu_init(void){
@@ -257,7 +259,7 @@ void uwb_reset(void){
         vTaskDelay(100 / portTICK_RATE_MS);
     }
     
-    printf("UWB_LOG: [KCM Init] BUSY_PIN Timeout.");  
+    //printf("UWB_LOG: [KCM Init] BUSY_PIN Timeout.");  
 }
 
 void dma_send_receive(unsigned char *send, unsigned char *recv, unsigned int len){
@@ -358,7 +360,7 @@ static void KCM_ReadWriteFunc(unsigned char* send, unsigned char* recv, unsigned
         while(KCM_BUSY()){
             if(--wait_cnt==0)
             {
-            printf("\n\r UWB_LOG: [KCM WR] BUSY_PIN Timeout.\n\r");
+            //printf("\n\r UWB_LOG: [KCM WR] BUSY_PIN Timeout.\n\r");
             return;
             }
         }
@@ -458,6 +460,8 @@ void SPI0_IRQHandler(void)
     static int16_t diff_tp;
     static uint8_t pdu[8]; 
     bool aoa_enable = false;
+    MainWifiTaskMsg pdu_event      = MT_ATUWBDATA;
+    s_ATMsgQueue                   = xQueueCreate(10, sizeof(MainWifiTaskMsg));
     
     if(aoa_enable) {
         kcm_get_aoa_all(tp,&diff_tp,CQI,CQI2,pdu);
@@ -477,13 +481,16 @@ void SPI0_IRQHandler(void)
         //kcm_get_rx_quality(CQI);
     }
 
+    xQueueSend(s_ATMsgQueue, &pdu_event, 0); 
+    
     printf("UWB_LOG: PDU:%02x%02x%02x%02x%02x%02x%02x%02x TP:%02x%02x%02x%02x%02x%02x DFTP:%d", \
         pdu[0],pdu[1],pdu[2],pdu[3],pdu[4],pdu[5],pdu[6],pdu[7],\
         tp[0],tp[1],tp[2],tp[3],tp[4],tp[5], diff_tp);
+        
 }
 
 static void HandleErrFrame(uint16_t status) {
-    printf("UWB_LOG:Error Occurred. Reg:[%04x]", status);
+    //printf("UWB_LOG:Error Occurred. Reg:[%04x]", status);
 }
 
 static void HandleTxDone(void){
@@ -491,11 +498,11 @@ static void HandleTxDone(void){
     
     kcm_get_tx_time_stamp(tp);
 
-    printf("UWB_LOG:Tx Done.  TP:%02x%02x%02x%02x%02x%02x",tp[0],tp[1],tp[2],tp[3],tp[4],tp[5]); 
+    //printf("UWB_LOG:Tx Done.  TP:%02x%02x%02x%02x%02x%02x",tp[0],tp[1],tp[2],tp[3],tp[4],tp[5]); 
 }
 
 static void HandleTxFail(void){
-    printf("UWB_LOG:KCM Tx Fail.");
+    //printf("UWB_LOG:KCM Tx Fail.");
 }
 static void HandleKCMIRQ(void){
     uint16_t status = kcm_get_int_status();
@@ -511,7 +518,8 @@ static void HandleKCMIRQ(void){
     else if(status &KCM_INT_TX_FAIL)
         HandleTxFail();
     else
-        printf("UWB_LOG:Invalid status value. %04x", status);
+			1;
+        //printf("UWB_LOG:Invalid status value. %04x", status);
 }
 
 void uwb_task(void){ 
@@ -523,9 +531,9 @@ void uwb_task(void){
     kcm_set_spi_wr_func(KCM_ReadWriteFunc); 
     uwb_cmd_init(); 
 
-    bool kcm_tx_test = false; 
+    bool kcm_tx_test = true; 
     if(kcm_tx_test == false) {
-            kcm_set_rx_start(IMMEDIATE);
+            kcm_set_rx_start(DELAY);
     }
     
     while(1) {
@@ -536,7 +544,7 @@ void uwb_task(void){
             //kcm_force_off_trx();
             kcm_set_int_status(KCM_INT_ALL);
             kcm_set_tx_pdu_fully(tx_pdu);    
-            kcm_set_tx_start(IMMEDIATE);
+            kcm_set_tx_start(DELAY);
         }
         if(!kcm_tx_test){
             kcm_set_int_status(KCM_INT_ALL);
@@ -550,7 +558,7 @@ void uwb_task(void){
                 HandleKCMIRQ();
                 break;
             default:
-                printf("UWB_LOG:Unknown MTSK Msg Type.");
+                //printf("UWB_LOG:Unknown MTSK Msg Type.");
                 break;
         }
     }
@@ -565,12 +573,12 @@ void MTSK_AppendWorkMsgISR(MainTaskMsg msg) {
 }
 
 void EXTI10_15_IRQHandler(void){
-    exti_interrupt_flag_clear(EXTI_10);
-    GPIO_EXTI_Callback(GPIO_PIN_10); 
+    exti_interrupt_flag_clear(EXTI_12);
+    GPIO_EXTI_Callback(GPIO_PIN_12); 
 }
 void GPIO_EXTI_Callback(uint16_t GPIO_Pin){ 
     switch(GPIO_Pin){
-        case GPIO_PIN_10:
+        case GPIO_PIN_12:
             if(KCM_INT_PIN_GET) {
                 MTSK_AppendWorkMsgISR(MT_KCMInterrupt);	
             }

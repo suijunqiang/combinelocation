@@ -75,6 +75,26 @@ typedef enum{
     CIP_UDPDATA_FAILD    =6
 }at_enum_status;
 
+typedef enum{
+ MT_ATOK,         //AT cmd done
+ MT_ATERROR,      //AT cmd done with error
+ MT_ATBUSY,       //AT is busy with error
+ MT_ATDATA,       //AT done with data
+ MT_ATINIT,       //AT initiallzing
+ MT_ATCMDTEST,    //AT test cmd
+ MT_ATPAUSE,      //AT in idel status
+ MT_ATAPSETTINGS, //AT settings AP info
+ MT_ATCIPSTART,   //AT UDP/IP start
+ MT_ATECHO0,      //AT echo off
+ MT_ATCIPSEND,    //AT CIP udp send 
+ MT_ATCIPMUX,     //AT udp single/mult
+ MT_ATUDPDATA,    //AT udp data
+ MT_ATUWBDATA,    //AT uwb data
+ MT_ATNONE        //AT none status
+}MainWifiTaskMsg;
+
+static QueueHandle_t s_ATMsgQueue;
+
 void wifi_task(void);
 void wifi_gpio_init(void);
 void wifi_rcu_init(void);
@@ -83,10 +103,8 @@ void wifi_uart_init(void);
 void tx_task(void);
 void rx_task(void);
 void wifi_com_init(uint32_t com);
-uint16_t usart_wifi_data_receive(uint32_t usart_periph);
+uint16_t usart_wifi_data_receive(uint32_t usart_periph); 
 
-
-#endif //WIFI_TASK
-
+#endif //WIFI_TASK 
 
 #endif  //GD32FR_WIFI_H

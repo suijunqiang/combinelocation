@@ -50,22 +50,22 @@ typedef enum{
 dev_status static run_status = IDLE;
 
 #define JLINK
-//#define UWB_TASK
+#define UWB_TASK
 #define WIFI_TASK
 //#define UM4B0_TASK
 //#define SPIIRQ
 #define ENABLE_DMA
 
 #define INIT_TASK_PRIO   ( tskIDLE_PRIORITY + 1 )
-#define LED_TASK_PRIO    ( tskIDLE_PRIORITY + 2 )
-#ifdef UWB_TASK
-#define UWB_TASK_PRIO    ( tskIDLE_PRIORITY + 2 )
+#define LED_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
+#ifdef  UWB_TASK
+#define UWB_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #endif
 #ifdef UM4B0_TASK
-#define UM4B0_TASK_PRIO    ( tskIDLE_PRIORITY + 2 )
+#define UM4B0_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #endif 
 #ifdef WIFI_TASK
-#define WIFI_TASK_PRIO    ( tskIDLE_PRIORITY + 2 )
+#define WIFI_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #endif
  
 #endif // GD32FR_GLOBAL_H
