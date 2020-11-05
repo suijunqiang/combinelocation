@@ -483,9 +483,11 @@ void SPI0_IRQHandler(void)
 
     xQueueSend(s_ATMsgQueue, &pdu_event, 0); 
     
+    /*
     printf("UWB_LOG: PDU:%02x%02x%02x%02x%02x%02x%02x%02x TP:%02x%02x%02x%02x%02x%02x DFTP:%d", \
         pdu[0],pdu[1],pdu[2],pdu[3],pdu[4],pdu[5],pdu[6],pdu[7],\
         tp[0],tp[1],tp[2],tp[3],tp[4],tp[5], diff_tp);
+        */
         
 }
 

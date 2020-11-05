@@ -88,8 +88,8 @@ void wifi_task(void){
     SET_WIFI_RESET
     vTaskDelay(200 / portTICK_RATE_MS);
     #endif 
-    xTaskCreate(tx_task, "uart_tx_task", 500, NULL, WIFI_TASK_PRIO, NULL);
-    xTaskCreate(rx_task, "uart_rx_task", 300, NULL, WIFI_TASK_PRIO, NULL);
+    xTaskCreate(tx_task, "uart_tx_task", 1024, NULL,  WIFI_TASK_PRIO + 1, NULL);
+    xTaskCreate(rx_task, "uart_rx_task", 1024, NULL,  WIFI_TASK_PRIO + 1, NULL);
     //printf("wifi task"); 
 }
 void wifi_uart_init(void){
@@ -166,6 +166,7 @@ static void tx_task(void) {
         switch(event){
             case MT_ATOK:
                 switch(event_pri){
+                    case MT_ATNONE:
                     case MT_ATCMDTEST:
                         event     = MT_ATCIPMUX;
                         event_pri = event;
