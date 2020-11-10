@@ -63,13 +63,14 @@ uint8_t txATCIPMUX[]                     = "AT+CIPMUX=0\r\n";
 //AT results
 uint8_t txATRESULTOK[]                   = "\r\nOK\r\n";
 uint8_t txATRESULTWIFICONNECTED[]        = "WIFI CONNECTED\r\nWIFI GOT IP\r\n";
-uint8_t txATRESULTWIFIGOTIP[]            = "WIFI GOT IP\r\n";
+uint8_t txATRESULTWIFIGOTIP[]            = "\r\nWIFI GOT IP\r\n";
 uint8_t txATRESULTWIFIDISCONNECTED[]     = "WIFI DISCONNECTED\r\n";
 uint8_t txATRESULTUDPCONNECTED[]         = "CONNECT\r\n\r\nOK\r\n";
 uint8_t txATRESULTERROR[]                = "\r\nERROR\r\n";
 uint8_t txATRESULTBUSY[]                 = "\r\nBUSY";
 uint8_t txATRESULTIPD[]                  = "IPD";
-uint8_t txATRESULSEND[]                  = "\r\n+SEND";
+uint8_t txATRESULSENDOK[]                = "\r\n+SEND OK\r\n";
+uint8_t txATRESULSENDFAIL[]              = "\r\n+SEND FAIL\r\n";
 
 uint8_t rxbuffer[32];
 static const int RX_BUF_SIZE = 1024; 
@@ -95,8 +96,8 @@ void wifi_task(void){
     SET_WIFI_RESET
     vTaskDelay(200 / portTICK_RATE_MS);
     #endif 
-    xTaskCreate(tx_task, "uart_tx_task", 1024, NULL,  WIFI_TASK_PRIO + 1, &txHandle);
-    xTaskCreate(rx_task, "uart_rx_task", 500, NULL,  WIFI_TASK_PRIO + 1, &rxHandle);
+    xTaskCreate(tx_task, "uart_tx_task", 1024, NULL, WIFI_TASK_PRIO, &txHandle);
+    xTaskCreate(rx_task, "uart_rx_task", 500, NULL,  WIFI_TASK_PRIO, &rxHandle);
     //printf("wifi task"); 
 }
 void wifi_uart_init(void){
@@ -212,8 +213,14 @@ static void tx_task(void) {
                         //if(!udp_connect){ 
                             sendData(TX_TASK_TAG,txATUDPDATA);
                             udp_connect = true;
+                        if(!g_udp_availble){
+                            g_udp_availble = true;
+                            vTaskSuspend(txHandle);
+                            vTaskSuspend(rxHandle);
+                        } 
+ 
                         //}
-                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        //xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
                         break; 
                      case MT_ATAPSETTINGS:
                         event     = MT_ATCIPSTART;
@@ -271,7 +278,12 @@ static void tx_task(void) {
                         event_pri = event;
                         vTaskDelay(2000 / portTICK_RATE_MS);
                         sendData(TX_TASK_TAG,txATCIPSEND);
-                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        if(!g_udp_availble){
+                            g_udp_availble = true;
+                            vTaskSuspend(txHandle);
+                            vTaskSuspend(rxHandle);
+                        } 
+                        //xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
                         break; 
                      case MT_ATAPSETTINGS: //there is a bug, it shoud be optimisticed later
                         event     = MT_ATAPSETTINGS;
@@ -329,7 +341,12 @@ static void tx_task(void) {
                         event_pri = event;
                         vTaskDelay(3000 / portTICK_RATE_MS);
                         sendData(TX_TASK_TAG,txATCIPSEND);
-                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        if(!g_udp_availble){
+                            g_udp_availble = true;
+                            vTaskSuspend(txHandle);
+                            vTaskSuspend(rxHandle);
+                        }
+                        //xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
                         break; 
                      case MT_ATAPSETTINGS:
                         event     = MT_ATAPSETTINGS;
@@ -405,6 +422,20 @@ static void rx_task(void) {
         else if(strstr(rxBytes, txATRESULTOK)){
             i=0;
             event = MT_ATOK;
+            /*
+            if(strstr(rxBytes, txATRESULTIPD)){
+                i=0;
+                event = MT_WIFISENDOK;
+                //memset(ptr, 0, sizeof(rxBytes));
+                vTaskDelay(3000 / portTICK_RATE_MS);
+                printf("XXX");
+                vTaskDelay(3000 / portTICK_RATE_MS);
+                vTaskSuspend(txHandle); 
+                vTaskSuspend(rxHandle);
+                xQueueSend(s_ATMsgQueue, &event, 0); 
+                break;
+            } 
+            */
 			//memset(ptr, 0, sizeof(rxBytes));
             xQueueSend(s_ATMsgQueue, &event, 0); 
         }

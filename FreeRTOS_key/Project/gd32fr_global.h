@@ -38,6 +38,7 @@ OF SUCH DAMAGE.
 #define GD32FR_GLOBAL_H
 #include "FreeRTOS.h"
 #include "task.h"
+#include "stdbool.h"
 
 typedef enum{
     IDLE = 0,   /*idle this is nothing to do*/
@@ -48,6 +49,8 @@ typedef enum{
 }dev_status;
 
 dev_status static run_status = IDLE;
+volatile static uint8_t g_udp[50];
+volatile static bool g_udp_availble = false;
 
 #define JLINK
 #define UWB_TASK
@@ -55,13 +58,13 @@ dev_status static run_status = IDLE;
 //#define UM4B0_TASK
 //#define SPIIRQ
 #define ENABLE_DMA
-#ifndef WIFI_TASK
-   #define NO_INDEPENDENT_WIFI_TASK
-#endif
+//#ifndef WIFI_TASK
+//   #define NO_INDEPENDENT_WIFI_TASK
+//#endif
 #define INIT_TASK_PRIO   ( tskIDLE_PRIORITY + 1 )
 #define LED_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #ifdef  UWB_TASK
-#define UWB_TASK_PRIO    ( tskIDLE_PRIORITY + 3 )
+#define UWB_TASK_PRIO    ( tskIDLE_PRIORITY + 2 )
 #endif
 #ifdef UM4B0_TASK
 #define UM4B0_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
