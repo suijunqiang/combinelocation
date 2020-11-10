@@ -55,17 +55,19 @@ dev_status static run_status = IDLE;
 //#define UM4B0_TASK
 //#define SPIIRQ
 #define ENABLE_DMA
-
+#ifndef WIFI_TASK
+   #define NO_INDEPENDENT_WIFI_TASK
+#endif
 #define INIT_TASK_PRIO   ( tskIDLE_PRIORITY + 1 )
 #define LED_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #ifdef  UWB_TASK
-#define UWB_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
+#define UWB_TASK_PRIO    ( tskIDLE_PRIORITY + 3 )
 #endif
 #ifdef UM4B0_TASK
 #define UM4B0_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #endif 
 #ifdef WIFI_TASK
-#define WIFI_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
+#define WIFI_TASK_PRIO    ( tskIDLE_PRIORITY + 2 )
 #endif
  
 #endif // GD32FR_GLOBAL_H

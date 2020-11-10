@@ -41,6 +41,8 @@ OF SUCH DAMAGE.
 #include "systick.h"
 #include "gd32f450i_eval.h"
 #include "queue.h"
+#include "stdbool.h"
+#include "task.h"
 
 #ifdef WIFI_TASK
 
@@ -54,7 +56,7 @@ uint8_t txATCMDTEST[]                    = "AT\r\n";
 uint8_t txATAPCMD[]                      = "AT+CWJAP=\"SJQiPhone\",\"sjqjesus\"\r\n";
 uint8_t txATHostCMD[]                    = "AT+CWJAP=<ssid>,<pwd>[,<bssid>][,<pci_en>][,<reconn_interval>][,<listen_interval>][,<scan_mode>]\r\n";
 uint8_t txATCWAUTOCONNCMD[]              = "AT+CWAUTOCONN=1\r\n";
-uint8_t txATCIPSTART[]                   = "AT+CIPSTART=\"UDP\",\"180.156.207.166\",3000\r\n";
+uint8_t txATCIPSTART[]                   = "AT+CIPSTART=\"UDP\",\"180.156.207.166\",8081\r\n";
 uint8_t txATCIPSEND[]                    = "AT+CIPSEND=5\r\n";
 uint8_t txATUDPDATA[]                    = "hello";
 uint8_t txATCIPMUX[]                     = "AT+CIPMUX=0\r\n";
@@ -64,6 +66,10 @@ uint8_t txATRESULTWIFICONNECTED[]        = "WIFI CONNECTED\r\nWIFI GOT IP\r\n";
 uint8_t txATRESULTWIFIGOTIP[]            = "WIFI GOT IP\r\n";
 uint8_t txATRESULTWIFIDISCONNECTED[]     = "WIFI DISCONNECTED\r\n";
 uint8_t txATRESULTUDPCONNECTED[]         = "CONNECT\r\n\r\nOK\r\n";
+uint8_t txATRESULTERROR[]                = "\r\nERROR\r\n";
+uint8_t txATRESULTBUSY[]                 = "\r\nBUSY";
+uint8_t txATRESULTIPD[]                  = "IPD";
+uint8_t txATRESULSEND[]                  = "\r\n+SEND";
 
 uint8_t rxbuffer[32];
 static const int RX_BUF_SIZE = 1024; 
@@ -71,6 +77,7 @@ __IO uint8_t txcount         = 0;
 __IO uint16_t rxcount        = 0; 
 uint8_t tx_size              = TRANSMIT_SIZE;
 uint8_t rx_size              = 32;
+TaskHandle_t rxHandle, txHandle;
 
 void wifi_task(void){ 
 
@@ -88,8 +95,8 @@ void wifi_task(void){
     SET_WIFI_RESET
     vTaskDelay(200 / portTICK_RATE_MS);
     #endif 
-    xTaskCreate(tx_task, "uart_tx_task", 1024, NULL,  WIFI_TASK_PRIO + 1, NULL);
-    xTaskCreate(rx_task, "uart_rx_task", 1024, NULL,  WIFI_TASK_PRIO + 1, NULL);
+    xTaskCreate(tx_task, "uart_tx_task", 1024, NULL,  WIFI_TASK_PRIO + 1, &txHandle);
+    xTaskCreate(rx_task, "uart_rx_task", 500, NULL,  WIFI_TASK_PRIO + 1, &rxHandle);
     //printf("wifi task"); 
 }
 void wifi_uart_init(void){
@@ -159,12 +166,13 @@ static void tx_task(void) {
     MainWifiTaskMsg event          = MT_ATNONE;
     MainWifiTaskMsg event_pri      = MT_ATNONE;
     s_ATMsgQueue                   = xQueueCreate(20, sizeof(MainWifiTaskMsg));
+    bool udp_connect               = false; 
 
     printf("ATE0\r\n");
     vTaskDelay(1000 / portTICK_RATE_MS);
     while(1){
         switch(event){
-            case MT_ATOK:
+            case MT_ATOK://AT back OK status machine
                 switch(event_pri){
                     case MT_ATNONE:
                     case MT_ATCMDTEST:
@@ -201,7 +209,10 @@ static void tx_task(void) {
                         event     = MT_ATCIPSTART;
                         event_pri = event;
                         vTaskDelay(1000 / portTICK_RATE_MS);
-                        sendData(TX_TASK_TAG,txATUDPDATA);
+                        //if(!udp_connect){ 
+                            sendData(TX_TASK_TAG,txATUDPDATA);
+                            udp_connect = true;
+                        //}
                         xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
                         break; 
                      case MT_ATAPSETTINGS:
@@ -214,16 +225,128 @@ static void tx_task(void) {
  
                     case MT_ATINIT:
                     case MT_ATPAUSE:
-                   case MT_ATERROR:
+                    case MT_ATERROR:
                     case MT_ATBUSY:
                     default:
                     break;
 
                 }
             break;
-            case MT_ATERROR:
+            case MT_ATERROR: //AT back error status machie
+                switch(event_pri){
+                    case MT_ATNONE:
+                    case MT_ATCMDTEST:
+                        event     = MT_ATCMDTEST;
+                        event_pri = event;
+                        vTaskDelay(1000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATCMDTEST);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break;
+                    case MT_ATECHO0:
+                        event     = MT_ATECHO0;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,"ATE0\r\n");
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                    case MT_ATCIPMUX:
+                        event     = MT_ATCIPMUX;
+                        event_pri = event;
+                        vTaskDelay(2000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATCIPMUX);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                     case MT_ATCIPSTART:
+                        event     = MT_ATCIPSTART;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATCIPSTART);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        int i = 0;
+                        break; 
+                      case MT_ATCIPSEND:
+                      case MT_ATUDPDATA:
+                        //event     = MT_ATUDPDATA;
+                        event     = MT_ATCIPSEND;
+                        event_pri = event;
+                        vTaskDelay(2000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATCIPSEND);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                     case MT_ATAPSETTINGS: //there is a bug, it shoud be optimisticed later
+                        event     = MT_ATAPSETTINGS;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATAPCMD);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                    case MT_ATINIT:
+                    case MT_ATPAUSE:
+                    case MT_ATERROR:
+                    case MT_ATBUSY:
+                    default:
+                    break;
+
+                }
+ 
             break;
-            case MT_ATBUSY:
+            case MT_ATBUSY: //AT back busy status machine
+                switch(event_pri){
+                    case MT_ATNONE:
+                    case MT_ATCMDTEST:
+                        event     = MT_ATCMDTEST;
+                        event_pri = event;
+                        vTaskDelay(3000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATCMDTEST);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break;
+                    case MT_ATECHO0:
+                        event     = MT_ATECHO0;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,"ATE0\r\n");
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                    case MT_ATCIPMUX:
+                        event     = MT_ATCIPMUX;
+                        event_pri = event;
+                        vTaskDelay(3000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATCIPMUX);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                     case MT_ATCIPSTART:
+                        event     = MT_ATCIPSTART;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATCIPSTART);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        int i = 0;
+                        break; 
+                      case MT_ATCIPSEND:
+                      case MT_ATUDPDATA:
+                        //event     = MT_ATUDPDATA;
+                        event     = MT_ATCIPSEND;
+                        event_pri = event;
+                        vTaskDelay(3000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATCIPSEND);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                     case MT_ATAPSETTINGS:
+                        event     = MT_ATAPSETTINGS;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        sendData(TX_TASK_TAG,txATAPCMD);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                    case MT_ATINIT:
+                    case MT_ATPAUSE:
+                    case MT_ATERROR:
+                    case MT_ATBUSY:
+                    default:
+                    break;
+
+                }
+ 
             break;
             case MT_ATNONE:
                 event     = MT_ATCMDTEST;
@@ -232,17 +355,11 @@ static void tx_task(void) {
                 sendData(TX_TASK_TAG,txATCMDTEST);
                 xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
             break;
+            case MT_WIFISENDOK: 
+                vTaskSuspend(txHandle);
+            break;
             case MT_ATDATA:
             break;
-            case MT_ATUDPDATA:
-                //event     = MT_ATUDPDATA;
-                event     = MT_ATCIPSTART;
-                event_pri = event;
-                vTaskDelay(1000 / portTICK_RATE_MS);
-                sendData(TX_TASK_TAG,txATUDPDATA);
-                xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
-                break; 
-
             case MT_ATINIT:
             case MT_ATPAUSE:
             default:
@@ -271,6 +388,7 @@ static void rx_task(void) {
     at_enum_status at_status = AP_SETTINGS_OK;
     static uint8_t RXLEN = 100;
     uint8_t rxBytes[100] ={'\n'};
+    uint8_t * ptr = rxBytes;
     uint8_t i = 0;    
     uint8_t j = 0;
     MainWifiTaskMsg event                          = MT_ATNONE;
@@ -281,98 +399,33 @@ static void rx_task(void) {
         if(strstr(rxBytes, txATRESULTUDPCONNECTED)){
             i=0;
             event = MT_ATOK;
+			//memset(ptr, 0, sizeof(rxBytes));
             xQueueSend(s_ATMsgQueue, &event, 0); 
         }
         else if(strstr(rxBytes, txATRESULTOK)){
             i=0;
             event = MT_ATOK;
+			//memset(ptr, 0, sizeof(rxBytes));
             xQueueSend(s_ATMsgQueue, &event, 0); 
         }
-        //else if(strstr(rxBytes, txATRESULTWIFICONNECTED)||strstr(rxBytes, txATRESULTWIFIGOTIP)){
-        else if(strstr(rxBytes, txATRESULTWIFICONNECTED)){
+        else if(strstr(rxBytes, txATRESULTIPD)){
             i=0;
+            event = MT_WIFISENDOK;
+			//memset(ptr, 0, sizeof(rxBytes));
+            vTaskDelay(3000 / portTICK_RATE_MS);
+            printf("XXX");
+            vTaskDelay(3000 / portTICK_RATE_MS);
+            vTaskSuspend(txHandle); 
+            vTaskSuspend(rxHandle);
             xQueueSend(s_ATMsgQueue, &event, 0); 
-        } 
+        }
         /*
-        else if(strstr(rxBytes, txATCIPSTART)){
-            i=0;
-            xQueueSend(s_ATMsgQueue, &event, 0); 
+        if(strlen(rxBytes)>6){
+            int i = 0;
         }
         */
-        #if 0
-        if(rxBytes[i-1]=='\0x0D'){ 
-            j++;
-            if(i==99){
-                i=0;
-                xQueueSend(s_ATMsgQueue, &event, 0); 
-            }
-            //if(j == 2 ){ 
-            //    i = 0;
-            //}
-
-            //printf(rxBytes);
-        }
- 
-        if(rxBytes[i] == 0x00){ 
-            i = 0;
-            //printf(rxBytes);
-        }
-        #endif
-        #if 0
-        do{                
-            rxBytes[i++] = usart_data_receive(USART2);
-            if(rxBytes[i] == '\n') {
-                break;
-            }
-            if(i >= RXLEN){
-                i = 0;
-                printf("WIFI_LOG: you input is overlength\r\n");
-                break;
-            } 
-            while(RESET == usart_flag_get(USART2, USART_FLAG_TBE));
-        }while(1);
-                        
-        if(i < RXLEN) {
-            //printf("you input is ");
-					printf(rxBytes);
-        }
-        //i++;
-        #endif
-
-        switch(at_status) {
-            case AP_SETTINGS_OK:  
-                //rxBytes[0] = uart_wifi_data_receive(USART2, data, RX_BUF_SIZE, 1000 / portTICK_RATE_MS);
-            break;
-            case AP_SETTINGS_FAIL:
-                //rxBytes[0] = uart_wifi_data_receive(USART2, data, RX_BUF_SIZE, 1000 / portTICK_RATE_MS);
-            break;
-            case CIP_UDP_CONNECT:
-                //rxBytes[0] = uart_wifi_data_receive(USART2, data, RX_BUF_SIZE, 1000 / portTICK_RATE_MS);
-            break;
-            case CIP_UDPDATA_RECEIVED:
-                //rxBytes[0] = uart_wifi_data_receive(USART2, data, RX_BUF_SIZE, 1000 / portTICK_RATE_MS);
-            break;
-            case CIP_UDPDATA_FAILD:
-                //rxBytes[0] = uart_wifi_data_receive(USART2, data, RX_BUF_SIZE, 1000 / portTICK_RATE_MS);
-            break;
-            default:
-            break;
-        }
-        #if 0
-        const int rxBytes = uart_wifi_data_receive(UART_NUM_1, data, RX_BUF_SIZE, 1000 / portTICK_RATE_MS);
-        const int rxBytes = uart_wifi_data_receive(UART_NUM_1, data, RX_BUF_SIZE, 1000 / portTICK_RATE_MS);
-        if (rxBytes > 0) {
-            data[rxBytes] = 0;
-            ESP_LOGI(RX_TASK_TAG, "Read %d bytes: '%s'", rxBytes, data);
-            ESP_LOG_BUFFER_HEXDUMP(RX_TASK_TAG, data, rxBytes, ESP_LOG_INFO);
-        }
-        #endif
-        /* code */
     }
 }
-
-void app_main(void){
-    }
 
 /*!
     \brief      this function handles USART RBNE interrupt request and TBE interrupt request

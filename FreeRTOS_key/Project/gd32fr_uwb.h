@@ -174,6 +174,16 @@ void uwb_spi_init(void){
     spi_enable(SPI0); 
 }
 
+#ifdef NO_INDEPENDENT_WIFI_TASK
+void wifi_at_init(void){ 
+
+    SET_WIFI_POWER_OFF //as GD said 
+    vTaskDelay(5000 / portTICK_RATE_MS);
+    SET_WIFI_RESET
+    vTaskDelay(5000 / portTICK_RATE_MS);
+    gd_eval_com_init(USART2); 
+}
+#endif //NO_INDEPENDENT_WIFI_TASK
 void uwb_gpio_init(void){
     /* SPI5_CLK(PG13), SPI5_MISO(PG12), SPI5_MOSI(PG14),SPI5_IO2(PG10) and SPI5_IO3(PG11) GPIO pin configuration */
     gpio_af_set(GPIOA, GPIO_AF_5, GPIO_PIN_5 | GPIO_PIN_6 |GPIO_PIN_7);
@@ -460,8 +470,10 @@ void SPI0_IRQHandler(void)
     static int16_t diff_tp;
     static uint8_t pdu[8]; 
     bool aoa_enable = false;
-    MainWifiTaskMsg pdu_event      = MT_ATUWBDATA;
-    s_ATMsgQueue                   = xQueueCreate(10, sizeof(MainWifiTaskMsg));
+    /*
+			MainWifiTaskMsg pdu_event      = MT_ATUWBDATA;
+      s_ATMsgQueue                   = xQueueCreate(10, sizeof(MainWifiTaskMsg));
+		*/
     
     if(aoa_enable) {
         kcm_get_aoa_all(tp,&diff_tp,CQI,CQI2,pdu);
@@ -481,13 +493,16 @@ void SPI0_IRQHandler(void)
         //kcm_get_rx_quality(CQI);
     }
 
+     printf("DDD");
+    /*
     xQueueSend(s_ATMsgQueue, &pdu_event, 0); 
     
-    /*
+    
     printf("UWB_LOG: PDU:%02x%02x%02x%02x%02x%02x%02x%02x TP:%02x%02x%02x%02x%02x%02x DFTP:%d", \
         pdu[0],pdu[1],pdu[2],pdu[3],pdu[4],pdu[5],pdu[6],pdu[7],\
         tp[0],tp[1],tp[2],tp[3],tp[4],tp[5], diff_tp);
-        */
+    */
+        
         
 }
 
@@ -532,7 +547,9 @@ void uwb_task(void){
     uwb_reset(); 
     kcm_set_spi_wr_func(KCM_ReadWriteFunc); 
     uwb_cmd_init(); 
-
+    #ifdef NO_INDEPENDENT_WIFI_TASK
+        wifi_at_init();
+    #endif //NO_INDEPENDENT_WIFI_TASK
     bool kcm_tx_test = true; 
     if(kcm_tx_test == false) {
             kcm_set_rx_start(DELAY);
@@ -554,7 +571,209 @@ void uwb_task(void){
         }
             
         xQueueReceive(s_MTSKMsgQueue, &event, portMAX_DELAY);
-            
+        #ifdef    NO_INDEPENDENT_WIFI_TASK 
+        event                 = MT_ATNONE;
+        MainTaskMsg event_pri = MT_ATNONE;
+        printf("ATE0\r\n");
+        vTaskDelay(1000 / portTICK_RATE_MS);
+
+        xTaskCreate(rx_task, "uart_rx_task", 500, NULL,  WIFI_TASK_PRIO + 1, NULL);
+
+        switch(event){
+            case MT_ATOK://AT back OK status machine
+                switch(event_pri){
+                    case MT_ATNONE:
+                    case MT_ATCMDTEST:
+                        event     = MT_ATCIPMUX;
+                        event_pri = event;
+                        vTaskDelay(1000 / portTICK_RATE_MS);
+                        printf(txATCIPMUX);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break;
+                    case MT_ATECHO0:
+                        event     = MT_ATOK;
+                        event_pri = event;
+                        vTaskDelay(1000 / portTICK_RATE_MS);
+                        printf(txATCMDTEST);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                    case MT_ATCIPMUX:
+                        event     = MT_ATAPSETTINGS;
+                        event_pri = event;
+                        vTaskDelay(1000 / portTICK_RATE_MS);
+                        printf(txATAPCMD);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                     case MT_ATCIPSTART:
+                        event     = MT_ATCIPSEND;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        printf(txATCIPSEND);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                      case MT_ATCIPSEND:
+                      case MT_ATUDPDATA:
+                        //event     = MT_ATUDPDATA;
+                        event     = MT_ATCIPSTART;
+                        event_pri = event;
+                        vTaskDelay(1000 / portTICK_RATE_MS);
+                        //if(!udp_connect){ 
+                            printf(txATUDPDATA);
+                            udp_connect = true;
+                        //}
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                     case MT_ATAPSETTINGS:
+                        event     = MT_ATCIPSTART;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        printf(txATCIPSTART);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+ 
+                    case MT_ATINIT:
+                    case MT_ATPAUSE:
+                   case MT_ATERROR:
+                    case MT_ATBUSY:
+                    default:
+                    break;
+
+                }
+            break;
+            case MT_ATERROR: //AT back error status machie
+                switch(event_pri){
+                    case MT_ATNONE:
+                    case MT_ATCMDTEST:
+                        event     = MT_ATCMDTEST;
+                        event_pri = event;
+                        vTaskDelay(1000 / portTICK_RATE_MS);
+                        printf(txATCMDTEST);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break;
+                    case MT_ATECHO0:
+                        event     = MT_ATECHO0;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        printf("ATE0\r\n");
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                    case MT_ATCIPMUX:
+                        event     = MT_ATCIPMUX;
+                        event_pri = event;
+                        vTaskDelay(2000 / portTICK_RATE_MS);
+                        printf(txATCIPMUX);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                     case MT_ATCIPSTART:
+                        event     = MT_ATCIPSTART;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        printf(txATCIPSTART);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        int i = 0;
+                        break; 
+                      case MT_ATCIPSEND:
+                      case MT_ATUDPDATA:
+                        //event     = MT_ATUDPDATA;
+                        event     = MT_ATCIPSEND;
+                        event_pri = event;
+                        vTaskDelay(2000 / portTICK_RATE_MS);
+                        printf(txATCIPSEND);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                     case MT_ATAPSETTINGS: //there is a bug, it shoud be optimisticed later
+                        event     = MT_ATAPSETTINGS;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        printf(txATAPCMD);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                    case MT_ATINIT:
+                    case MT_ATPAUSE:
+                    case MT_ATERROR:
+                    case MT_ATBUSY:
+                    default:
+                    break;
+
+                }
+ 
+            break;
+            case MT_ATBUSY: //AT back busy status machine
+                switch(event_pri){
+                    case MT_ATNONE:
+                    case MT_ATCMDTEST:
+                        event     = MT_ATCMDTEST;
+                        event_pri = event;
+                        vTaskDelay(3000 / portTICK_RATE_MS);
+                        printf(txATCMDTEST);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break;
+                    case MT_ATECHO0:
+                        event     = MT_ATECHO0;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        printf("ATE0\r\n");
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                    case MT_ATCIPMUX:
+                        event     = MT_ATCIPMUX;
+                        event_pri = event;
+                        vTaskDelay(3000 / portTICK_RATE_MS);
+                        printf(txATCIPMUX);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                     case MT_ATCIPSTART:
+                        event     = MT_ATCIPSTART;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        printf(txATCIPSTART);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        int i = 0;
+                        break; 
+                      case MT_ATCIPSEND:
+                      case MT_ATUDPDATA:
+                        //event     = MT_ATUDPDATA;
+                        event     = MT_ATCIPSEND;
+                        event_pri = event;
+                        vTaskDelay(3000 / portTICK_RATE_MS);
+                        printf(txATCIPSEND);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                     case MT_ATAPSETTINGS:
+                        event     = MT_ATAPSETTINGS;
+                        event_pri = event;
+                        vTaskDelay(5000 / portTICK_RATE_MS);
+                        printf(txATAPCMD);
+                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+                        break; 
+                    case MT_ATINIT:
+                    case MT_ATPAUSE:
+                    case MT_ATERROR:
+                    case MT_ATBUSY:
+                    default:
+                    break;
+
+                }
+ 
+            break;
+            case MT_ATNONE:
+                event     = MT_ATCMDTEST;
+                event_pri = event;
+                vTaskDelay(1000 / portTICK_RATE_MS);
+                printf(txATCMDTEST);
+                xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
+            break;
+            case MT_ATDATA:
+            break;
+            case MT_ATINIT:
+            case MT_ATPAUSE:
+            default:
+                event     = MT_ATNONE;
+            break;
+        }
+        vTaskDelay(1000 / portTICK_RATE_MS);
+
+        #endif //NO_INDEPENDENT_WIFI_TASK
         switch (event) {
             case MT_KCMInterrupt:
                 HandleKCMIRQ();
@@ -565,6 +784,32 @@ void uwb_task(void){
         }
     }
 }
+
+#ifdef NO_INDEPENDENT_WIFI_TASK
+static void rx_task(void) {
+    at_enum_status at_status = AP_SETTINGS_OK;
+    static uint8_t RXLEN = 100;
+    uint8_t rxBytes[100] ={'\n'};
+    uint8_t i = 0;    
+    uint8_t j = 0;
+    MainWifiTaskMsg event                          = MT_ATNONE;
+    while(1){   
+        while(RESET == usart_flag_get(USART2, USART_FLAG_RBNE));
+        uint8_t tmp[1] = {0};
+        rxBytes[i++] = usart_data_receive(USART2);
+        if(strstr(rxBytes, txATRESULTUDPCONNECTED)){
+            i=0;
+            event = MT_ATOK;
+            xQueueSend(s_ATMsgQueue, &event, 0); 
+        }
+        else if(strstr(rxBytes, txATRESULTOK)){
+            i=0;
+            event = MT_ATOK;
+            xQueueSend(s_ATMsgQueue, &event, 0); 
+        }
+    }
+}
+#endif //NO_INDEPENDENT_WIFI_TASK
 
 void MTSK_AppendWorkMsgISR(MainTaskMsg msg) {
   static BaseType_t xHigherPriorityTaskWoken = pdFALSE;

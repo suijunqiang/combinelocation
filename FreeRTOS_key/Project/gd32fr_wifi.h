@@ -90,6 +90,7 @@ typedef enum{
  MT_ATCIPMUX,     //AT udp single/mult
  MT_ATUDPDATA,    //AT udp data
  MT_ATUWBDATA,    //AT uwb data
+ MT_WIFISENDOK,   //AT wifi able to send udp data out
  MT_ATNONE        //AT none status
 }MainWifiTaskMsg;
 
