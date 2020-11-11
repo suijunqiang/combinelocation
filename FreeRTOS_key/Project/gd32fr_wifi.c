@@ -78,7 +78,21 @@ __IO uint8_t txcount         = 0;
 __IO uint16_t rxcount        = 0; 
 uint8_t tx_size              = TRANSMIT_SIZE;
 uint8_t rx_size              = 32;
-TaskHandle_t rxHandle, txHandle;
+
+typedef enum
+{
+  MT_ACSyncInit,
+  MT_ACSyncDeInit,
+  MT_NetworkMsg,
+  MT_nRFMsg,
+  MT_GetRFWarnMsg,
+  MT_PreWriteSbeacon,
+  MT_PreWriteLbeacon,
+  MT_ReportStatus,
+  MT_KCMTxSyncMsg,
+  MT_KCMInterrupt,
+  MT_WIFIREAD
+}MainTaskMsg;
 
 void wifi_task(void){ 
 
@@ -213,11 +227,40 @@ static void tx_task(void) {
                         //if(!udp_connect){ 
                             sendData(TX_TASK_TAG,txATUDPDATA);
                             udp_connect = true;
+                        #ifdef WIFI_READY
                         if(!g_udp_availble){
                             g_udp_availble = true;
+                            vTaskDelay(1000 / portTICK_RATE_MS);
+                            printf("AT+CIPSEND=5\r\n");
+                            printf("1234%d", g_udp_availble);
+                            vTaskDelay(1000 / portTICK_RATE_MS);
+
+                            static QueueHandle_t s_UdpMsgQueue;
+                            MainTaskMsg udp_event = MT_WIFIREAD;
+                            s_UdpMsgQueue = xQueueCreate(10, sizeof(udp_event));
+
+
                             vTaskSuspend(txHandle);
-                            vTaskSuspend(rxHandle);
+                            vTaskSuspend(rxHandle); 
+                            xQueueSend(s_UdpMsgQueue, &udp_event, 0); 
                         } 
+                        #else //WIFI_READY
+                            if(!g_udp_availble){
+                                g_udp_availble = true;
+                                vTaskDelay(1000 / portTICK_RATE_MS);
+                                printf("AT+CIPSEND=5\r\n");
+                                printf("1234%d", g_udp_availble);
+                                vTaskDelay(1000 / portTICK_RATE_MS);
+                                //Resume UWB task to send UDP out
+                                //vTaskResume(uwbHandle);
+                                //Suspend tx/rx task
+                                //#ifdef SUSPEND_FEATURE
+                                vTaskSuspend(rxHandle); 
+                                vTaskSuspend(txHandle);
+                            }else{
+                                //do nothing here
+                            } 
+                        #endif //WIFI_READY
  
                         //}
                         //xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
@@ -374,6 +417,7 @@ static void tx_task(void) {
             break;
             case MT_WIFISENDOK: 
                 vTaskSuspend(txHandle);
+                vTaskSuspend(rxHandle);
             break;
             case MT_ATDATA:
             break;

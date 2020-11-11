@@ -50,11 +50,14 @@ typedef enum{
 
 dev_status static run_status = IDLE;
 volatile static uint8_t g_udp[50];
+//the flag to identify wifi udp availbel or not
 volatile static bool g_udp_availble = false;
+volatile static TaskHandle_t rxHandle, txHandle, uwbHandle;
 
 #define JLINK
 #define UWB_TASK
 #define WIFI_TASK
+#define SUSPEND_FEATURE 
 //#define UM4B0_TASK
 //#define SPIIRQ
 #define ENABLE_DMA
@@ -73,4 +76,6 @@ volatile static bool g_udp_availble = false;
 #define WIFI_TASK_PRIO    ( tskIDLE_PRIORITY + 2 )
 #endif
  
+//#define WIFI_READY
+
 #endif // GD32FR_GLOBAL_H

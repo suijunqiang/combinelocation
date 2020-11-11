@@ -83,13 +83,15 @@ uint8_t spi0_send_array[ARRAYSIZE] = {0x83,0x00,0x00,0x00,0x00,0x00,0x00};
 uint8_t  ut[10] = {0}; 
 
 uint32_t dev_id = 0;
-static QueueHandle_t s_MTSKMsgQueue;
+static QueueHandle_t s_MTSKMsgQueue, s_UdpMsgQueue;
 rtc_timestamp_struct rtc_timestamp; 
 unsigned char* ptr_receive = NULL;
 uint16_t tmp_buffer[1000] ={0};
 int tmp_len = 0;
 static void KCM_ReadWriteFunc(unsigned char* send, unsigned char* recv, unsigned int len);
 uint8_t UWB_LOG[] = "UWB_LOG:";
+bool static wifi_ready = false;
+bool static wifi_flag  = false;
 
 typedef enum
 {
@@ -102,7 +104,8 @@ typedef enum
   MT_PreWriteLbeacon,
   MT_ReportStatus,
   MT_KCMTxSyncMsg,
-  MT_KCMInterrupt
+  MT_KCMInterrupt,
+  MT_WIFIREADY
 }MainTaskMsg;
 
 //extern dev_status;
@@ -465,6 +468,8 @@ void SPI0_IRQHandler(void)
 #endif //end of SPIIRQ
 #ifdef UWB_TASK
     static void HandleGoodFrame(void) {
+    MainTaskMsg udp_event = MT_WIFIREADY;
+    s_UdpMsgQueue = xQueueCreate(10, sizeof(MainTaskMsg));
     static uint8_t CQI[3],CQI2[3];
     static uint8_t tp[6];
     static int16_t diff_tp;
@@ -492,7 +497,27 @@ void SPI0_IRQHandler(void)
         //kcm_get_rx_time_stamp(tp);
         //kcm_get_rx_quality(CQI);
     }
-    if(g_udp_availble){
+    /*
+    if(!wifi_flag){
+			
+        vTaskSuspend(uwbHandle);
+        wifi_flag = true;
+    }
+    if(wifi_flag){
+        strcpy(g_udp, pdu);
+        strcpy(g_udp, "  ");
+        strcpy(g_udp, tp);
+
+        printf("AT+CIPSEND=%d\r\n",strlen(g_udp));
+        printf("%s", g_udp); 
+    }
+    */
+    #ifdef WIFI_READY
+    if(!wifi_ready){
+        xQueueReceive(s_UdpMsgQueue, &udp_event, portMAX_DELAY);
+        wifi_ready = true; 
+    }
+    if(wifi_ready){
         strcpy(g_udp, pdu);
         strcpy(g_udp, "  ");
         strcpy(g_udp, tp);
@@ -504,6 +529,31 @@ void SPI0_IRQHandler(void)
         //printf("ZZZ");
 
     }
+ 
+   free(s_UdpMsgQueue);
+   #else //WIFI_READY
+   /*
+        if(g_udp_availble){
+            strcpy(g_udp, pdu);
+            strcpy(g_udp, "  ");
+            strcpy(g_udp, tp);
+
+            printf("AT+CIPSEND=%d\r\n",strlen(g_udp));
+            printf("%s", g_udp); 
+        }else{
+            //do nothing here
+        }
+        */
+    //delay 1min to wait wifi ready, it should be changed in other way.
+    vTaskDelay(10000 / portTICK_RATE_MS);
+    strcpy(g_udp, pdu);
+    strstr(g_udp, "  ");
+    strstr(g_udp, tp);
+
+    printf("AT+CIPSEND=%d\r\n",strlen(g_udp));
+    printf("%s", g_udp); 
+
+  #endif  //WIFI_READY
     /*
     xQueueSend(s_ATMsgQueue, &pdu_event, 0); 
     
