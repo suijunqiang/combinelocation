@@ -550,8 +550,13 @@ void SPI0_IRQHandler(void)
     strstr(g_udp, "  ");
     strstr(g_udp, tp);
 
-    printf("AT+CIPSEND=%d\r\n",strlen(g_udp));
-    printf("%s", g_udp); 
+    //printf("AT+CIPSEND=%d\r\n",strlen(g_udp));
+    //printf("%s", g_udp); 
+
+    printf("AT+CIPSEND=%d\r\n",19);
+    printf("%02x%02x%02x%02x%02x%02x%02x%02x  %02x%02x%02x%02x%02x%02x  %d", \
+        pdu[0],pdu[1],pdu[2],pdu[3],pdu[4],pdu[5],pdu[6],pdu[7],\
+        tp[0],tp[1],tp[2],tp[3],tp[4],tp[5], diff_tp); 
 
   #endif  //WIFI_READY
     /*

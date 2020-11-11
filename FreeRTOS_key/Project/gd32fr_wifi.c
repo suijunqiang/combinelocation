@@ -248,9 +248,9 @@ static void tx_task(void) {
                             if(!g_udp_availble){
                                 g_udp_availble = true;
                                 vTaskDelay(1000 / portTICK_RATE_MS);
-                                printf("AT+CIPSEND=5\r\n");
-                                printf("1234%d", g_udp_availble);
-                                vTaskDelay(1000 / portTICK_RATE_MS);
+                                //printf("AT+CIPSEND=5\r\n");
+                                //printf("1234%d", g_udp_availble);
+                                //vTaskDelay(1000 / portTICK_RATE_MS);
                                 //Resume UWB task to send UDP out
                                 //vTaskResume(uwbHandle);
                                 //Suspend tx/rx task
@@ -488,10 +488,10 @@ static void rx_task(void) {
             event = MT_WIFISENDOK;
 			//memset(ptr, 0, sizeof(rxBytes));
             vTaskDelay(3000 / portTICK_RATE_MS);
-            printf("XXX");
-            vTaskDelay(3000 / portTICK_RATE_MS);
-            vTaskSuspend(txHandle); 
-            vTaskSuspend(rxHandle);
+            //printf("XXX");
+            //vTaskDelay(3000 / portTICK_RATE_MS);
+            //vTaskSuspend(txHandle); 
+            //vTaskSuspend(rxHandle);
             xQueueSend(s_ATMsgQueue, &event, 0); 
         }
         /*
