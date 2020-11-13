@@ -54,9 +54,12 @@ OF SUCH DAMAGE.
 
 uint8_t txATCMDTEST[]                    = "AT\r\n";
 uint8_t txATAPCMD[]                      = "AT+CWJAP=\"SJQiPhone\",\"sjqjesus\"\r\n";
+//uint8_t txATAPCMD[]                      = "AT+CWJAP=\"Vking-01\",\"\"\r\n";
 uint8_t txATHostCMD[]                    = "AT+CWJAP=<ssid>,<pwd>[,<bssid>][,<pci_en>][,<reconn_interval>][,<listen_interval>][,<scan_mode>]\r\n";
 uint8_t txATCWAUTOCONNCMD[]              = "AT+CWAUTOCONN=1\r\n";
 uint8_t txATCIPSTART[]                   = "AT+CIPSTART=\"UDP\",\"180.156.207.166\",8081\r\n";
+//uint8_t txATCIPSTART[]                   = "AT+CIPSTART=\"UDP\",\"222.66.141.186\",18000\r\n";
+//uint8_t txATCIPSTART[]                   = "AT+CIPSTART=\"UDP\",\"192.168.7.180\",8081\r\n";
 uint8_t txATCIPSEND[]                    = "AT+CIPSEND=5\r\n";
 uint8_t txATUDPDATA[]                    = "hello";
 uint8_t txATCIPMUX[]                     = "AT+CIPMUX=0\r\n";
@@ -225,7 +228,7 @@ static void tx_task(void) {
                         event_pri = event;
                         vTaskDelay(1000 / portTICK_RATE_MS);
                         //if(!udp_connect){ 
-                            sendData(TX_TASK_TAG,txATUDPDATA);
+                        sendData(TX_TASK_TAG,txATUDPDATA);
                             udp_connect = true;
                         #ifdef WIFI_READY
                         if(!g_udp_availble){
@@ -283,130 +286,8 @@ static void tx_task(void) {
                 }
             break;
             case MT_ATERROR: //AT back error status machie
-                switch(event_pri){
-                    case MT_ATNONE:
-                    case MT_ATCMDTEST:
-                        event     = MT_ATCMDTEST;
-                        event_pri = event;
-                        vTaskDelay(1000 / portTICK_RATE_MS);
-                        sendData(TX_TASK_TAG,txATCMDTEST);
-                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
-                        break;
-                    case MT_ATECHO0:
-                        event     = MT_ATECHO0;
-                        event_pri = event;
-                        vTaskDelay(5000 / portTICK_RATE_MS);
-                        sendData(TX_TASK_TAG,"ATE0\r\n");
-                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
-                        break; 
-                    case MT_ATCIPMUX:
-                        event     = MT_ATCIPMUX;
-                        event_pri = event;
-                        vTaskDelay(2000 / portTICK_RATE_MS);
-                        sendData(TX_TASK_TAG,txATCIPMUX);
-                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
-                        break; 
-                     case MT_ATCIPSTART:
-                        event     = MT_ATCIPSTART;
-                        event_pri = event;
-                        vTaskDelay(5000 / portTICK_RATE_MS);
-                        sendData(TX_TASK_TAG,txATCIPSTART);
-                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
-                        int i = 0;
-                        break; 
-                      case MT_ATCIPSEND:
-                      case MT_ATUDPDATA:
-                        //event     = MT_ATUDPDATA;
-                        event     = MT_ATCIPSEND;
-                        event_pri = event;
-                        vTaskDelay(2000 / portTICK_RATE_MS);
-                        sendData(TX_TASK_TAG,txATCIPSEND);
-                        if(!g_udp_availble){
-                            g_udp_availble = true;
-                            vTaskSuspend(txHandle);
-                            vTaskSuspend(rxHandle);
-                        } 
-                        //xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
-                        break; 
-                     case MT_ATAPSETTINGS: //there is a bug, it shoud be optimisticed later
-                        event     = MT_ATAPSETTINGS;
-                        event_pri = event;
-                        vTaskDelay(5000 / portTICK_RATE_MS);
-                        sendData(TX_TASK_TAG,txATAPCMD);
-                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
-                        break; 
-                    case MT_ATINIT:
-                    case MT_ATPAUSE:
-                    case MT_ATERROR:
-                    case MT_ATBUSY:
-                    default:
-                    break;
-
-                }
- 
             break;
-            case MT_ATBUSY: //AT back busy status machine
-                switch(event_pri){
-                    case MT_ATNONE:
-                    case MT_ATCMDTEST:
-                        event     = MT_ATCMDTEST;
-                        event_pri = event;
-                        vTaskDelay(3000 / portTICK_RATE_MS);
-                        sendData(TX_TASK_TAG,txATCMDTEST);
-                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
-                        break;
-                    case MT_ATECHO0:
-                        event     = MT_ATECHO0;
-                        event_pri = event;
-                        vTaskDelay(5000 / portTICK_RATE_MS);
-                        sendData(TX_TASK_TAG,"ATE0\r\n");
-                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
-                        break; 
-                    case MT_ATCIPMUX:
-                        event     = MT_ATCIPMUX;
-                        event_pri = event;
-                        vTaskDelay(3000 / portTICK_RATE_MS);
-                        sendData(TX_TASK_TAG,txATCIPMUX);
-                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
-                        break; 
-                     case MT_ATCIPSTART:
-                        event     = MT_ATCIPSTART;
-                        event_pri = event;
-                        vTaskDelay(5000 / portTICK_RATE_MS);
-                        sendData(TX_TASK_TAG,txATCIPSTART);
-                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
-                        int i = 0;
-                        break; 
-                      case MT_ATCIPSEND:
-                      case MT_ATUDPDATA:
-                        //event     = MT_ATUDPDATA;
-                        event     = MT_ATCIPSEND;
-                        event_pri = event;
-                        vTaskDelay(3000 / portTICK_RATE_MS);
-                        sendData(TX_TASK_TAG,txATCIPSEND);
-                        if(!g_udp_availble){
-                            g_udp_availble = true;
-                            vTaskSuspend(txHandle);
-                            vTaskSuspend(rxHandle);
-                        }
-                        //xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
-                        break; 
-                     case MT_ATAPSETTINGS:
-                        event     = MT_ATAPSETTINGS;
-                        event_pri = event;
-                        vTaskDelay(5000 / portTICK_RATE_MS);
-                        sendData(TX_TASK_TAG,txATAPCMD);
-                        xQueueReceive(s_ATMsgQueue, &event, portMAX_DELAY);
-                        break; 
-                    case MT_ATINIT:
-                    case MT_ATPAUSE:
-                    case MT_ATERROR:
-                    case MT_ATBUSY:
-                    default:
-                    break;
-
-                }
- 
+            case MT_ATBUSY: //AT back busy status machine 
             break;
             case MT_ATNONE:
                 event     = MT_ATCMDTEST;

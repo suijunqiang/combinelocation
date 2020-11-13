@@ -78,6 +78,11 @@ OF SUCH DAMAGE.
 #define KCM2000_DEV_ID 0x2d9c0501
 #define KCM2001_DEV_ID 0x2d9c0502
 #define ARRAYSIZE         7
+#define ID0BITS      0xFF
+#define ID1BITS      0xFF << 8
+#define ID2BITS      0xFF << 16
+#define ID3BITS      0xFF << 24
+
 __IO uint32_t send_n = 0, receive_n = 0;
 uint8_t spi0_send_array[ARRAYSIZE] = {0x83,0x00,0x00,0x00,0x00,0x00,0x00};
 uint8_t  ut[10] = {0}; 
@@ -544,20 +549,34 @@ void SPI0_IRQHandler(void)
             //do nothing here
         }
         */
-    //delay 1min to wait wifi ready, it should be changed in other way.
-    vTaskDelay(10000 / portTICK_RATE_MS);
-    strcpy(g_udp, pdu);
-    strstr(g_udp, "  ");
-    strstr(g_udp, tp);
+    if(!g_uwb_wiat_wifi){
+        //delay 1min to wait wifi ready, it should be changed in other way.
+        //the time as long as wifi initial finish
+        vTaskDelay(15000 / portTICK_RATE_MS);
+        g_uwb_wiat_wifi = true;
+    }else{
+        vTaskDelay(2000 / portTICK_RATE_MS); 
+    }
 
     //printf("AT+CIPSEND=%d\r\n",strlen(g_udp));
     //printf("%s", g_udp); 
 
+    uint8_t id[4];
+    id[0] = dev_id&ID0BITS; 
+    id[1] = (dev_id&ID1BITS)>>8;
+    id[2] = (dev_id&ID2BITS)>>16;
+    id[3] = (dev_id&ID3BITS)>>24;
+
     printf("AT+CIPSEND=%d\r\n",19);
+
+    printf("%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%d", \
+        id[0],id[1],id[2],id[3],pdu[0],pdu[1],pdu[2],pdu[3],pdu[4],pdu[5],pdu[6],pdu[7],\
+        tp[0],tp[1],tp[2],tp[3],tp[4],tp[5], diff_tp); 
+        /*
     printf("%02x%02x%02x%02x%02x%02x%02x%02x  %02x%02x%02x%02x%02x%02x  %d", \
         pdu[0],pdu[1],pdu[2],pdu[3],pdu[4],pdu[5],pdu[6],pdu[7],\
         tp[0],tp[1],tp[2],tp[3],tp[4],tp[5], diff_tp); 
-
+        */
   #endif  //WIFI_READY
     /*
     xQueueSend(s_ATMsgQueue, &pdu_event, 0); 

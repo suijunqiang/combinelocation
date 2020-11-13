@@ -51,7 +51,8 @@ typedef enum{
 dev_status static run_status = IDLE;
 volatile static uint8_t g_udp[50];
 //the flag to identify wifi udp availbel or not
-volatile static bool g_udp_availble = false;
+volatile static bool g_udp_availble  = false;
+volatile static bool g_uwb_wiat_wifi = false;
 volatile static TaskHandle_t rxHandle, txHandle, uwbHandle;
 
 #define JLINK
